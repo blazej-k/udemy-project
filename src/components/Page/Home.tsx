@@ -1,12 +1,11 @@
 import React from 'react'
-import Nav from './nav/Nav'
 //  export interface HomeProps {
      
 //  }
   
  const Home = () => {
      return (
-         <Nav/>
+         <h1>Hello</h1>
      );
  }
   
