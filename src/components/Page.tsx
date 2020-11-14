@@ -13,7 +13,7 @@ const MainComponent: FC = () => {
                 <Route path='/' exact component={Home} />
                 <Route path='/myCourses' component={MyCourses} />
                 <Route path='/courses' component={Courses} />
-                <Route path='/contact' component={() => <p>kontakt</p>} />
+                <Route path='/contact' component={() => <h1>kontakt</h1>} />
                 <Redirect to='/404' />
             </Switch>
         </>

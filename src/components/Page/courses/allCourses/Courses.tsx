@@ -3,6 +3,7 @@ import Course from '../Course'
 
 const Courses: FC = () => {
 
+
     let courses: CourseObj[] = [
         {
             name: 'sfs',
