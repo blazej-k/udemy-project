@@ -1,0 +1,1 @@
+type ActionType = CreateUser | SignIn | SignOut | DeleteUser
