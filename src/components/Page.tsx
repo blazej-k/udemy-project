@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Home from './Page/Home'
 import Nav from './Page/nav/Nav'
 
-const MainComponent = () => {
+const MainComponent: FC = () => {
     return (
         <>
             <Nav />

@@ -3,12 +3,12 @@ import React from 'react'
      name: string,
      author: string,
      rate: number,
-     img: unknown,
+     img?: unknown,
      description: string,
      price?: number
  }
   
- const Course: React.FunctionComponent<CourseProps> = ({name, author, rate, img, description, price =  -1}) => {
+ const Course: React.FunctionComponent<CourseProps> = ({name, author, rate, description, price =  -1}) => {
      return (
          <div className="Course">
             <h2>{name}</h2>
