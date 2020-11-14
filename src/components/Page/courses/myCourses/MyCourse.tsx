@@ -1,27 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 import Course from '../Course'
 
-interface CourseObj {
-    name: string,
-    author: string,
-    rate: number,
-    img?: unknown,
-    description: string,
-    price?: number,
-    id: number
-}
-
-
-const MyCourses = () => {
+const MyCourses: FC = () => {
 
     const [courses, setCourses] = useState<CourseObj[]>([])
     let obj: CourseObj
     useEffect(() => {
         obj = { name: 'sfs', author: 'gf', rate: 3, id: 8, description: 'sdfsfferfer' };
         setCourses(prev => [...prev, obj])
-        // return () => {
-        //     null
-        // }
     }, [])
 
     return (

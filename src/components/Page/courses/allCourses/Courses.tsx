@@ -1,20 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 import Course from '../Course'
 
-export interface CourseObj {
-    name: string,
-    author: string,
-    rate: number,
-    img?: unknown,
-    description: string,
-    price?: number,
-    id: number
- }
-  
- const Courses = () => {
+const Courses: FC = () => {
 
     let courses: CourseObj[] = [
-        { 
+        {
             name: 'sfs',
             author: 'gf',
             rate: 3,
@@ -22,7 +12,7 @@ export interface CourseObj {
             description: 'sdfsfferfer',
             price: 344343
         },
-        { 
+        {
             name: 'sfs',
             author: 'gf',
             rate: 3,
@@ -31,7 +21,7 @@ export interface CourseObj {
             ,
             price: 344343
         },
-        { 
+        {
             name: 'sfs',
             author: 'gf',
             rate: 3,
@@ -39,7 +29,7 @@ export interface CourseObj {
             description: 'sdfsfferfer',
             price: 344343
         },
-        { 
+        {
             name: 'sfs',
             author: 'gf',
             rate: 4,
@@ -48,7 +38,7 @@ export interface CourseObj {
             price: 344343
         },
 
-        { 
+        {
             name: 'sfs',
             author: 'gf',
             rate: 5,
@@ -56,7 +46,7 @@ export interface CourseObj {
             description: 'sdfsfferfer',
             price: 344343
         },
-        { 
+        {
             name: 'sfs',
             author: 'gf',
             rate: 6,
@@ -66,21 +56,21 @@ export interface CourseObj {
         },
     ]
 
-     return (
-         <div className='Courses-list'>
-             <ul>
-                 {courses.map(course => {
-                     return <li><Course
+    return (
+        <div className='Courses-list'>
+            <ul>
+                {courses.map(course => {
+                    return <li><Course
                         name={course.name}
                         author={course.author}
                         rate={course.rate}
                         description={course.description}
                         price={course.price}
-                     /></li>
-                 })}
-             </ul>
-         </div>
-     );
- }
-  
- export default Courses;
+                    /></li>
+                })}
+            </ul>
+        </div>
+    );
+}
+
+export default Courses;
