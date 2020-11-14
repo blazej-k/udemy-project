@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {FC} from 'react'
  export interface CourseProps {
      name: string,
      author: string,
@@ -8,7 +8,7 @@ import React from 'react'
      price?: number
  }
   
- const Course: React.FunctionComponent<CourseProps> = ({name, author, rate, description, price =  -1}) => {
+ const Course: FC<CourseProps> = ({name, author, rate, description, price =  -1}) => {
      return (
          <div className="Course">
             <h2>{name}</h2>
