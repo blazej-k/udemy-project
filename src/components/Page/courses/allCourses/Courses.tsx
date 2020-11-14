@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 import Course from '../Course'
 
 export interface CourseObj {
@@ -11,7 +11,7 @@ export interface CourseObj {
     id: number
  }
   
- const Courses = () => {
+ const Courses: FC = () => {
 
     let courses: CourseObj[] = [
         { 

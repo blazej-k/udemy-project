@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ErrorComponent from './ErrorComponent'
 import MainComponent from './Page'
 
-const App = () => {
+const App: FC = () => {
   return (
     <Router>
       <Switch>

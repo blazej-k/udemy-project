@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { FC } from 'react'
 //  export interface HomeProps {
      
 //  }
   
- const Home = () => {
+ const Home: FC = () => {
      return (
          <h1>Hello</h1>
      );

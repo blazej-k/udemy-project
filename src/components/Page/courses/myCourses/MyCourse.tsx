@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 import Course from '../Course'
 
 interface CourseObj {
@@ -12,7 +12,7 @@ interface CourseObj {
 }
 
 
-const MyCourses = () => {
+const MyCourses: FC = () => {
 
     const [courses, setCourses] = useState<CourseObj[]>([])
     let obj: CourseObj
