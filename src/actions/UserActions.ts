@@ -9,21 +9,26 @@
 //         }
 //     }
 // )
+export const SIGNIN = 'signin'
+export const SIGNOUT = 'signout'
 
-export const signIn = ({ login, password }: Payload): SignIn => (
+export const signIn = ({ login, password, isUserLogged }: Payload): SignIn => (
     {
         type: SIGNIN,
         payload: {
             login,
-            password
+            password,
+            isUserLogged
         }
     }
 )
 
-export const signOut  = (): SignOut => (
+export const signOut  = ({id}: Payload): SignOut => (
     {
         type: SIGNOUT,
-        payload: {}
+        payload: {
+            id
+        }
     }
 )
 

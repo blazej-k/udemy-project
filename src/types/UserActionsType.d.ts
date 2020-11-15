@@ -27,5 +27,6 @@ type Payload = {
     login?: string,
     password?: string,
     id?: string | number,
-    isAdmin?: boolean
+    isAdmin?: boolean,
+    isUserLogged?: boolean
 } 
