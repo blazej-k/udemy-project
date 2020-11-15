@@ -6,7 +6,7 @@ const MyCourses: FC = () => {
     const [courses, setCourses] = useState<CourseObj[]>([])
     let obj: CourseObj
     useEffect(() => {
-        obj = { name: 'sfs', author: 'gf', rate: 3, id: 8, description: 'sdfsfferfer' };
+        obj = { name: 'sfs', author: 'gf', id: 8, description: 'sdfsfferfer' };
         setCourses(prev => [...prev, obj])
     }, [])
 
@@ -17,7 +17,6 @@ const MyCourses: FC = () => {
                     return <li key={course.id}><Course
                         name={course.name}
                         author={course.author}
-                        rate={course.rate}
                         description={course.description}
                     />
                     </li>

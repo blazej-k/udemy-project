@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, Ref, useState } from 'react'
+import React, { FC, FormEvent, useState } from 'react'
 import ModalElement from '../modals/Modal'
 import { useDispatch } from 'react-redux'
 import { signIn } from '../../../actions/UserActions'
@@ -19,11 +19,12 @@ const Header: FC = () => {
         setIsLogged(true)
     }
 
-    const handleSignOut = (): void => {
+    // const handleSignOut = (): void => {
 
-    }
+    // }
 
     const toggleModal = () => {
+        console.log('dfgdf')
         setShowModal((prev: boolean) => !prev)
     }
 

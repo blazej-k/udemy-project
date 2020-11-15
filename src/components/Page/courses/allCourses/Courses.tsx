@@ -8,7 +8,7 @@ const Courses: FC = () => {
         {
             name: 'sfs',
             author: 'gf',
-            rate: 3,
+            // rate: 3,
             id: 2,
             description: 'sdfsfferfer',
             price: 344343
@@ -16,7 +16,7 @@ const Courses: FC = () => {
         {
             name: 'sfs',
             author: 'gf',
-            rate: 3,
+            // rate: 3,
             id: 3,
             description: 'sdfsfferfer'
             ,
@@ -25,7 +25,7 @@ const Courses: FC = () => {
         {
             name: 'sfs',
             author: 'gf',
-            rate: 3,
+            // rate: 3,
             id: 4,
             description: 'sdfsfferfer',
             price: 344343
@@ -33,7 +33,7 @@ const Courses: FC = () => {
         {
             name: 'sfs',
             author: 'gf',
-            rate: 4,
+            // rate: 4,
             id: 5,
             description: 'sdfsfferfer',
             price: 344343
@@ -42,7 +42,7 @@ const Courses: FC = () => {
         {
             name: 'sfs',
             author: 'gf',
-            rate: 5,
+            // rate: 5,
             id: 6,
             description: 'sdfsfferfer',
             price: 344343
@@ -50,7 +50,7 @@ const Courses: FC = () => {
         {
             name: 'sfs',
             author: 'gf',
-            rate: 6,
+            // rate: 6,
             id: 7,
             description: 'sdfsfferfer',
             price: 344343
@@ -64,7 +64,6 @@ const Courses: FC = () => {
                     return <li key={course.id * new Date().getMilliseconds()}><Course
                         name={course.name}
                         author={course.author}
-                        rate={course.rate}
                         description={course.description}
                         price={course.price}
                     /></li>

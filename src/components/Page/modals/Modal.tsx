@@ -1,4 +1,5 @@
-import React, { FC, FormEvent, useEffect, useState } from 'react'
+import React, { FC, FormEvent } from 'react'
+import { useSelector } from 'react-redux'
 import { Modal, Button } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -13,17 +14,13 @@ type ModalProps = {
 
 const ModalElement: FC<ModalProps> = ({ loginValue, passwordValue, showModal, inputHandler, handleSignIn }) => {
 
-    // const modal = useRef<any>()
-    // useEffect(() => {
-    //     console.log(modal)
-    //     if(isLogged){
-    //         modal.current.modal('hide')
-    //     }
-    // }, [isLogged])
+    const store = useSelector(store => store)
+    console.log(store)
+
     return (
-        <Modal show={showModal}>
+        <Modal show={showModal} animation={false}>
             <Modal.Header closeButton={true}>
-                <Modal.Title>Login Form</Modal.Title>
+                <Modal.Title>Sign in!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <label>
@@ -36,7 +33,7 @@ const ModalElement: FC<ModalProps> = ({ loginValue, passwordValue, showModal, in
                 </label>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="primary">GO!</Button>
+                <Button variant="primary" onClick={handleSignIn}>GO!</Button>
             </Modal.Footer>
         </Modal>
     );

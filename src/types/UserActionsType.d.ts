@@ -28,5 +28,6 @@ type Payload = {
     password?: string,
     id?: string | number,
     isAdmin?: boolean,
-    isUserLogged?: boolean
+    isUserLogged?: boolean,
+    courses?: CourseObj[]
 } 
