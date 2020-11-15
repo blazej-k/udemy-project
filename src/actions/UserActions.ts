@@ -18,7 +18,6 @@ export const signIn = ({ login, password, isUserLogged }: Payload): SignIn => (
         payload: {
             login,
             password,
-            isUserLogged
         }
     }
 )
