@@ -1,14 +1,14 @@
-export const createUser = ({ login, password, id, isAdmin = false }: Payload): CreateUser => (
-    {
-        type: CREATEUSER,
-        payload: {
-            login,
-            password,
-            id,
-            isAdmin
-        }
-    }
-)
+// export const createUser = ({ login, password, id, isAdmin = false }: Payload): CreateUser => (
+//     {
+//         type: CREATEUSER,
+//         payload: {
+//             login,
+//             password,
+//             id,
+//             isAdmin
+//         }
+//     }
+// )
 
 export const signIn = ({ login, password }: Payload): SignIn => (
     {
@@ -20,21 +20,19 @@ export const signIn = ({ login, password }: Payload): SignIn => (
     }
 )
 
-export const signOut  = ({ login, password }: Payload): SignOut => (
+export const signOut  = (): SignOut => (
     {
         type: SIGNOUT,
-        payload: {
-            login,
-            password
-        }
+        payload: {}
     }
 )
 
-export const deleteUser  = ({ id }: Payload): DeleteUser => (
-    {
-        type: DELETEUSER,
-        payload: {
-            id
-        }
-    }
-)
+// export const deleteUser  = ({ id, isAdmin }: Payload): DeleteUser => (
+//     {
+//         type: DELETEUSER,
+//         payload: {
+//             id,
+//             isAdmin
+//         }
+//     }
+// )

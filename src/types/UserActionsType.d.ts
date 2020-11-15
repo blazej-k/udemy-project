@@ -1,17 +1,17 @@
-const CREATEUSER = 'createuser'
-const DELETEUSER = 'deleteuser'
+// const CREATEUSER = 'createuser'
+// const DELETEUSER = 'deleteuser'
 const SIGNIN = 'signin'
 const SIGNOUT = 'signout'
 
-type CreateUser = {
-    type: typeof CREATEUSER
-    payload: Payload
-}
+// type CreateUser = {
+//     type: typeof CREATEUSER
+//     payload: Payload
+// }
 
-type DeleteUser = {
-    type: typeof DELETEUSER
-    payload: Payload
-}
+// type DeleteUser = {
+//     type: typeof DELETEUSER
+//     payload: Payload
+// }
 
 type SignIn = {
     type: typeof SIGNIN
