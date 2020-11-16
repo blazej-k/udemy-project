@@ -15,15 +15,15 @@ const SIGNOUT = 'signout'
 
 type SignIn = {
     type: typeof SIGNIN
-    payload: Payload
+    payload: User
 }
 
 type SignOut = {
     type: typeof SIGNOUT
-    payload: Payload
+    payload: object
 }
 
-type Payload = {
+type User = {
     login?: string,
     password?: string,
     id?: string | number,

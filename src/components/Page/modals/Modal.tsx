@@ -1,7 +1,7 @@
 import React, { FC, FormEvent } from 'react'
-import { useSelector } from 'react-redux'
 import { Modal, Button } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.css";
+
 
 type ModalProps = {
     loginValue: string,
@@ -9,16 +9,13 @@ type ModalProps = {
     showModal: boolean
     inputHandler: (e: FormEvent<HTMLInputElement>) => void,
     handleSignIn: () => void,
+    toogleModal: () => void
 }
 
-
-const ModalElement: FC<ModalProps> = ({ loginValue, passwordValue, showModal, inputHandler, handleSignIn }) => {
-
-    const store = useSelector(store => store)
-    console.log(store)
+const ModalElement: FC<ModalProps> = ({ loginValue, passwordValue, showModal, inputHandler, handleSignIn, toogleModal }) => {
 
     return (
-        <Modal show={showModal} animation={false}>
+        <Modal show={showModal} animation={false} onHide={toogleModal}>
             <Modal.Header closeButton={true}>
                 <Modal.Title>Sign in!</Modal.Title>
             </Modal.Header>

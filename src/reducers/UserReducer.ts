@@ -1,6 +1,6 @@
 import { SIGNIN, SIGNOUT } from '../actions/UserActions'
 
-const exampleDB: Payload[] = [
+const exampleDB: User[] = [
     {
         login: 'b',
         password: '1234',
@@ -79,22 +79,21 @@ const exampleDB: Payload[] = [
     },
 ]
 
-export const UserReducer = (state: Payload | null = {}, action: ActionType) => {
+export const UserReducer = (state: User = {}, action: ActionType) => {
     switch (action.type) {
         case SIGNIN:
             const {login, password} = action.payload
-            exampleDB.map((user: Payload) => {
+            exampleDB.map((user: User) => {
                 if((user.login === login) && (user.password === password)){
                     user.isUserLogged = true
                     return state = user
                 }
             })
             return state
+        case SIGNOUT:
+            state.isUserLogged = false
+            return state = {}
         default:
             return state
-        // case DELETEUSER:
-        //     const {id} = action.payload
-        //     state.filter(user => user.id !== id)
-
     }
 }  

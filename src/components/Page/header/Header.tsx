@@ -1,7 +1,7 @@
-import React, { FC, FormEvent, useState } from 'react'
+import React, { FC, FormEvent, useEffect, useState } from 'react'
 import ModalElement from '../modals/Modal'
-import { useDispatch } from 'react-redux'
-import { signIn } from '../../../actions/UserActions'
+import { useDispatch, useSelector } from 'react-redux'
+import { signIn, signOut } from '../../../actions/UserActions'
 import { Redirect } from 'react-router-dom'
 
 const Header: FC = () => {
@@ -11,21 +11,33 @@ const Header: FC = () => {
     const [showModal, setShowModal] = useState<boolean>(false)
     const [isLogged, setIsLogged] = useState<boolean>(false)
 
+    const store = useSelector((store: RootUserState) => store.userReducer)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (store.isUserLogged) {
+            setIsLogged(true)
+            setShowModal(false)
+            setLogin('')
+            setPassword('')
+        }
+        else{
+            setIsLogged(false)
+        }
+    }, [store])
 
     const handleSignIn = (): void => {
         dispatch(signIn({ login, password }))
-        setShowModal(false)
-        setIsLogged(true)
     }
 
-    // const handleSignOut = (): void => {
-
-    // }
+    const handleSignOut = (): void => {
+        dispatch(signOut({}))
+    }
 
     const toggleModal = () => {
-        console.log('dfgdf')
-        setShowModal((prev: boolean) => !prev)
+        if(!store.isUserLogged){
+            setShowModal((prev: boolean) => !prev)
+        }
     }
 
     const handleInput = (e: FormEvent<HTMLInputElement>): void => {
@@ -38,16 +50,14 @@ const Header: FC = () => {
     }
     return (
         <>
-            <div onClick={toggleModal}>
-                Zaloguj
-            </div>
-            Wyloguj
+            {isLogged ? <div onClick={handleSignOut}>Wyloguj</div> : <div onClick={toggleModal}>Zaloguj</div>}
             <ModalElement
                 loginValue={login}
                 passwordValue={password}
                 showModal={showModal}
                 inputHandler={handleInput}
                 handleSignIn={handleSignIn}
+                toogleModal={toggleModal}
             />
             {isLogged && <Redirect to='/courses' />}
         </>
