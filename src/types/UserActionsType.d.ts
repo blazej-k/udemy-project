@@ -18,4 +18,8 @@ type User = {
     isAdmin?: boolean,
     isUserLogged?: boolean,
     courses?: CourseObj[]
-} 
+}
+
+type InvalidFormValidate = {
+    error: string
+}

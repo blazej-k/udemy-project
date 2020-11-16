@@ -1,5 +1,5 @@
 type RootUserState = {
-    userReducer: User
+    userReducer: User & InvalidFormValidate
 }
 
 type RootCourseState = {

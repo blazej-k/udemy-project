@@ -10,19 +10,31 @@ const Header: FC = () => {
     const [password, setPassword] = useState<string>('')
     const [showModal, setShowModal] = useState<boolean>(false)
     const [isLogged, setIsLogged] = useState<boolean>(false)
+    const [warning, setWarning] = useState<string>('')
 
     const store = useSelector((store: RootUserState) => store.userReducer)
     const dispatch = useDispatch()
 
+
+    const clearForm = () => {
+        setLogin('')
+        setPassword('')
+    }
+
     useEffect(() => {
+        if(store.error){
+            setWarning(store.error)
+        }
         if (store.isUserLogged) {
             setIsLogged(true)
             setShowModal(false)
-            setLogin('')
-            setPassword('')
         }
-        else{
+        else{ 
             setIsLogged(false)
+        }
+        return () => {
+            setWarning('')
+            clearForm() 
         }
     }, [store])
 
@@ -36,6 +48,9 @@ const Header: FC = () => {
 
     const toggleModal = () => {
         if(!store.isUserLogged){
+            if(showModal === true){
+                setWarning('')
+            }
             setShowModal((prev: boolean) => !prev)
         }
     }
@@ -58,6 +73,7 @@ const Header: FC = () => {
                 inputHandler={handleInput}
                 handleSignIn={handleSignIn}
                 toogleModal={toggleModal}
+                warning={warning}
             />
             {isLogged && <Redirect to='/courses' />}
         </>

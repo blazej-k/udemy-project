@@ -7,7 +7,7 @@ const MyCourses: FC = () => {
     const store = useSelector((store: RootUserState) => store.userReducer.courses)
     const [courses, setCourses] = useState<CourseObj[]>([])
 
-    useEffect(() => {
+    useEffect(() => { 
        if(store){
            setCourses(store)
        }

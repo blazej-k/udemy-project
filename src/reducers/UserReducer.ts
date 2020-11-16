@@ -79,19 +79,23 @@ const exampleDB: User[] = [
     },
 ]
 
-export const UserReducer = (state: User = {}, action: ActionType) => {
+export const UserReducer = (state: User | InvalidFormValidate = {}, action: ActionType) => {
     switch (action.type) {
         case SIGNIN:
             const {login, password} = action.payload
+            state = {}
             exampleDB.map((user: User) => {
                 if((user.login === login) && (user.password === password)){
                     user.isUserLogged = true
                     return state = user
                 }
+                return null
             })
+            if(!state.login){
+                state = {error: `Incorrect login or password`}
+            }
             return state
         case SIGNOUT:
-            state.isUserLogged = false
             return state = {}
         default:
             return state

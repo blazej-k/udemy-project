@@ -6,13 +6,14 @@ import "bootstrap/dist/css/bootstrap.css";
 type ModalProps = {
     loginValue: string,
     passwordValue: string,
-    showModal: boolean
+    showModal: boolean,
+    warning: string,
     inputHandler: (e: FormEvent<HTMLInputElement>) => void,
     handleSignIn: () => void,
     toogleModal: () => void
 }
 
-const ModalElement: FC<ModalProps> = ({ loginValue, passwordValue, showModal, inputHandler, handleSignIn, toogleModal }) => {
+const ModalElement: FC<ModalProps> = ({ loginValue, passwordValue, showModal, inputHandler, handleSignIn, toogleModal, warning }) => {
 
     return (
         <Modal show={showModal} animation={false} onHide={toogleModal}>
@@ -28,6 +29,9 @@ const ModalElement: FC<ModalProps> = ({ loginValue, passwordValue, showModal, in
                     Password:
                     <input type='password' value={passwordValue} onChange={inputHandler}/>
                 </label>
+                <div className='Modal-invalidFormValidate'>
+                    {warning.length ? warning : null}
+                </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" onClick={handleSignIn}>GO!</Button>
