@@ -31,7 +31,7 @@ const MyCourses: FC = () => {
 
     return (
         <div className="MyCourses-list">
-            {courses.length ? {coursesElement} : <h1>Sign In to see your bought courses</h1>}
+            {courses.length ? coursesElement : <h1>Sign In to see your bought courses</h1>}
         </div>
     );
 }
