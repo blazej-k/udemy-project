@@ -4,12 +4,14 @@ import Course from '../Course'
 
 const MyCourses: FC = () => {
 
-    const store = useSelector((store: RootUserState) => store.userReducer.courses)
+    const store = useSelector((store: RootUserState) => store.userReducer)
     const [courses, setCourses] = useState<CourseObj[]>([])
 
+    console.log(courses)
+
     useEffect(() => { 
-       if(store){
-           setCourses(store)
+       if(store.courses){
+           setCourses(store.courses)
        }
        else{
            setCourses([])
@@ -31,7 +33,8 @@ const MyCourses: FC = () => {
 
     return (
         <div className="MyCourses-list">
-            {courses.length ? coursesElement : <h1>Sign In to see your bought courses</h1>}
+            {store.isUserLogged ? courses.length ? coursesElement : <h1>Buy some courses and go learn!</h1>: 
+            <h1>Sign in to see your bought courses</h1>}
         </div>
     );
 }

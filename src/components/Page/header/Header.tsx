@@ -16,7 +16,7 @@ const Header: FC = () => {
     const dispatch = useDispatch()
 
 
-    const clearForm = () => {
+    const cleanForm = () => {
         setLogin('')
         setPassword('')
     }
@@ -26,6 +26,7 @@ const Header: FC = () => {
             setWarning(store.error)
         }
         if (store.isUserLogged) {
+            cleanForm()
             setIsLogged(true)
             setShowModal(false)
         }
@@ -34,7 +35,7 @@ const Header: FC = () => {
         }
         return () => {
             setWarning('')
-            clearForm() 
+            cleanForm() 
         }
     }, [store])
 
@@ -65,7 +66,7 @@ const Header: FC = () => {
     }
     return (
         <>
-            {isLogged ? <div onClick={handleSignOut}>Wyloguj</div> : <div onClick={toggleModal}>Zaloguj</div>}
+            {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{store.login}</h3></> : <div onClick={toggleModal}>Zaloguj</div>}
             <ModalElement
                 loginValue={login}
                 passwordValue={password}

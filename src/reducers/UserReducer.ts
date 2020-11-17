@@ -8,27 +8,27 @@ const exampleDB: User[] = [
         isAdmin: false,
         isUserLogged: false,
         courses: [
-            {
-                name: 'js',
-                author: 'b',
-                price: 42,
-                description: 'fdsgfdgd dgdfg',
-                id: 22
-            },
-            {
-                name: 'html',
-                author: 'b',
-                price: 42,
-                description: 'fdsgfdgd dgdfg',
-                id: 292
-            },
-            {
-                name: 'css',
-                author: 'b',
-                price: 42,
-                description: 'fdsgfdgd dgdfg',
-                id: 232
-            }
+            // {
+            //     name: 'js',
+            //     author: 'b',
+            //     price: 42,
+            //     description: 'fdsgfdgd dgdfg',
+            //     id: 22
+            // },
+            // {
+            //     name: 'html',
+            //     author: 'b',
+            //     price: 42,
+            //     description: 'fdsgfdgd dgdfg',
+            //     id: 292
+            // },
+            // {
+            //     name: 'css',
+            //     author: 'b',
+            //     price: 42,
+            //     description: 'fdsgfdgd dgdfg',
+            //     id: 232
+            // }
         ]
     },
     {
@@ -100,4 +100,4 @@ export const UserReducer = (state: User | InvalidFormValidate = {}, action: Acti
         default:
             return state
     }
-}  
+}   

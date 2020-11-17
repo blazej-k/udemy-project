@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC } from 'react'
+import React, { FC } from 'react'
 import Course from '../Course'
 
 const Courses: FC = () => {
