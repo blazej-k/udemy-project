@@ -9,7 +9,7 @@ type SignIn = {
 
 type SignOut = {
     type: typeof SIGNOUT
-    payload: object
+    payload: User
 }
 
 type SignUp = {

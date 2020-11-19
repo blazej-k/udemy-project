@@ -1,8 +1,9 @@
 import { SIGNIN, SIGNOUT, SIGNUP } from '../actions/UserActions'
+import { store } from './store'
 
 let exampleDB: User[] = [
     {
-        login: 'b',
+        login: 'bbbbbb',
         password: '1234',
         id: 23443423,
         isAdmin: false,
@@ -81,8 +82,32 @@ let exampleDB: User[] = [
 
 export const UserReducer = (state: User | InvalidFormValidate = {}, action: ActionType) => {
     switch (action.type) {
+        case SIGNUP:
+            let {login, password} = action.payload
+            state = {}
+            const error: InvalidFormValidate = {error: `Login is occupied(${login}), set another`}
+            exampleDB.map((user: User) => {
+                if(user.login === login){
+                    return state = error
+                }
+                return null
+            })
+
+            if(state === error){  
+                return state
+            }
+
+            const user: User = {
+                ...action.payload,
+                id: new Date().getMilliseconds(),
+                isUserLogged: true, 
+                courses: []
+            }
+
+            exampleDB = [...exampleDB, user]
+            return state = user
+
         case SIGNIN:
-            const {login, password} = action.payload
             state = {}
             exampleDB.map((user: User) => {
                 if((user.login === login) && (user.password === password)){
@@ -91,21 +116,14 @@ export const UserReducer = (state: User | InvalidFormValidate = {}, action: Acti
                 }
                 return null
             })
+
             if(!state.login){
                 state = {error: `Incorrect login or password`}
             }
             return state
+
         case SIGNOUT:
             return state = {}
-        case SIGNUP:
-            const user: User = {
-                ...action.payload,
-                id: new Date().getMilliseconds(),
-                isUserLogged: true, 
-                courses: []
-            }
-            exampleDB = [...exampleDB, user]
-            return state = user
         default:
             return state
     }

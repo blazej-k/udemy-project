@@ -47,6 +47,10 @@ const Header: FC = () => {
     }
 
     const handleSignUp = (): void => {
+        if(login.length < 5 || password.length < 8){
+            setWarning('Password or login too short')
+            return
+        }
         dispatch(signUp({ login, password, isAdmin }))
     }
 

@@ -23,7 +23,7 @@ export const signUp = ({ login, password, isAdmin }: User): SignUp => (
     }
 )
 
-export const signOut = ({}: object): SignOut => (
+export const signOut = ({}: User): SignOut => (
     {
         type: SIGNOUT,
         payload: {}
