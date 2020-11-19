@@ -1,5 +1,4 @@
 interface CourseObj{
-    // isAnyObj: boolean
     name: string,
     author: string,
     img?: unknown,

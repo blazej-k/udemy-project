@@ -1,5 +1,6 @@
 export const SIGNIN = 'signin'
 export const SIGNOUT = 'signout'
+export const SIGNUP = 'signup'
 
 export const signIn = ({ login, password }: User): SignIn => (
     {
@@ -7,6 +8,17 @@ export const signIn = ({ login, password }: User): SignIn => (
         payload: {
             login,
             password,
+        }
+    }
+)
+
+export const signUp = ({ login, password, isAdmin }: User): SignUp => (
+    {
+        type: SIGNUP, 
+        payload: {
+            login,
+            password,
+            isAdmin
         }
     }
 )

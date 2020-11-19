@@ -1,6 +1,6 @@
-import { SIGNIN, SIGNOUT } from '../actions/UserActions'
+import { SIGNIN, SIGNOUT, SIGNUP } from '../actions/UserActions'
 
-const exampleDB: User[] = [
+let exampleDB: User[] = [
     {
         login: 'b',
         password: '1234',
@@ -97,6 +97,15 @@ export const UserReducer = (state: User | InvalidFormValidate = {}, action: Acti
             return state
         case SIGNOUT:
             return state = {}
+        case SIGNUP:
+            const user: User = {
+                ...action.payload,
+                id: new Date().getMilliseconds(),
+                isUserLogged: true, 
+                courses: []
+            }
+            exampleDB = [...exampleDB, user]
+            return state = user
         default:
             return state
     }

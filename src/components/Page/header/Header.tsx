@@ -1,7 +1,7 @@
 import React, { FC, FormEvent, useEffect, useState } from 'react'
 import ModalElement from '../modals/Modal'
 import { useDispatch, useSelector } from 'react-redux'
-import { signIn, signOut } from '../../../actions/UserActions'
+import { signIn, signOut, signUp } from '../../../actions/UserActions'
 import { Redirect } from 'react-router-dom'
 
 const Header: FC = () => {
@@ -9,7 +9,9 @@ const Header: FC = () => {
     const [login, setLogin] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [showModal, setShowModal] = useState<boolean>(false)
+    const [modalType, setModalType] = useState<string>('')
     const [isLogged, setIsLogged] = useState<boolean>(false)
+    const [isAdmin, setIsAdmin] = useState<boolean>(false)
     const [warning, setWarning] = useState<string>('')
 
     const store = useSelector((store: RootUserState) => store.userReducer)
@@ -19,10 +21,11 @@ const Header: FC = () => {
     const cleanForm = () => {
         setLogin('')
         setPassword('')
+        setIsAdmin(false)
     }
 
     useEffect(() => {
-        if(store.error){
+        if (store.error) {
             setWarning(store.error)
         }
         if (store.isUserLogged) {
@@ -30,12 +33,12 @@ const Header: FC = () => {
             setIsLogged(true)
             setShowModal(false)
         }
-        else{ 
+        else {
             setIsLogged(false)
         }
         return () => {
             setWarning('')
-            cleanForm() 
+            cleanForm()
         }
     }, [store])
 
@@ -43,42 +46,66 @@ const Header: FC = () => {
         dispatch(signIn({ login, password }))
     }
 
-    const handleSignOut = (): void => {
-        dispatch(signOut({}))
+    const handleSignUp = (): void => {
+        dispatch(signUp({ login, password, isAdmin }))
     }
 
-    const toggleModal = () => {
-        if(!store.isUserLogged){
-            if(showModal === true){
+    const handleSignOut = (): void => {
+        dispatch(signOut({}))
+    } 
+
+    const toggleModal = (e: React.MouseEvent): void => {
+        if(showModal === false){
+            setModalType(e.currentTarget.className)
+        }
+        if (!store.isUserLogged) {
+            if (showModal === true) {
                 setWarning('')
+                setModalType('')
             }
             setShowModal((prev: boolean) => !prev)
         }
     }
 
     const handleInput = (e: FormEvent<HTMLInputElement>): void => {
-        if (e.currentTarget.type === 'text') {
+        if (e.currentTarget.name === 'login') {
             setLogin(e.currentTarget.value)
         }
-        else {
+        else if(e.currentTarget.name === 'password'){
             setPassword(e.currentTarget.value)
         }
+        else{
+            setIsAdmin(e.currentTarget.checked)
+        }
     }
+
+    const handleGoButton = (): any => {
+        if(modalType === 'signIn'){
+            return handleSignIn()
+        }
+        else{
+            return handleSignUp()
+        }
+    }
+    
     return (
         <>
-            {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{store.login}</h3></> : <div onClick={toggleModal}>Zaloguj</div>}
+            {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{store.login}</h3></> :
+                <><div onClick={toggleModal} className='signIn'>Zaloguj</div><div className='signUp' onClick={toggleModal}>Zarejestruj</div></>}
             <ModalElement
                 loginValue={login}
                 passwordValue={password}
+                isAdmin={isAdmin}
                 showModal={showModal}
                 inputHandler={handleInput}
-                handleSignIn={handleSignIn}
+                handleGoButton={handleGoButton}
                 toogleModal={toggleModal}
                 warning={warning}
+                modalType={modalType}
             />
-            {isLogged && <Redirect to='/courses' />}
+            {isLogged && <Redirect to='/' />}
         </>
-    );
+    ); 
 }
 
 export default Header;

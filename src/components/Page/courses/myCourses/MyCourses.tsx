@@ -2,22 +2,20 @@ import React, { useEffect, useState, FC } from 'react'
 import { useSelector } from 'react-redux'
 import Course from '../Course'
 
+
 const MyCourses: FC = () => {
 
     const store = useSelector((store: RootUserState) => store.userReducer)
     const [courses, setCourses] = useState<CourseObj[]>([])
 
-    console.log(courses)
-
-    useEffect(() => { 
+    useEffect(() => {
        if(store.courses){
            setCourses(store.courses)
        }
        else{
            setCourses([])
-       }
+       } 
     }, [store])
-
 
     const coursesElement =
                 <ul>
@@ -30,7 +28,6 @@ const MyCourses: FC = () => {
                         </li>
                     })}
                 </ul >
-
     return (
         <div className="MyCourses-list">
             {store.isUserLogged ? courses.length ? coursesElement : <h1>Buy some courses and go learn!</h1>: 
