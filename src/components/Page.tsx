@@ -16,6 +16,7 @@ const Page: FC = () => {
                 <Route path='/myCourses' component={MyCourses} />
                 <Route path='/courses' component={Courses} />
                 <Route path='/contact' component={() => <h1>kontakt</h1>} />
+                <Route path='/admin' component={() => <h1>admin</h1>} />
                 <Redirect to='/404' />
             </Switch>
         </>
