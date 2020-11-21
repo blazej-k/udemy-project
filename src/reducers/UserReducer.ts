@@ -1,36 +1,13 @@
-import { SIGNIN, SIGNOUT, SIGNUP } from '../actions/UserActions'
-import { store } from './store'
+import { SIGNIN, SIGNOUT, SIGNUP, BUYCOURSE } from '../actions/UserActions'
 
 let exampleDB: User[] = [
     {
-        login: 'bbbbbb',
+        login: 'b',
         password: '1234',
         id: 23443423,
         isAdmin: false,
         isUserLogged: false,
-        courses: [
-            // {
-            //     name: 'js',
-            //     author: 'b',
-            //     price: 42,
-            //     description: 'fdsgfdgd dgdfg',
-            //     id: 22
-            // },
-            // {
-            //     name: 'html',
-            //     author: 'b',
-            //     price: 42,
-            //     description: 'fdsgfdgd dgdfg',
-            //     id: 292
-            // },
-            // {
-            //     name: 'css',
-            //     author: 'b',
-            //     price: 42,
-            //     description: 'fdsgfdgd dgdfg',
-            //     id: 232
-            // }
-        ]
+        courses: []
     },
     {
         login: 'k',
@@ -38,22 +15,7 @@ let exampleDB: User[] = [
         id: 223443423,
         isAdmin: false,
         isUserLogged: false,
-        courses: [
-            {
-                name: 'js',
-                author: 'b',
-                price: 42,
-                description: 'fdsgfdgd dgdfg',
-                id: 22
-            },
-            {
-                name: 'css',
-                author: 'b',
-                price: 42,
-                description: 'fdsgfdgd dgdfg',
-                id: 232
-            }
-        ]
+        courses: []
     },
     {
         login: 'l',
@@ -61,39 +23,22 @@ let exampleDB: User[] = [
         id: 23443423,
         isAdmin: false,
         isUserLogged: false,
-        courses: [
-            {
-                name: 'js',
-                author: 'b',
-                price: 42,
-                description: 'fdsgfdgd dgdfg',
-                id: 22
-            },
-            {
-                name: 'html',
-                author: 'b',
-                price: 42,
-                description: 'fdsgfdgd dgdfg',
-                id: 2000
-            }
-        ]
+        courses: []
     },
 ]
 
-export const UserReducer = (state: User | InvalidFormValidate = {}, action: ActionType) => {
+export const UserReducer = (state: User = {}, action: ActionType) => {
     switch (action.type) {
         case SIGNUP:
-            let {login, password} = action.payload
             state = {}
-            const error: InvalidFormValidate = {error: `Login is occupied(${login}), set another`}
             exampleDB.map((user: User) => {
-                if(user.login === login){
-                    return state = error
+                if(user.login === action.payload.login){
+                    return state = {error: `Login is occupied(${action.payload.login}), set another`}
                 }
                 return null
             })
 
-            if(state === error){  
+            if(state.error){  
                 return state
             }
 
@@ -110,7 +55,7 @@ export const UserReducer = (state: User | InvalidFormValidate = {}, action: Acti
         case SIGNIN:
             state = {}
             exampleDB.map((user: User) => {
-                if((user.login === login) && (user.password === password)){
+                if((user.login === action.payload.login) && (user.password === action.payload.password)){
                     user.isUserLogged = true
                     return state = user
                 }
@@ -124,6 +69,10 @@ export const UserReducer = (state: User | InvalidFormValidate = {}, action: Acti
 
         case SIGNOUT:
             return state = {}
+        case BUYCOURSE:
+            let newState = state
+            state.courses?.push(action.payload)
+            return state = newState
         default:
             return state
     }

@@ -1,2 +1,1 @@
-// type ActionType = CreateUser | SignIn | SignOut | DeleteUser
-type ActionType = SignIn | SignOut | SignUp
+type ActionType = SignIn | SignOut | SignUp | BuyCourse

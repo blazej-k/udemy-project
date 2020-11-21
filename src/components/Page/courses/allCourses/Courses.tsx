@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { useSelector } from 'react-redux'
 import Course from '../Course'
 
 const Courses: FC = () => {
@@ -57,8 +58,11 @@ const Courses: FC = () => {
         },
     ]
 
+    const {isUserLogged} = useSelector((store: RootUserState )=> store.userReducer)
+
     return (
         <div className='Courses-list'>
+            {!isUserLogged && <h2>Sign in to buy course</h2>}
             <ul>
                 {courses.map(course => {
                     return <li key={course.id * new Date().getMilliseconds()}><Course
