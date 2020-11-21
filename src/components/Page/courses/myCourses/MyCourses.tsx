@@ -10,7 +10,7 @@ const MyCourses: FC = () => {
 
     useEffect(() => {
        if(store.courses){
-           setCourses(store.courses)
+           setCourses(store.courses) 
        }
        else{
            setCourses([])
