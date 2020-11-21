@@ -24,6 +24,7 @@ export const signUp = ({ login, password, isAdmin }: User): SignUp => (
     }
 )  
 
+
 export const buyCourse = ({ name, author, description, price, id }: CourseObj): BuyCourse => (
     {
         type: BUYCOURSE, 
