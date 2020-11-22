@@ -18,6 +18,7 @@ type SignUp = {
     payload: User
 }
 
+
 type BuyCourse = {
     type: typeof BUYCOURSE
     payload: CourseObj

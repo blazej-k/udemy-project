@@ -25,6 +25,7 @@ const Header: FC = () => {
     }
 
     useEffect(() => {
+        store.then((res: any) => console.log(res))
         if (store.error) {
             setWarning(store.error)
         }

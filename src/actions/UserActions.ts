@@ -13,16 +13,22 @@ export const signIn = ({ login, password }: User): SignIn => (
     }
 )
 
-export const signUp = ({ login, password, isAdmin }: User): SignUp => (
-    {
-        type: SIGNUP, 
-        payload: {
-            login,
-            password,
-            isAdmin
-        }
+// export const signUp = ({ login, password, isAdmin }: User): SignUp => (
+//     {
+//         type: SIGNUP, 
+//         payload: {
+//             login,
+//             password,
+//             isAdmin
+//         }
+//     }
+// )  
+
+export const signUp = ({ login, password, isAdmin }: User) => {
+    return dispatch = (): SignUp => {
+        
     }
-)  
+}  
 
 
 export const buyCourse = ({ name, author, description, price, id }: CourseObj): BuyCourse => (
