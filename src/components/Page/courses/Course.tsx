@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import {buyCourse} from '../../../actions/UserActions'
@@ -15,8 +15,21 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1 }) => {
     const { location } = useHistory()
     const pathName = location.pathname
 
-    const { isUserLogged } = useSelector((store: RootUserState) => store.userReducer)
+    const store = useSelector((store: RootUserState) => store.userReducer)
     const dispatch = useDispatch()
+
+    const [isLogged, setIsLogged] = useState<boolean>(false)
+
+    useEffect(() => {
+        Promise.resolve(store).then(store => {
+            if(store.isUserLogged){
+                setIsLogged(store.isUserLogged)
+            }
+        })
+        return () => {
+            setIsLogged(false)
+        }
+    }, [store])
 
     const handleBuyCourse = (): void => {
         dispatch(buyCourse({name, author, description, price, id: new Date().getMilliseconds()}))
@@ -29,7 +42,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1 }) => {
             <p>To bd zdj</p>
             <p>{description}</p>
             {price > -1 && <h1>{price}</h1>}
-            {pathName === "/courses" && isUserLogged && <button onClick={handleBuyCourse}>Buy</button>}
+            {pathName === "/courses" && isLogged && <button onClick={handleBuyCourse}>Buy</button>}
         </div>
     );
 }

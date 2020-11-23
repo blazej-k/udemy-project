@@ -13,16 +13,6 @@ const saveUser = (user: User): Promise<Response> => (
     })
 )
 
-export const signIn = ({ login, password }: User): SignIn => (
-    {
-        type: SIGNIN,
-        payload: {
-            login,
-            password,
-        }
-    }
-)
-
 export const signUp = ({ login, password, isAdmin }: User): SignUp => {
     const user: User = {
         login,
@@ -36,6 +26,16 @@ export const signUp = ({ login, password, isAdmin }: User): SignUp => {
     })
 }  
 
+
+export const signIn = ({ login, password }: User): SignIn => (
+    {
+        type: SIGNIN,
+        payload: {
+            login,
+            password,
+        }
+    }
+)
 
 export const buyCourse = ({ name, author, description, price, id }: CourseObj): BuyCourse => (
     {

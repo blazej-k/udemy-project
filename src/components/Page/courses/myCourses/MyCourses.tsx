@@ -6,15 +6,21 @@ import Course from '../Course'
 const MyCourses: FC = () => {
 
     const store = useSelector((store: RootUserState) => store.userReducer)
+
     const [courses, setCourses] = useState<CourseObj[]>([])
+    const [isLogged, setIsLogged] = useState<boolean>(false)
 
     useEffect(() => {
-       if(store.courses){
-           setCourses(store.courses) 
+        Promise.resolve(store).then(store => {
+            if((store.courses) && (store.isUserLogged)){
+                setIsLogged(store.isUserLogged)
+                setCourses(store.courses)
+            }
+        })
+       return () => {
+        setIsLogged(false)
+        setCourses([])
        }
-       else{
-           setCourses([])
-       } 
     }, [store])
 
     const coursesElement =
@@ -30,7 +36,7 @@ const MyCourses: FC = () => {
                 </ul >
     return (
         <div className="MyCourses-list">
-            {store.isUserLogged ? courses.length ? coursesElement : <h1>Buy some courses and go learn!</h1>: 
+            {isLogged ? courses.length ? coursesElement : <h1>Buy some courses and go learn!</h1>: 
             <h1>Sign in to see your bought courses</h1>}
         </div>
     );

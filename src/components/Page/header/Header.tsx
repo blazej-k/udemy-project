@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom'
 
 const Header: FC = () => {
 
-    const [login, setLogin] = useState<string>('')
+    const [formLogin, setFormLogin] = useState<string>('')
     const [userLogin, setUserLogin] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [showModal, setShowModal] = useState<boolean>(false)
@@ -19,7 +19,7 @@ const Header: FC = () => {
     const store: User = useSelector((store: RootUserState) => store.userReducer)
 
     const cleanForm = () => {
-        setLogin('')
+        setFormLogin('')
         setPassword('')
         setIsAdmin(false)
     }
@@ -40,7 +40,7 @@ const Header: FC = () => {
                 setWarning(store.error)
             }
             if (store.isUserLogged) {
-                cleanForm()
+                cleanForm() 
                 setIsLogged(true)
                 setShowModal(false)
             }
@@ -56,15 +56,15 @@ const Header: FC = () => {
     }, [store])
 
     const handleSignIn = (): void => {
-        dispatch(signIn({ login, password }))
+        dispatch(signIn({ login: formLogin, password }))
     }
 
     const handleSignUp = (): void => {
-        if(login.length < 5 || password.length < 8){
+        if(formLogin.length < 5 || password.length < 8){
             setWarning('Password or login too short')
-            return
+            return 
         }
-        dispatch(signUp({ login, password, isAdmin }))
+        dispatch(signUp({ login: formLogin, password, isAdmin }))
     }
 
     const handleSignOut = (): void => {
@@ -86,7 +86,7 @@ const Header: FC = () => {
 
     const handleInput = (e: FormEvent<HTMLInputElement>): void => {
         if (e.currentTarget.name === 'login') {
-            setLogin(e.currentTarget.value)
+            setFormLogin(e.currentTarget.value)
         }
         else if(e.currentTarget.name === 'password'){
             setPassword(e.currentTarget.value)
@@ -96,7 +96,7 @@ const Header: FC = () => {
         }
     }
 
-    const handleGoButton = (): any => {
+    const handleGoButton = (): void => {
         if(modalType === 'signIn'){
             return handleSignIn()
         }
@@ -118,7 +118,7 @@ const Header: FC = () => {
                 </>
             }
             <ModalElement
-                loginValue={login}
+                loginValue={formLogin}
                 passwordValue={password}
                 isAdmin={isAdmin}
                 showModal={showModal}
