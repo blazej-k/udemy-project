@@ -27,62 +27,10 @@ let exampleDB: User[] = [
     },
 ]
 
-export const UserReducer = async (state: User = {}, action: ActionType) => {
+export const UserReducer = async(state: User = {}, action: ActionType) => {
     switch (action.type) {
         case SIGNUP:
-            // state = {}
-            // exampleDB.map((user: User) => {
-            //     if(user.login === action.payload.login){
-            //         return state = {error: `Login is occupied(${action.payload.login}), set another`}
-            //     }
-            //     return null
-            // })
-
-            // if(state.error){  
-            //     return state
-            // }
-
-            // const user: User = {
-            //     ...action.payload,
-            //     id: new Date().getMilliseconds(),
-            //     isUserLogged: true, 
-            //     courses: []
-            // }
-
-            // exampleDB = [...exampleDB, user]
-            // return state = user
-
-            const user: User = {
-                ...action.payload,
-                isUserLogged: true,
-                courses: []
-            }
-
-            const saveUser = new Promise<User>((resolve, rejected) => {
-                fetch('http://localhost:2000/saveUser', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(user)
-                })
-                .then(res => res.json())
-                .then(res => resolve(res))
-                .catch(e => rejected(e))
-            })
-
-            // fetch('http://localhost:2000/saveUser', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify(user)
-            // })
-                // .then(res => res.json())
-                // .then(res => state = res)
-                // .then(res => console.log('state', state))
-                // .catch(e => console.log(e))
-            saveUser.then(res => state = res)
+            await action.payload.then(res => res.json()).then(res => state = res)
             return state
 
         case SIGNIN:

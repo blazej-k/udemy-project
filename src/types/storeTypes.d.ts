@@ -1,3 +1,3 @@
 type RootUserState = {
-    userReducer: User & InvalidFormValidate
+    userReducer: User
 }

@@ -3,6 +3,16 @@ export const SIGNOUT = 'signout'
 export const SIGNUP = 'signup'
 export const BUYCOURSE = 'buycourse'
 
+const saveUser = (user: User): Promise<Response> => (
+    fetch('http://localhost:2000/saveUser', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+)
+
 export const signIn = ({ login, password }: User): SignIn => (
     {
         type: SIGNIN,
@@ -13,21 +23,17 @@ export const signIn = ({ login, password }: User): SignIn => (
     }
 )
 
-// export const signUp = ({ login, password, isAdmin }: User): SignUp => (
-//     {
-//         type: SIGNUP, 
-//         payload: {
-//             login,
-//             password,
-//             isAdmin
-//         }
-//     }
-// )  
-
-export const signUp = ({ login, password, isAdmin }: User) => {
-    return dispatch = (): SignUp => {
-        
+export const signUp = ({ login, password, isAdmin }: User): SignUp => {
+    const user: User = {
+        login,
+        password,
+        isAdmin
     }
+
+    return({
+        type: SIGNUP,
+        payload: saveUser(user)
+    })
 }  
 
 
