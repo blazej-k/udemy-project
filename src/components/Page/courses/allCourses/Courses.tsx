@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useSelector } from 'react-redux'
-import Course from '../Course'
+import Course from '../Course' 
 
 const Courses: FC = () => {
 
@@ -23,7 +23,7 @@ const Courses: FC = () => {
             ,
             price: 344343
         },
-        {
+        { 
             name: 'sfs',
             author: 'gf',
             // rate: 3,
@@ -60,7 +60,7 @@ const Courses: FC = () => {
 
     const {isUserLogged} = useSelector((store: RootUserState )=> store.userReducer)
 
-    return (
+    return ( 
         <div className='Courses-list'>
             {!isUserLogged && <h2>Sign in to buy course</h2>}
             <ul>

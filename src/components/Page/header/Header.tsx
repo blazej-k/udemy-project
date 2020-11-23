@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom'
 const Header: FC = () => {
 
     const [login, setLogin] = useState<string>('')
+    const [userLogin, setUserLogin] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [showModal, setShowModal] = useState<boolean>(false)
     const [modalType, setModalType] = useState<string>('')
@@ -14,32 +15,43 @@ const Header: FC = () => {
     const [isAdmin, setIsAdmin] = useState<boolean>(false)
     const [warning, setWarning] = useState<string>('')
 
-    const store = useSelector((store: RootUserState) => store.userReducer)
     const dispatch = useDispatch()
-
+    const store: User = useSelector((store: RootUserState) => store.userReducer)
 
     const cleanForm = () => {
         setLogin('')
         setPassword('')
         setIsAdmin(false)
     }
+    const cleanUserInfo = () =>{
+        setUserLogin('')
+        setIsAdmin(false)
+    }
 
     useEffect(() => {
-        store.then((res: any) => console.log(res))
-        if (store.error) {
-            setWarning(store.error)
-        }
-        if (store.isUserLogged) {
-            cleanForm()
-            setIsLogged(true)
-            setShowModal(false)
-        }
-        else {
-            setIsLogged(false)
-        }
+        Promise.resolve(store).then((store) => {
+            if(store.login){
+                setUserLogin(store.login)
+            }
+            if(store.isAdmin){
+                setIsAdmin(store.isAdmin)
+            }
+            if (store.error) {
+                setWarning(store.error)
+            }
+            if (store.isUserLogged) {
+                cleanForm()
+                setIsLogged(true)
+                setShowModal(false)
+            }
+            else {
+                setIsLogged(false)
+            }
+        })
         return () => {
             setWarning('')
             cleanForm()
+            cleanUserInfo()
         }
     }, [store])
 
@@ -57,16 +69,16 @@ const Header: FC = () => {
 
     const handleSignOut = (): void => {
         dispatch(signOut({}))
-    } 
+    }  
 
     const toggleModal = (e: React.MouseEvent): void => {
         if(showModal === false){
             setModalType(e.currentTarget.className)
         }
-        if (!store.isUserLogged) {
+        if (!isLogged) {
             if (showModal === true) {
                 setWarning('')
-                setModalType('')
+                setModalType('') 
             }
             setShowModal((prev: boolean) => !prev)
         }
@@ -95,8 +107,16 @@ const Header: FC = () => {
     
     return (
         <>
-            {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{store.login}</h3></> :
-                <><div onClick={toggleModal} className='signIn'>Zaloguj</div><div className='signUp' onClick={toggleModal}>Zarejestruj</div></>}
+            {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{userLogin}</h3></> :
+                <>
+                    <div
+                    onClick={toggleModal}
+                    className='signIn'>Zaloguj</div>
+                    <div 
+                    className='signUp' 
+                    onClick={toggleModal}>Zarejestruj</div>
+                </>
+            }
             <ModalElement
                 loginValue={login}
                 passwordValue={password}

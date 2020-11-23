@@ -15,7 +15,7 @@ type SignOut = {
 
 type SignUp = {
     type: typeof SIGNUP
-    payload: User
+    payload: Promise<Response>
 }
 
 
