@@ -6,27 +6,31 @@ import { Redirect } from 'react-router-dom'
 
 const Header: FC = () => {
 
-    const [login, setLogin] = useState<string>('')
+    const [formLogin, setFormLogin] = useState<string>('')
     const [userLogin, setUserLogin] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [showModal, setShowModal] = useState<boolean>(false)
     const [modalType, setModalType] = useState<string>('')
     const [isLogged, setIsLogged] = useState<boolean>(false)
-    const [isAdmin, setIsAdmin] = useState<boolean>(false)
+    const [isAdminInForm, setIsAdminInForm] = useState<boolean>(false)
+    const [isUserAdmin, setIsUserAdmin] = useState<boolean>(false)
     const [warning, setWarning] = useState<string>('')
 
     const dispatch = useDispatch()
     const store: User = useSelector((store: RootUserState) => store.userReducer)
 
     const cleanForm = () => {
-        setLogin('')
+        setFormLogin('')
         setPassword('')
-        setIsAdmin(false)
+        setIsAdminInForm(false)
+        setWarning('')
     }
     const cleanUserInfo = () =>{
         setUserLogin('')
-        setIsAdmin(false)
+        setIsUserAdmin(false)
+        setIsLogged(false)
     }
+
 
     useEffect(() => {
         Promise.resolve(store).then((store) => {
@@ -34,37 +38,36 @@ const Header: FC = () => {
                 setUserLogin(store.login)
             }
             if(store.isAdmin){
-                setIsAdmin(store.isAdmin)
+                setIsUserAdmin(store.isAdmin)
             }
             if (store.error) {
                 setWarning(store.error)
             }
             if (store.isUserLogged) {
-                cleanForm()
+                cleanForm() 
                 setIsLogged(true)
                 setShowModal(false)
             }
             else {
-                setIsLogged(false)
+                cleanUserInfo()
             }
         })
         return () => {
-            setWarning('')
             cleanForm()
             cleanUserInfo()
         }
     }, [store])
 
     const handleSignIn = (): void => {
-        dispatch(signIn({ login, password }))
+        dispatch(signIn({ login: formLogin, password }))
     }
 
     const handleSignUp = (): void => {
-        if(login.length < 5 || password.length < 8){
+        if(formLogin.length < 5 || password.length < 8){
             setWarning('Password or login too short')
-            return
+            return 
         }
-        dispatch(signUp({ login, password, isAdmin }))
+        dispatch(signUp({ login: formLogin, password, isAdmin: isAdminInForm }))
     }
 
     const handleSignOut = (): void => {
@@ -86,17 +89,17 @@ const Header: FC = () => {
 
     const handleInput = (e: FormEvent<HTMLInputElement>): void => {
         if (e.currentTarget.name === 'login') {
-            setLogin(e.currentTarget.value)
+            setFormLogin(e.currentTarget.value)
         }
         else if(e.currentTarget.name === 'password'){
             setPassword(e.currentTarget.value)
         }
         else{
-            setIsAdmin(e.currentTarget.checked)
+            setIsAdminInForm(e.currentTarget.checked)
         }
     }
 
-    const handleGoButton = (): any => {
+    const handleGoButton = (): void => {
         if(modalType === 'signIn'){
             return handleSignIn()
         }
@@ -107,7 +110,7 @@ const Header: FC = () => {
     
     return (
         <>
-            {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{userLogin}</h3></> :
+            {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{userLogin}</h3>{isUserAdmin && <h3>(A)</h3>}</> :
                 <>
                     <div
                     onClick={toggleModal}
@@ -118,9 +121,9 @@ const Header: FC = () => {
                 </>
             }
             <ModalElement
-                loginValue={login}
+                loginValue={formLogin}
                 passwordValue={password}
-                isAdmin={isAdmin}
+                isAdmin={isAdminInForm}
                 showModal={showModal}
                 inputHandler={handleInput}
                 handleGoButton={handleGoButton}

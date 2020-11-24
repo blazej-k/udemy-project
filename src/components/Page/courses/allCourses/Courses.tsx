@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Course from '../Course' 
 
@@ -58,11 +58,28 @@ const Courses: FC = () => {
         },
     ]
 
-    const {isUserLogged} = useSelector((store: RootUserState )=> store.userReducer)
+    const store = useSelector((store: RootUserState ) => store.userReducer)
+
+    const [isLogged, setIsLogged] = useState<boolean>(false)
+    useEffect(() => {
+        Promise.resolve(store).then(store => {
+            if(store.isUserLogged){
+                setIsLogged(store.isUserLogged)
+            }
+        })
+        return () => {
+            // setIsLogged(false)
+            // Promise.resolve(store).finally(() => {
+            //     if(store.isUserLogged){
+            //         store.isUserLogged = false
+            //     }
+            // })
+        } 
+    }, [store])
 
     return ( 
         <div className='Courses-list'>
-            {!isUserLogged && <h2>Sign in to buy course</h2>}
+            {!isLogged && <h2>Sign in to buy course</h2>}
             <ul>
                 {courses.map(course => {
                     return <li key={course.id * new Date().getMilliseconds()}><Course
@@ -70,6 +87,7 @@ const Courses: FC = () => {
                         author={course.author}
                         description={course.description}
                         price={course.price}
+                        id={course.id}
                     /></li>
                 })}
             </ul>

@@ -1,4 +1,4 @@
-interface CourseObj{
+type CourseObj = {
     name: string,
     author: string,
     description: string,
