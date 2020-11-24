@@ -12,7 +12,8 @@ const Header: FC = () => {
     const [showModal, setShowModal] = useState<boolean>(false)
     const [modalType, setModalType] = useState<string>('')
     const [isLogged, setIsLogged] = useState<boolean>(false)
-    const [isAdmin, setIsAdmin] = useState<boolean>(false)
+    const [isAdminInForm, setIsAdminInForm] = useState<boolean>(false)
+    const [isUserAdmin, setIsUserAdmin] = useState<boolean>(false)
     const [warning, setWarning] = useState<string>('')
 
     const dispatch = useDispatch()
@@ -21,12 +22,15 @@ const Header: FC = () => {
     const cleanForm = () => {
         setFormLogin('')
         setPassword('')
-        setIsAdmin(false)
+        setIsAdminInForm(false)
+        setWarning('')
     }
     const cleanUserInfo = () =>{
         setUserLogin('')
-        setIsAdmin(false)
+        setIsUserAdmin(false)
+        setIsLogged(false)
     }
+
 
     useEffect(() => {
         Promise.resolve(store).then((store) => {
@@ -34,7 +38,7 @@ const Header: FC = () => {
                 setUserLogin(store.login)
             }
             if(store.isAdmin){
-                setIsAdmin(store.isAdmin)
+                setIsUserAdmin(store.isAdmin)
             }
             if (store.error) {
                 setWarning(store.error)
@@ -45,13 +49,11 @@ const Header: FC = () => {
                 setShowModal(false)
             }
             else {
-                setIsLogged(false)
+                cleanUserInfo()
             }
         })
         return () => {
-            setWarning('')
             cleanForm()
-            cleanUserInfo()
         }
     }, [store])
 
@@ -64,7 +66,7 @@ const Header: FC = () => {
             setWarning('Password or login too short')
             return 
         }
-        dispatch(signUp({ login: formLogin, password, isAdmin }))
+        dispatch(signUp({ login: formLogin, password, isAdmin: isAdminInForm }))
     }
 
     const handleSignOut = (): void => {
@@ -92,7 +94,7 @@ const Header: FC = () => {
             setPassword(e.currentTarget.value)
         }
         else{
-            setIsAdmin(e.currentTarget.checked)
+            setIsAdminInForm(e.currentTarget.checked)
         }
     }
 
@@ -107,7 +109,7 @@ const Header: FC = () => {
     
     return (
         <>
-            {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{userLogin}</h3></> :
+            {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{userLogin}</h3>{isUserAdmin && <h3>(A)</h3>}</> :
                 <>
                     <div
                     onClick={toggleModal}
@@ -120,7 +122,7 @@ const Header: FC = () => {
             <ModalElement
                 loginValue={formLogin}
                 passwordValue={password}
-                isAdmin={isAdmin}
+                isAdmin={isAdminInForm}
                 showModal={showModal}
                 inputHandler={handleInput}
                 handleGoButton={handleGoButton}

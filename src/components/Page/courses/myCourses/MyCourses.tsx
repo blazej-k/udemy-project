@@ -26,10 +26,11 @@ const MyCourses: FC = () => {
     const coursesElement =
                 <ul>
                     {courses.map(course => {
-                        return <li key={course.id}><Course
+                        return <li key={new Date().getMilliseconds()}><Course
                             name={course.name}
                             author={course.author}
                             description={course.description}
+                            id={course.id}
                             />
                         </li>
                     })}

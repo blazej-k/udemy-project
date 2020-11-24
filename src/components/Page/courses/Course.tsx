@@ -7,10 +7,11 @@ export interface CourseProps {
     author: string,
     img?: unknown,
     description: string,
-    price?: number
+    price?: number,
+    id: number
 }
 
-const Course: FC<CourseProps> = ({ name, author, description, price = -1 }) => {
+const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) => {
 
     const { location } = useHistory()
     const pathName = location.pathname
@@ -18,22 +19,46 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1 }) => {
     const store = useSelector((store: RootUserState) => store.userReducer)
     const dispatch = useDispatch()
 
-    const [isLogged, setIsLogged] = useState<boolean>(false)
+    const [isLogged, setIsLogged] = useState<boolean>(true)
+    const [user, setUser] = useState<User>({})
+    const [courseId, setCourseId] = useState<number>()
+    const [courses, setCourses] = useState<CourseObj[] | undefined>([])
+
 
     useEffect(() => {
+        setCourseId(id)
         Promise.resolve(store).then(store => {
             if(store.isUserLogged){
                 setIsLogged(store.isUserLogged)
+                setUser(store)
+                setCourses(store.courses)
+            }
+            else{
+                setIsLogged(false)
             }
         })
         return () => {
             setIsLogged(false)
         }
-    }, [store])
+    }, [store, id])
 
     const handleBuyCourse = (): void => {
-        dispatch(buyCourse({name, author, description, price, id: new Date().getMilliseconds()}))
-    }
+        //when this course isn't in course list of user you can buy it
+        let canBuy = true 
+
+        courses?.map(course => (
+            course.id === courseId ? canBuy = false : null
+        ))
+        if(!canBuy) return
+        const course: CourseObj = {
+            name,
+            author,
+            description,
+            price,
+            id
+        }
+        dispatch(buyCourse(user, course))
+    } 
 
     return (
         <div className="Course">

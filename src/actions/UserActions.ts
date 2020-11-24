@@ -3,13 +3,13 @@ export const SIGNOUT = 'signout'
 export const SIGNUP = 'signup'
 export const BUYCOURSE = 'buycourse'
 
-const saveUser = (user: User): Promise<Response> => (
-    fetch('http://localhost:2000/saveUser', {
+const sendData = (URL: string, body: User): Promise<Response> => (
+    fetch(URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(body)
     })
 )
 
@@ -22,7 +22,7 @@ export const signUp = ({ login, password, isAdmin }: User): SignUp => {
 
     return({
         type: SIGNUP,
-        payload: saveUser(user)
+        payload: sendData('http://localhost:2000/saveUser', user)
     })
 }  
 
@@ -30,25 +30,22 @@ export const signUp = ({ login, password, isAdmin }: User): SignUp => {
 export const signIn = ({ login, password }: User): SignIn => (
     {
         type: SIGNIN,
-        payload: {
+        payload: { 
             login,
             password,
         }
     }
 )
 
-export const buyCourse = ({ name, author, description, price, id }: CourseObj): BuyCourse => (
-    {
+export const buyCourse = (userObj: User, courses: CourseObj): BuyCourse => {
+
+    userObj.courses?.push(courses)
+
+    return{
         type: BUYCOURSE, 
-        payload: {
-            name,
-            author,
-            description,
-            price,
-            id
-        }
+        payload: sendData('http://localhost:2000/buyCourse', userObj)
     }
-)
+}
 
 export const signOut = ({}: User): SignOut => (
     {

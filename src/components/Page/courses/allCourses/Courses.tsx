@@ -68,13 +68,13 @@ const Courses: FC = () => {
             }
         })
         return () => {
-            setIsLogged(false)
-            Promise.resolve(store).finally(() => {
-                if(store.isUserLogged){
-                    store.isUserLogged = !store.isUserLogged
-                }
-            })
-        }
+            // setIsLogged(false)
+            // Promise.resolve(store).finally(() => {
+            //     if(store.isUserLogged){
+            //         store.isUserLogged = false
+            //     }
+            // })
+        } 
     }, [store])
 
     return ( 
@@ -87,6 +87,7 @@ const Courses: FC = () => {
                         author={course.author}
                         description={course.description}
                         price={course.price}
+                        id={course.id}
                     /></li>
                 })}
             </ul>

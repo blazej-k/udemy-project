@@ -21,7 +21,7 @@ type SignUp = {
 
 type BuyCourse = {
     type: typeof BUYCOURSE
-    payload: CourseObj
+    payload: Promise<Response>
 }
  
 type User = {

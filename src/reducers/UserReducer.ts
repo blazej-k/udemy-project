@@ -51,9 +51,8 @@ export const UserReducer = async(state: User = {}, action: ActionType) => {
         case SIGNOUT:
             return state = {}
         case BUYCOURSE:
-            let newState = state
-            state.courses?.push(action.payload)
-            return state = newState
+            await action.payload.then(res => res.json()).then(res => state.courses = res.courses)
+            return state
         default:
             return state
     }
