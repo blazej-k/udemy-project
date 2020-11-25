@@ -5,7 +5,6 @@ import {buyCourse} from '../../../actions/UserActions'
 export interface CourseProps {
     name: string,
     author: string,
-    img?: unknown,
     description: string,
     price?: number,
     id: number
@@ -47,7 +46,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
         let canBuy = true 
 
         courses?.map(course => (
-            course.id === courseId ? canBuy = false : null
+            course._id === courseId ? canBuy = false : null
         ))
         if(!canBuy) return
         const course: CourseObj = {
@@ -55,7 +54,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
             author,
             description,
             price,
-            id
+            _id: id
         }
         dispatch(buyCourse(user, course))
     } 

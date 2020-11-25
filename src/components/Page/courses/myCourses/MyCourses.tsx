@@ -30,7 +30,7 @@ const MyCourses: FC = () => {
                             name={course.name}
                             author={course.author}
                             description={course.description}
-                            id={course.id}
+                            id={course._id || new Date().getMilliseconds()}
                             />
                         </li>
                     })}

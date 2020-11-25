@@ -27,7 +27,7 @@ let exampleDB: User[] = [
     },
 ]
 
-export const UserReducer = async(state: User = {}, action: ActionType) => {
+export const UserReducer = async(state: User = {}, action: UserActionType) => {
     switch (action.type) {
         case SIGNUP:
             await action.payload.then(res => res.json()).then(res => state = res)
