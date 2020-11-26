@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FC } from 'react';
+import { FC, FormEvent } from 'react';
 import { Modal, Button } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -7,12 +7,21 @@ export interface NewCourseModalProps {
     visiblity: boolean,
     toogleModal: (prev: boolean) => void,
     handleInput: (e: FormEvent<HTMLInputElement>) => void,
-    name: string
+    values: {
+        name: string,
+        author: string,
+        description: string,
+        price: number
+    },
+    add: () => void 
 }
  
-const NewCourseModal: FC<NewCourseModalProps> = ({visiblity, name, toogleModal, handleInput}) => {
+const NewCourseModal: FC<NewCourseModalProps> = ({visiblity, values, toogleModal, handleInput, add}) => {
+
+    const {name, author, description, price} = values
+
     return (
-        <Modal show={visiblity} animation={false} onHide={toogleModal}>
+        <Modal show={visiblity} animation={false} onHide={toogleModal}> 
              <Modal.Header closeButton={true}>
                 <Modal.Title>Create new course</Modal.Title> 
             </Modal.Header>
@@ -23,19 +32,19 @@ const NewCourseModal: FC<NewCourseModalProps> = ({visiblity, name, toogleModal, 
                 </label>
                 <label>
                     Author:
-                    <input type='text' name='author' required value={name} onChange={handleInput} />
+                    <input type='text' name='author' required value={author} onChange={handleInput} />
                 </label>
                 <label>
                     Description:
-                    <input type='text' name='description' required value={name} onChange={handleInput} />
+                    <input type='text' name='description' required value={description} onChange={handleInput} />
                 </label>
                 <label>
                     Price:
-                    <input type='number' name='price' required value={name} onChange={handleInput} />
-                </label>
+                    <input type='number' name='price' required value={price} onChange={handleInput} />
+                </label> 
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="primary">ADD!</Button>
+                <Button variant="primary" onClick={add}>ADD!</Button>
             </Modal.Footer>
 
         </Modal>

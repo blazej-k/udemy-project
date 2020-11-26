@@ -1,1 +1,1 @@
-type CourseRedcucerType = AddCourse
+type CourseRedcucerType = AddCourse | GetCourses

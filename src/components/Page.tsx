@@ -5,6 +5,7 @@ import Nav from './Page/nav/Nav'
 import MyCourses from './Page/courses/myCourses/MyCourses'
 import Courses from './Page/courses/allCourses/Courses'
 import Header from './Page/header/Header'
+import Admin from './Page/admin/Admin'
 
 const Page: FC = () => {
     return (
@@ -16,7 +17,7 @@ const Page: FC = () => {
                 <Route path='/myCourses' component={MyCourses} />
                 <Route path='/courses' component={Courses} />
                 <Route path='/contact' component={() => <h1>kontakt</h1>} />
-                <Route path='/admin' component={() => <h1>admin</h1>} />
+                <Route path='/admin' component={Admin} />
                 <Redirect to='/404' />
             </Switch>
         </>

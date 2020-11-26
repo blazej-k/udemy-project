@@ -1,81 +1,34 @@
 import React, { FC, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getCourses } from '../../../../actions/CoursesActions'
 import Course from '../Course' 
 
 const Courses: FC = () => {
 
-
-    // let courses: CourseObj[] = [
-    //     {
-    //         name: 'sfs',
-    //         author: 'gf',
-    //         // rate: 3,
-    //         id: 2,
-    //         description: 'sdfsfferfer',
-    //         price: 344343
-    //     },
-    //     {
-    //         name: 'sfs',
-    //         author: 'gf',
-    //         // rate: 3,
-    //         id: 3,
-    //         description: 'sdfsfferfer'
-    //         ,
-    //         price: 344343
-    //     },
-    //     { 
-    //         name: 'sfs',
-    //         author: 'gf',
-    //         // rate: 3,
-    //         id: 4,
-    //         description: 'sdfsfferfer',
-    //         price: 344343
-    //     },
-    //     {
-    //         name: 'sfs',
-    //         author: 'gf',
-    //         // rate: 4,
-    //         id: 5,
-    //         description: 'sdfsfferfer',
-    //         price: 344343
-    //     },
-
-    //     {
-    //         name: 'sfs',
-    //         author: 'gf',
-    //         // rate: 5,
-    //         id: 6,
-    //         description: 'sdfsfferfer',
-    //         price: 344343
-    //     },
-    //     {
-    //         name: 'sfs',
-    //         author: 'gf',
-    //         // rate: 6,
-    //         id: 7,
-    //         description: 'sdfsfferfer',
-    //         price: 344343
-    //     },
-    // ]
-
+    const coursesStore = useSelector((store2: RootUserState) => store2.courseReducer)
     const userStore = useSelector((store: RootUserState ) => store.userReducer)
-    const coursesStore = useSelector((store: RootCourseState) => store.coursesReducer)
+    const dispatch = useDispatch()
 
     const [courses, setCourses] = useState<CourseObj[]>([])
     const [isLogged, setIsLogged] = useState<boolean>(false)
-    useEffect(() => { 
-        Promise.resolve(coursesStore).then(store => {
-            if(store) store.map((course: CourseObj) => setCourses(prev => [...prev, course]))
-        })
-        Promise.resolve(userStore).then(store => {
 
+
+    useEffect(() => {
+        Promise.resolve(coursesStore).then(res => setCourses(res))
+        Promise.resolve(userStore).then(store => {
             if(store.isUserLogged){
                 setIsLogged(store.isUserLogged)
             }
+        }) 
+    }, [userStore, coursesStore])
+
+    useEffect(() => {
+        Promise.resolve(coursesStore).then((store) => {
+            if(store.length === 0){
+                dispatch(getCourses())
+            } 
         })
-        return () => {
-        } 
-    }, [userStore])
+    }, [coursesStore])
 
     return ( 
         <div className='Courses-list'>
