@@ -11,7 +11,7 @@ export const CourseReducer = async (state: CourseObj[] = [], action: CourseRedcu
             })
             return state = newState
         case GETCOURSES: 
-            await Promise.resolve(action.payload).then(res => res.json()).then(res => state = res).then(res => console.log(res))
+            await Promise.resolve(action.payload).then(res => res.json()).then(res => state = res)
             return state
         default:
             return state

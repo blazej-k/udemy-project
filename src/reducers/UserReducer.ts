@@ -1,32 +1,5 @@
 import { SIGNIN, SIGNOUT, SIGNUP, BUYCOURSE } from '../actions/UserActions'
 
-let exampleDB: User[] = [
-    {
-        login: 'b',
-        password: '1234',
-        id: 23443423,
-        isAdmin: false,
-        isUserLogged: false,
-        courses: []
-    },
-    {
-        login: 'k',
-        password: '12345',
-        id: 223443423,
-        isAdmin: false,
-        isUserLogged: false,
-        courses: []
-    },
-    {
-        login: 'l',
-        password: '123456',
-        id: 23443423,
-        isAdmin: false,
-        isUserLogged: false,
-        courses: []
-    },
-]
-
 export const UserReducer = async(state: User = {}, action: UserActionType) => {
     switch (action.type) {
         case SIGNUP:
@@ -35,17 +8,7 @@ export const UserReducer = async(state: User = {}, action: UserActionType) => {
 
         case SIGNIN:
             state = {}
-            exampleDB.map((user: User) => {
-                if ((user.login === action.payload.login) && (user.password === action.payload.password)) {
-                    user.isUserLogged = true
-                    return state = user
-                }
-                return null
-            })
-
-            if (!state.login) {
-                state = { error: `Incorrect login or password` }
-            }
+            await action.payload.then(res => res.json()).then(res => state = res)
             return state
 
         case SIGNOUT:

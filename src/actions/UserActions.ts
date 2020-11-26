@@ -27,15 +27,13 @@ export const signUp = ({ login, password, isAdmin }: User): SignUp => {
 }  
 
 
-export const signIn = ({ login, password }: User): SignIn => (
-    {
+export const signIn = ({ login, password }: User): SignIn => {
+
+    return{
         type: SIGNIN,
-        payload: { 
-            login,
-            password,
-        }
+        payload: sendData('http://localhost:2000/signIn', {login, password})
     }
-)
+}
 
 export const buyCourse = (userObj: User, courses: CourseObj): BuyCourse => {
 
