@@ -9,8 +9,11 @@ const Nav: FC = () => {
 
     useEffect(() => { 
         Promise.resolve(store).then(store => {
-            if(store.isUserLogged){
-                setIsAdmin(store.isUserLogged)
+            if(store.isAdmin){
+                setIsAdmin(true)
+            }
+            else{
+                setIsAdmin(false)
             }
         })
         return () => {

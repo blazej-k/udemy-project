@@ -5,7 +5,7 @@ const BUYCOURSE = 'buycourse'
 
 type SignIn = {
     type: typeof SIGNIN
-    payload: User
+    payload: Promise<Response>
 }
 
 type SignOut = {

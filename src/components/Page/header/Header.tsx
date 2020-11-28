@@ -139,7 +139,6 @@ const Header: FC = () => {
                 warning={warning}
                 modalType={modalType}
             />
-            {isLogged && <Redirect to='/' />}
         </>
     ); 
 }
