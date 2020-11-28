@@ -32,25 +32,36 @@ const Header: FC = () => {
 
 
     useEffect(() => {
-        Promise.resolve(store).then((store) => {
-            if (store.login) {
-                setUserLogin(store.login)
-            }
-            if (store.isAdmin) {
-                setIsUserAdmin(store.isAdmin)
-            }
-            if (store.error) {
-                setWarning(store.error)
-            }
-            if (store.isUserLogged) {
-                cleanForm()
-                setIsLogged(true)
-                setShowModal(false)
-            }
-            else {
-                cleanUserInfo()
-            }
-        })
+        const localStorage = window.localStorage.getItem('store')
+        if (localStorage !== null) {
+            console.log('yes')
+            const store: User = JSON.parse(localStorage)
+            setUserLogin(store.login || '')
+            setIsUserAdmin(store.isAdmin || false)
+            setIsLogged(store.isUserLogged || false)
+        }
+        else {
+            Promise.resolve(store).then((store) => {
+                if (store.login) {
+                    window.localStorage.setItem('store', JSON.stringify(store))
+                    setUserLogin(store.login)
+                }
+                if (store.isAdmin) {
+                    setIsUserAdmin(store.isAdmin)
+                }
+                if (store.error) {
+                    setWarning(store.error)
+                }
+                if (store.isUserLogged) {
+                    cleanForm()
+                    setIsLogged(true)
+                    setShowModal(false)
+                }
+                else {
+                    cleanUserInfo()
+                }
+            })
+        }
         return () => {
             cleanForm()
             cleanUserInfo()
@@ -93,6 +104,7 @@ const Header: FC = () => {
 
     const handleSignOut = (): void => {
         dispatch(signOut({}))
+        window.localStorage.removeItem('store')
     }
 
     const toggleModal = (e: React.MouseEvent): void => {
