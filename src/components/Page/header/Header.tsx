@@ -2,19 +2,18 @@ import React, { FC, FormEvent, useEffect, useState } from 'react'
 import ModalElement from '../modals/Modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { signIn, signOut, signUp } from '../../../actions/UserActions'
-import { Redirect } from 'react-router-dom'
 
 const Header: FC = () => {
 
-    const [formLogin, setFormLogin] = useState<string>('')
-    const [userLogin, setUserLogin] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
-    const [showModal, setShowModal] = useState<boolean>(false)
-    const [modalType, setModalType] = useState<string>('')
-    const [isLogged, setIsLogged] = useState<boolean>(false)
-    const [isAdminInForm, setIsAdminInForm] = useState<boolean>(false)
-    const [isUserAdmin, setIsUserAdmin] = useState<boolean>(false)
-    const [warning, setWarning] = useState<string>('')
+    const [formLogin, setFormLogin] = useState<string>(''),
+        [userLogin, setUserLogin] = useState<string>(''),
+        [password, setPassword] = useState<string>(''),
+        [showModal, setShowModal] = useState<boolean>(false),
+        [modalType, setModalType] = useState<string>(''),
+        [isLogged, setIsLogged] = useState<boolean>(false),
+        [isAdminInForm, setIsAdminInForm] = useState<boolean>(false),
+        [isUserAdmin, setIsUserAdmin] = useState<boolean>(false),
+        [warning, setWarning] = useState<string>('')
 
     const dispatch = useDispatch()
     const store: User = useSelector((store: RootUserState) => store.userReducer)
@@ -25,7 +24,7 @@ const Header: FC = () => {
         setIsAdminInForm(false)
         setWarning('')
     }
-    const cleanUserInfo = () =>{
+    const cleanUserInfo = () => {
         setUserLogin('')
         setIsUserAdmin(false)
         setIsLogged(false)
@@ -34,17 +33,17 @@ const Header: FC = () => {
 
     useEffect(() => {
         Promise.resolve(store).then((store) => {
-            if(store.login){
+            if (store.login) {
                 setUserLogin(store.login)
             }
-            if(store.isAdmin){
+            if (store.isAdmin) {
                 setIsUserAdmin(store.isAdmin)
             }
             if (store.error) {
                 setWarning(store.error)
             }
             if (store.isUserLogged) {
-                cleanForm() 
+                cleanForm()
                 setIsLogged(true)
                 setShowModal(false)
             }
@@ -63,33 +62,47 @@ const Header: FC = () => {
     }
 
     const handleSignUp = (): void => {
-        const firstLetterOfFormLogin = formLogin.charAt(0)
-        const lastLetterOfFormLogin = formLogin.charAt(-1)
-        if(formLogin.length < 5 || password.length < 8){
+        let isLoginCorrect = false, isPasswordCorrect = false
+        const firstLetterOfFormLogin = formLogin.charAt(0), lastLetterOfFormLogin = formLogin.slice(-1)
+        if (formLogin.length < 5 || password.length < 8) {
             setWarning('Password or login too short')
-            return 
+            return
         }
-        if(firstLetterOfFormLogin === " "){
-            setFormLogin(formLogin.replace(firstLetterOfFormLogin, ""))
+        else if (firstLetterOfFormLogin === " " || lastLetterOfFormLogin === " ") {
+            setWarning("Login can't start and end with space")
+            return
         }
-        if(lastLetterOfFormLogin === " "){
-            setFormLogin(formLogin.replace(lastLetterOfFormLogin, ""))
+        else if (formLogin.length > 15 || password.length > 25) {
+            setWarning("Login can has 15 leters and password 25")
+            return
         }
-        dispatch(signUp({ login: formLogin, password, isAdmin: isAdminInForm }))
+        formLogin.split('').map<boolean | void>(letter => {
+            if (letter !== ' ') {
+                return isLoginCorrect = true
+            }
+        })
+        password.split('').map<boolean | void>(letter => {
+            if (letter !== ' ') {
+                return isPasswordCorrect = true
+            }
+        })
+        isLoginCorrect && isPasswordCorrect ? dispatch(signUp({ login: formLogin, password, isAdmin: isAdminInForm }))
+            : setWarning('Login or password have to have one letter')
+
     }
 
     const handleSignOut = (): void => {
         dispatch(signOut({}))
-    }  
+    }
 
     const toggleModal = (e: React.MouseEvent): void => {
-        if(showModal === false){
+        if (showModal === false) {
             setModalType(e.currentTarget.className)
         }
         if (!isLogged) {
             if (showModal === true) {
                 setWarning('')
-                setModalType('') 
+                setModalType('')
             }
             setShowModal((prev: boolean) => !prev)
         }
@@ -99,33 +112,33 @@ const Header: FC = () => {
         if (e.currentTarget.name === 'login') {
             setFormLogin(e.currentTarget.value)
         }
-        else if(e.currentTarget.name === 'password'){
+        else if (e.currentTarget.name === 'password') {
             setPassword(e.currentTarget.value)
         }
-        else{
+        else {
             setIsAdminInForm(e.currentTarget.checked)
         }
     }
 
     const handleGoButton = (): void => {
-        if(modalType === 'signIn'){
+        if (modalType === 'signIn') {
             return handleSignIn()
         }
-        else{
+        else {
             return handleSignUp()
         }
     }
-    
+
     return (
         <>
             {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{userLogin}</h3>{isUserAdmin && <h3>(A)</h3>}</> :
                 <>
                     <div
-                    onClick={toggleModal}
-                    className='signIn'>Zaloguj</div>
-                    <div 
-                    className='signUp' 
-                    onClick={toggleModal}>Zarejestruj</div>
+                        onClick={toggleModal}
+                        className='signIn'>Zaloguj</div>
+                    <div
+                        className='signUp'
+                        onClick={toggleModal}>Zarejestruj</div>
                 </>
             }
             <ModalElement
@@ -140,7 +153,7 @@ const Header: FC = () => {
                 modalType={modalType}
             />
         </>
-    ); 
+    );
 }
 
 export default Header;

@@ -18,9 +18,10 @@ const Admin: FC = () => {
     const [author, setAuthor] = useState<string>('')
     const [description, setDescription] = useState<string>('')
     const [price, setPrice] = useState<number>(0)
+    const [warning, setWarning] = useState('')
 
     const store = useSelector((store: RootUserState) => store.userReducer)
-    //isAdmin true beucse when is false he redirect immediately, use effect corrects is isAdmin true or false
+    //isAdmin true beucase when is false he redirect immediately, use effect corrects is isAdmin true or false
     const [isAdmin, setIsAdmin] = useState<boolean>(true)
 
     useEffect(() => {
@@ -54,7 +55,20 @@ const Admin: FC = () => {
             setPrice(Number(e.currentTarget.value))
         }
     }
+
     const addCourseToDb = (): void => {
+        if(!name.length || !description.length || !author.length){
+            setWarning('Some input is empty')
+            return
+        }
+        if(price < 0 || isNaN(price)){
+            setWarning('Incorrect price')
+            return
+        }
+        if(description.length > 50){
+            setWarning('Description can has 50 letters')
+            return
+        }
         dispatch(addCourse({ name, author, description, price, _id: new Date().getMilliseconds() }))
     }
 
@@ -62,14 +76,21 @@ const Admin: FC = () => {
         name,
         author,
         description,
-        price
+        price,
+        warning
     }
 
     return (
         <>
             {!isAdmin && <Redirect to='/' />}
             <button onClick={() => showModal(false)}>Add course</button>
-            <NewCourseModal toogleModal={showModal} handleInput={handleInput} values={values} visiblity={isModalVisiblity} add={addCourseToDb} />
+            <NewCourseModal
+                toogleModal={showModal}
+                handleInput={handleInput}
+                values={values}
+                visiblity={isModalVisiblity}
+                add={addCourseToDb}
+            />
         </>
     );
 }

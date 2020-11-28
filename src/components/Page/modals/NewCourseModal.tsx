@@ -11,17 +11,18 @@ export interface NewCourseModalProps {
         name: string,
         author: string,
         description: string,
-        price: number
+        price: number,
+        warning: string
     },
     add: () => void 
 }
  
 const NewCourseModal: FC<NewCourseModalProps> = ({visiblity, values, toogleModal, handleInput, add}) => {
 
-    const {name, author, description, price} = values
+    const {name, author, description, price, warning} = values
 
     return (
-        <Modal show={visiblity} animation={false} onHide={toogleModal}> 
+        <Modal show={visiblity} animation={false} onHide={() => toogleModal(visiblity)}> 
              <Modal.Header closeButton={true}>
                 <Modal.Title>Create new course</Modal.Title> 
             </Modal.Header>
@@ -35,13 +36,16 @@ const NewCourseModal: FC<NewCourseModalProps> = ({visiblity, values, toogleModal
                     <input type='text' name='author' required value={author} onChange={handleInput} />
                 </label>
                 <label>
-                    Description:
-                    <input type='text' name='description' required value={description} onChange={handleInput} />
-                </label>
-                <label>
                     Price:
                     <input type='number' name='price' required value={price} onChange={handleInput} />
                 </label> 
+                <label>
+                    Description:
+                    <input type='text' name='description' required value={description} onChange={handleInput} />
+                </label>
+                <div className='Modal-invalidFormValidate'>
+                    {warning.length ? warning : null}
+                </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" onClick={add}>ADD!</Button>
