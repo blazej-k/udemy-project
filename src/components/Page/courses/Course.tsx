@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import {buyCourse} from '../../../actions/UserActions'
+import { buyCourse } from '../../../actions/UserActions'
 export interface CourseProps {
     name: string,
     author: string,
@@ -26,16 +26,25 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
 
     useEffect(() => {
         setCourseId(id)
-        Promise.resolve(store).then(store => {
-            if(store.isUserLogged){
-                setIsLogged(store.isUserLogged)
-                setUser(store)
-                setCourses(store.courses)
-            }
-            else{
-                setIsLogged(false)
-            }
-        })
+        const localStorage = window.localStorage.getItem('store')
+        if (localStorage !== null) {
+            const store: User = JSON.parse(localStorage)
+            setCourses(store.courses || [])
+            setUser(store)
+            setIsLogged(store.isUserLogged || false)
+        }
+        else {
+            Promise.resolve(store).then(store => {
+                if (store.isUserLogged) {
+                    setIsLogged(store.isUserLogged)
+                    setUser(store)
+                    setCourses(store.courses)
+                }
+                else {
+                    setIsLogged(false)
+                }
+            })
+        }
         return () => {
             setIsLogged(false)
         }
@@ -43,12 +52,12 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
 
     const handleBuyCourse = (): void => {
         //when this course isn't in course list of user you can buy it
-        let canBuy = true 
+        let canBuy = true
 
         courses?.map(course => (
             course._id === courseId ? canBuy = false : null
         ))
-        if(!canBuy) return
+        if (!canBuy) return
         const course: CourseObj = {
             name,
             author,
@@ -56,8 +65,9 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
             price,
             _id: id
         }
+        
         dispatch(buyCourse(user, course))
-    } 
+    }
 
     return (
         <div className="Course">

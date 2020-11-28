@@ -25,14 +25,21 @@ const Admin: FC = () => {
     const [isAdmin, setIsAdmin] = useState<boolean>(true)
 
     useEffect(() => {
-        Promise.resolve(store).then(store => {
-            if (store.isAdmin) {
-                setIsAdmin(true)
-            }
-            else {
-                setIsAdmin(false)
-            }
-        })
+        const localStorage = window.localStorage.getItem('store')
+        if (localStorage !== null) {
+            const store: User = JSON.parse(localStorage)
+            setIsAdmin(store.isAdmin || false)
+        }
+        else {
+            Promise.resolve(store).then(store => {
+                if (store.isAdmin) {
+                    setIsAdmin(true)
+                }
+                else {
+                    setIsAdmin(false)
+                }
+            })
+        }
         return () => {
         }
     }, [store])
@@ -57,19 +64,20 @@ const Admin: FC = () => {
     }
 
     const addCourseToDb = (): void => {
-        if(!name.length || !description.length || !author.length){
+        if (!name.length || !description.length || !author.length) {
             setWarning('Some input is empty')
             return
         }
-        if(price < 0 || isNaN(price)){
+        if (price < 0 || isNaN(price)) {
             setWarning('Incorrect price')
             return
         }
-        if(description.length > 50){
+        if (description.length > 50) {
             setWarning('Description can has 50 letters')
             return
         }
         dispatch(addCourse({ name, author, description, price, _id: new Date().getMilliseconds() }))
+        setisModalVisiblity(false)
     }
 
     const values = {

@@ -1,23 +1,30 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import {NavLink} from 'react-router-dom'
- 
+import { NavLink } from 'react-router-dom'
+
 const Nav: FC = () => {
 
     const store = useSelector((store: RootUserState) => store.userReducer)
     const [isAdmin, setIsAdmin] = useState<boolean>(false)
 
-    useEffect(() => { 
-        Promise.resolve(store).then(store => {
-            if(store.isAdmin){
-                setIsAdmin(true)
-            }
-            else{
-                setIsAdmin(false)
-            }
-        })
+    useEffect(() => {
+        const localStorage = window.localStorage.getItem('store')
+        if (localStorage !== null) {
+            const store: User = JSON.parse(localStorage)
+            setIsAdmin(store.isAdmin || false)
+        }
+        else {
+            Promise.resolve(store).then(store => {
+                if (store.isAdmin) {
+                    setIsAdmin(true)
+                }
+                else {
+                    setIsAdmin(false)
+                }
+            })
+        }
         return () => {
-        } 
+        }
     }, [store])
 
     return (
@@ -32,5 +39,5 @@ const Nav: FC = () => {
         </div>
     );
 }
- 
+
 export default Nav;

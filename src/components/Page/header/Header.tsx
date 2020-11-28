@@ -34,7 +34,6 @@ const Header: FC = () => {
     useEffect(() => {
         const localStorage = window.localStorage.getItem('store')
         if (localStorage !== null) {
-            console.log('yes')
             const store: User = JSON.parse(localStorage)
             setUserLogin(store.login || '')
             setIsUserAdmin(store.isAdmin || false)
@@ -67,6 +66,7 @@ const Header: FC = () => {
             cleanUserInfo()
         }
     }, [store])
+
 
     const handleSignIn = (): void => {
         dispatch(signIn({ login: formLogin, password }))
