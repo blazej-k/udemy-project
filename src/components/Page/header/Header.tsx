@@ -63,9 +63,17 @@ const Header: FC = () => {
     }
 
     const handleSignUp = (): void => {
+        const firstLetterOfFormLogin = formLogin.charAt(0)
+        const lastLetterOfFormLogin = formLogin.charAt(-1)
         if(formLogin.length < 5 || password.length < 8){
             setWarning('Password or login too short')
             return 
+        }
+        if(firstLetterOfFormLogin === " "){
+            setFormLogin(formLogin.replace(firstLetterOfFormLogin, ""))
+        }
+        if(lastLetterOfFormLogin === " "){
+            setFormLogin(formLogin.replace(lastLetterOfFormLogin, ""))
         }
         dispatch(signUp({ login: formLogin, password, isAdmin: isAdminInForm }))
     }
