@@ -2,6 +2,7 @@ export const SIGNIN = 'signin'
 export const SIGNOUT = 'signout'
 export const SIGNUP = 'signup'
 export const BUYCOURSE = 'buycourse'
+export const GETSTATE = 'getstate'
 
 const sendData = (URL: string, body: User): Promise<Response> => (
     fetch(URL, {
@@ -49,5 +50,12 @@ export const signOut = ({}: User): SignOut => (
     {
         type: SIGNOUT,
         payload: {}
+    }
+)
+
+export const getState = (state: User): GetState => (
+    {
+        type: GETSTATE,
+        payload: state
     }
 )

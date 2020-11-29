@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC, useLayoutEffect } from 'react'
+import React, { useState, FC, useLayoutEffect } from 'react'
 import { useSelector } from 'react-redux'
 import Course from '../Course'
 
@@ -18,6 +18,7 @@ const MyCourses: FC = () => {
             setCourses(store.courses || [])
         }
         else {
+            console.log('fsdfs')
             Promise.resolve(store).then(store => {
                 if ((store.courses) && (store.isUserLogged)) {
                     setIsLogged(store.isUserLogged)
@@ -26,6 +27,7 @@ const MyCourses: FC = () => {
             })
         }
         return () => {
+            setCourses([])
         }
     }, [store])
 
@@ -40,6 +42,7 @@ const MyCourses: FC = () => {
                 /></li>
             })}
         </ul >
+    console.log(courses)
     return (
         <div className="MyCourses-list">
             {isLogged ? courses.length ? coursesElement : <h1>Buy some courses and go learn!</h1> :

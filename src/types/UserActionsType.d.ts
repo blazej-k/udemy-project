@@ -2,6 +2,7 @@ const SIGNIN = 'signin'
 const SIGNOUT = 'signout'
 const SIGNUP = 'signup'
 const BUYCOURSE = 'buycourse'
+const GETSTATE = 'getstate'
 
 type SignIn = {
     type: typeof SIGNIN
@@ -22,6 +23,11 @@ type SignUp = {
 type BuyCourse = {
     type: typeof BUYCOURSE
     payload: Promise<Response>
+}
+
+type GetState = {
+    type: typeof GETSTATE
+    payload: User
 }
  
 type User = {

@@ -1,1 +1,1 @@
-type UserActionType = SignIn | SignOut | SignUp | BuyCourse
+type UserActionType = SignIn | SignOut | SignUp | BuyCourse | GetState

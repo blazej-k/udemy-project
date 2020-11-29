@@ -51,7 +51,8 @@ const Courses: FC = () => {
                             id={course._id}
                         /></li>
                     })}
-                </ul>}
+                </ul>
+            }
         </div>
     );
 }

@@ -7,6 +7,7 @@ import Page from './Page'
 
 const App: FC = () => {
 
+
   const PageProvider = <Provider store={store}><Page/></Provider>
 
   return (

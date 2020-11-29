@@ -1,4 +1,4 @@
-import { SIGNIN, SIGNOUT, SIGNUP, BUYCOURSE } from '../actions/UserActions'
+import { SIGNIN, SIGNOUT, SIGNUP, BUYCOURSE, GETSTATE } from '../actions/UserActions'
 
 export const UserReducer = async (state: User = {}, action: UserActionType) => {
     const { localStorage } = window
@@ -32,7 +32,9 @@ export const UserReducer = async (state: User = {}, action: UserActionType) => {
                 .then((res: User) => state = res)
                 .then(res => localStorage.setItem('store', JSON.stringify(res)))
             return state
-
+        
+        case GETSTATE:
+            return state = action.payload
         default:
             return state
     }
