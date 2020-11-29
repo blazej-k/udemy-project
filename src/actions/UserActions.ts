@@ -4,7 +4,7 @@ export const SIGNUP = 'signup'
 export const BUYCOURSE = 'buycourse'
 export const GETSTATE = 'getstate'
 
-const sendData = (URL: string, data?: User): Promise<Response> => (
+const sendData = (URL: string, data: User): Promise<Response> => (
     fetch(URL, {
         method: 'POST',
         headers: {
@@ -48,7 +48,7 @@ export const buyCourse = (userObj: User, courses: CourseObj): BuyCourse => {
 
 export const signOut = (_id: string): SignOut => {
     
-//    sendData('http://localhost:2000/signOut', undefined, _id)
+   sendData('http://localhost:2000/signOut', {_id})
 
     return {
         type: SIGNOUT,
