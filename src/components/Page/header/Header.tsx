@@ -90,15 +90,17 @@ const Header: FC = () => {
             setWarning("Login can has 15 leters and password 25")
             return
         }
-        formLogin.split('').map<boolean | void>(letter => {
+        formLogin.split('').map<boolean | null>(letter => {
             if (letter !== ' ') {
                 return isLoginCorrect = true
             }
+            return null
         })
-        password.split('').map<boolean | void>(letter => {
+        password.split('').map<boolean | null>(letter => {
             if (letter !== ' ') {
                 return isPasswordCorrect = true
             }
+            return null
         })
         isLoginCorrect && isPasswordCorrect ? dispatch(signUp({ login: formLogin, password, isAdmin: isAdminInForm }))
             : setWarning('Login or password have to have one letter')
@@ -106,7 +108,6 @@ const Header: FC = () => {
     }
 
     const handleSignOut = (): void => {
-        console.log(id)
         id && dispatch(signOut(id)) 
         window.localStorage.removeItem('store')
     }
