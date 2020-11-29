@@ -33,7 +33,7 @@ type GetState = {
 type User = {
     login?: string,
     password?: string,
-    id?: string | number,
+    _id?: string,
     isAdmin?: boolean,
     isUserLogged?: boolean,
     courses?: CourseObj[]

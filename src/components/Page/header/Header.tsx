@@ -13,7 +13,8 @@ const Header: FC = () => {
         [isLogged, setIsLogged] = useState<boolean>(false),
         [isAdminInForm, setIsAdminInForm] = useState<boolean>(false),
         [isUserAdmin, setIsUserAdmin] = useState<boolean>(false),
-        [warning, setWarning] = useState<string>('')
+        [warning, setWarning] = useState<string>(''),
+        [id, setId] = useState<string>()
 
     const dispatch = useDispatch()
     const store: User = useSelector((store: RootUserState) => store.userReducer)
@@ -38,12 +39,14 @@ const Header: FC = () => {
             setUserLogin(store.login || '')
             setIsUserAdmin(store.isAdmin || false)
             setIsLogged(store.isUserLogged || false)
+            setId(store._id)
         }
         else {
             Promise.resolve(store).then((store) => {
                 if (store.login) {
                     window.localStorage.setItem('store', JSON.stringify(store))
                     setUserLogin(store.login)
+                    setId(store._id)
                 }
                 if (store.isAdmin) {
                     setIsUserAdmin(store.isAdmin)
@@ -103,7 +106,8 @@ const Header: FC = () => {
     }
 
     const handleSignOut = (): void => {
-        dispatch(signOut({}))
+        console.log(id)
+        id && dispatch(signOut(id)) 
         window.localStorage.removeItem('store')
     }
 

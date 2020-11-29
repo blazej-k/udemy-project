@@ -7,7 +7,7 @@ type CourseObj = {
     description: string,
     price: number,
     error?: string
-    _id: number
+    _id?: number
 }
 
 type AddCourse = {

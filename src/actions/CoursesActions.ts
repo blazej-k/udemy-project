@@ -21,14 +21,13 @@ const getData = (URL: string): Promise<Response> => (
     })
 )
 
-export const addCourse = ({name, author, description, price, _id}: CourseObj): AddCourse => {
+export const addCourse = ({name, author, description, price}: CourseObj): AddCourse => {
 
     const course: CourseObj = {
         name,
         author,
         description,
-        price,
-        _id 
+        price
     }
 
     return{

@@ -43,7 +43,7 @@ const Courses: FC = () => {
             {!courses.length ? <p>There isn't courses to buy</p> :
                 <ul>
                     {courses.map(course => {
-                        return <li key={course._id}><Course
+                        return course._id && <li key={course._id}><Course
                             name={course.name}
                             author={course.author}
                             description={course.description}
@@ -51,8 +51,7 @@ const Courses: FC = () => {
                             id={course._id}
                         /></li>
                     })}
-                </ul>
-            }
+                </ul>}
         </div>
     );
 }

@@ -4,13 +4,13 @@ export const SIGNUP = 'signup'
 export const BUYCOURSE = 'buycourse'
 export const GETSTATE = 'getstate'
 
-const sendData = (URL: string, body: User): Promise<Response> => (
+const sendData = (URL: string, data?: User): Promise<Response> => (
     fetch(URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(data)
     })
 )
 
@@ -46,12 +46,15 @@ export const buyCourse = (userObj: User, courses: CourseObj): BuyCourse => {
     }
 }
 
-export const signOut = ({}: User): SignOut => (
-    {
+export const signOut = (_id: string): SignOut => {
+    
+//    sendData('http://localhost:2000/signOut', undefined, _id)
+
+    return {
         type: SIGNOUT,
         payload: {}
     }
-)
+}
 
 export const getState = (state: User): GetState => (
     {

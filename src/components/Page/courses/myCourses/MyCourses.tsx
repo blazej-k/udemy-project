@@ -18,7 +18,6 @@ const MyCourses: FC = () => {
             setCourses(store.courses || [])
         }
         else {
-            console.log('fsdfs')
             Promise.resolve(store).then(store => {
                 if ((store.courses) && (store.isUserLogged)) {
                     setIsLogged(store.isUserLogged)
@@ -28,21 +27,21 @@ const MyCourses: FC = () => {
         }
         return () => {
             setCourses([])
+            setIsLogged(false)
         }
     }, [store])
 
     const coursesElement =
         <ul>
             {courses.map(course => {
-                return <li key={new Date().getMilliseconds()}><Course
+                return course._id && <li key={course._id}><Course
                     name={course.name}
                     author={course.author}
                     description={course.description}
-                    id={course._id || new Date().getMilliseconds()}
+                    id={course._id}
                 /></li>
             })}
         </ul >
-    console.log(courses)
     return (
         <div className="MyCourses-list">
             {isLogged ? courses.length ? coursesElement : <h1>Buy some courses and go learn!</h1> :

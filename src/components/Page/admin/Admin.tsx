@@ -76,7 +76,7 @@ const Admin: FC = () => {
             setWarning('Description can has 50 letters')
             return
         }
-        dispatch(addCourse({ name, author, description, price, _id: new Date().getMilliseconds() }))
+        dispatch(addCourse({ name, author, description, price}))
         setisModalVisiblity(false)
     }
 

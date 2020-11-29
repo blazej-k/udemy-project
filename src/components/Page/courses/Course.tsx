@@ -69,8 +69,6 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
         dispatch(buyCourse(user, course))
     }
 
-    console.log(name)
-
     return (
         <div className="Course">
             <h2>{name}</h2>
