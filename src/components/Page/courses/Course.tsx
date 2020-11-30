@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { buyCourse } from '../../../actions/UserActions'
+
 export interface CourseProps {
     name: string,
     author: string,
@@ -15,30 +16,34 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
     const { location } = useHistory()
     const pathName = location.pathname
 
-    const store = useSelector((store: RootState) => store.userReducer)
+    const userStore = useSelector((store: RootState) => store.userReducer)
     const dispatch = useDispatch()
 
     const [isLogged, setIsLogged] = useState<boolean>(true)
     const [user, setUser] = useState<User>({})
-    const [courseId, setCourseId] = useState<number>()
-    const [courses, setCourses] = useState<CourseObj[] | undefined>([])
+    const [canBuy, setCanBuy] = useState<boolean>(true)
 
 
     useEffect(() => {
-        setCourseId(id)
         const localStorage = window.localStorage.getItem('store')
         if (localStorage !== null) {
-            const store: User = JSON.parse(localStorage)
-            setCourses(store.courses || [])
-            setUser(store)
-            setIsLogged(store.isUserLogged || false)
+            const userStore: User = JSON.parse(localStorage)
+            setUser(userStore)
+            setIsLogged(userStore.isUserLogged || false)
+            userStore.courses?.map(course => {
+                course._id === id && setCanBuy(false)
+                return null
+            })
         }
         else {
-            Promise.resolve(store).then(store => {
-                if (store.isUserLogged) {
-                    setIsLogged(store.isUserLogged)
-                    setUser(store)
-                    setCourses(store.courses)
+            Promise.resolve(userStore).then(userStore => {
+                if (userStore.isUserLogged) {
+                    setIsLogged(userStore.isUserLogged)
+                    setUser(userStore)
+                    userStore.courses?.map(course => {
+                        course._id === id && setCanBuy(false)
+                        return null
+                    })
                 }
                 else {
                     setIsLogged(false)
@@ -48,25 +53,25 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
         return () => {
             setIsLogged(false)
         }
-    }, [store, id])
+    }, [userStore, id])
+
+    useEffect(() => {
+
+    }, [])
 
     const handleBuyCourse = (): void => {
         //when this course isn't in course list of user you can buy it
-        let canBuy = true
+        if (canBuy) {
+            const course: CourseObj = {
+                name,
+                author,
+                description,
+                price,
+                _id: id
+            }
 
-        courses?.map(course => (
-            course._id === courseId ? canBuy = false : null
-        ))
-        if (!canBuy) return
-        const course: CourseObj = {
-            name,
-            author,
-            description,
-            price,
-            _id: id
+            dispatch(buyCourse(user, course))
         }
-    
-        dispatch(buyCourse(user, course))
     }
 
     return (
@@ -76,7 +81,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
             <p>To bd zdj</p>
             <p>{description}</p>
             {price > -1 && <h1>Price: {price} $</h1>}
-            {pathName === "/courses" && isLogged && <button onClick={handleBuyCourse}>Buy</button>}
+            {pathName === "/courses" && isLogged && canBuy ? <button onClick={handleBuyCourse}>Buy</button> : <p>Bought</p>}
         </div>
     );
 }
