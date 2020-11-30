@@ -17,7 +17,7 @@ const Header: FC = () => {
         [id, setId] = useState<string>()
 
     const dispatch = useDispatch()
-    const store: User = useSelector((store: RootUserState) => store.userReducer)
+    const store: User = useSelector((store: RootState) => store.userReducer)
 
     const cleanForm = () => {
         setFormLogin('')

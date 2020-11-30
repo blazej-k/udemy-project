@@ -1,5 +1,5 @@
-type RootUserState = {
-    userReducer: User,
-    courseReducer: CourseObj[]
+type RootState = {
+    userReducer: User
+    coursesReducer: CourseObj[]
 }
 

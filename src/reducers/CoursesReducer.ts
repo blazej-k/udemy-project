@@ -1,6 +1,6 @@
 import { ADDCOURSE, GETCOURSES } from '../actions/CoursesActions'
 
-export const CourseReducer = async (state: CourseObj[] = [], action: CourseRedcucerType) => {
+export const CoursesReducer = async (state: CourseObj[] = [], action: CoursesRedcucerType) => {
     switch (action.type) {
         case ADDCOURSE:
             let newState: CourseObj[] = []
@@ -10,7 +10,7 @@ export const CourseReducer = async (state: CourseObj[] = [], action: CourseRedcu
                 newState.push(res)
             })
             return state = newState
-        case GETCOURSES: 
+        case GETCOURSES:  
             await Promise.resolve(action.payload).then(res => res.json()).then(res => state = res)
             return state
         default:

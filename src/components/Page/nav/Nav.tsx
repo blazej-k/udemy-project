@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 const Nav: FC = () => {
 
-    const store = useSelector((store: RootUserState) => store.userReducer)
+    const store = useSelector((store: RootState) => store.userReducer)
     const [isAdmin, setIsAdmin] = useState<boolean>(false)
 
     useEffect(() => {

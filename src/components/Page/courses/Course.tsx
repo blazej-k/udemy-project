@@ -15,7 +15,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
     const { location } = useHistory()
     const pathName = location.pathname
 
-    const store = useSelector((store: RootUserState) => store.userReducer)
+    const store = useSelector((store: RootState) => store.userReducer)
     const dispatch = useDispatch()
 
     const [isLogged, setIsLogged] = useState<boolean>(true)
@@ -65,7 +65,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
             price,
             _id: id
         }
-        
+    
         dispatch(buyCourse(user, course))
     }
 
@@ -75,7 +75,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
             <span>{author}</span>
             <p>To bd zdj</p>
             <p>{description}</p>
-            {price > -1 && <h1>{price}</h1>}
+            {price > -1 && <h1>Price: {price} $</h1>}
             {pathName === "/courses" && isLogged && <button onClick={handleBuyCourse}>Buy</button>}
         </div>
     );

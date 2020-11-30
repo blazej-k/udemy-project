@@ -5,7 +5,7 @@ import Course from '../Course'
 
 const MyCourses: FC = () => {
 
-    const store = useSelector((store: RootUserState) => store.userReducer)
+    const store = useSelector((store: RootState) => store.userReducer)
 
     const [courses, setCourses] = useState<CourseObj[]>([])
     const [isLogged, setIsLogged] = useState<boolean>()

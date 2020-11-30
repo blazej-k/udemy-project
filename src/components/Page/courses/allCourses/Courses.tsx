@@ -5,9 +5,9 @@ import Course from '../Course'
 
 const Courses: FC = () => {
 
-    const coursesStore = useSelector((store: RootUserState) => store.courseReducer)
-    const userStore = useSelector((store: RootUserState) => store.userReducer)
-    const [isCoursesDownloaded, setIsCoursesDownloaded] = useState<boolean>(false)
+    const coursesStore = useSelector((store: RootState) => store.coursesReducer)
+    const userStore = useSelector((store: RootState) => store.userReducer)
+    const [areCoursesDownloaded, setAreCoursesDownloaded] = useState<boolean>(false)
     const dispatch = useDispatch()
 
     const [courses, setCourses] = useState<CourseObj[]>([])
@@ -15,11 +15,7 @@ const Courses: FC = () => {
 
 
     useEffect(() => {
-        // Promise.resolve(coursesStore).then((store) => {
-            // if (store.length === 0) {
-                dispatch(getCourses())
-            // }
-        // })
+            dispatch(getCourses())
     }, [])
 
     useLayoutEffect(() => {
@@ -37,12 +33,12 @@ const Courses: FC = () => {
             })
         }
     }, [userStore, coursesStore])
-    courses.length > 0 && !isCoursesDownloaded && setIsCoursesDownloaded(true)
+    courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
 
     return (
         <div className='Courses-list'>
             {!isLogged && <h2>Sign in to buy course</h2>}
-            {!isCoursesDownloaded ? <p>Loading...</p> : !courses.length ? <p>There isn't courses to buy...</p> :
+            {!areCoursesDownloaded ? <p>Loading...</p> : !courses.length ? <p>There isn't courses to buy...</p> :
                 <ul>
                     {courses.map(course => {
                         return course._id && <li key={course._id}><Course

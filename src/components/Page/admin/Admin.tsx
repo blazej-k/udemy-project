@@ -20,7 +20,7 @@ const Admin: FC = () => {
     const [price, setPrice] = useState<number>(0)
     const [warning, setWarning] = useState('')
 
-    const store = useSelector((store: RootUserState) => store.userReducer)
+    const store = useSelector((store: RootState) => store.userReducer)
     //isAdmin true beucase when is false he redirect immediately, use effect corrects is isAdmin true or false
     const [isAdmin, setIsAdmin] = useState<boolean>(true)
 
