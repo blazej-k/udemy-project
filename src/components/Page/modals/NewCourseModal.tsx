@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 export interface NewCourseModalProps {
     visiblity: boolean,
     toogleModal: (prev: boolean) => void,
-    handleInput: (e: FormEvent<HTMLInputElement>) => void,
+    handleInput: (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
     values: {
         name: string,
         author: string,
@@ -30,19 +30,20 @@ const NewCourseModal: FC<NewCourseModalProps> = ({visiblity, values, toogleModal
                 <label>
                     Name:
                     <input type='text' name='name' required value={name} onChange={handleInput} />
-                </label>
+                </label><br/>
                 <label>
                     Author:
                     <input type='text' name='author' required value={author} onChange={handleInput} />
-                </label>
+                </label><br/>
                 <label>
                     Price:
                     <input type='number' name='price' required value={price} onChange={handleInput} />
-                </label> 
-                <label>
+                </label> <br/>
+                {/* <label>
                     Description:
                     <input type='text' name='description' required value={description} onChange={handleInput} />
-                </label>
+                </label> */}
+                <textarea onChange={handleInput} name='description' value={description} rows={5} placeholder="description to your course" style={{'resize': 'none', 'width': '100%'}}></textarea>
                 <div className='Modal-invalidFormValidate'>
                     {warning.length ? warning : null}
                 </div>

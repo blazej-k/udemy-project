@@ -48,7 +48,7 @@ const Admin: FC = () => {
         setisModalVisiblity(!prev)
     }
 
-    const handleInput = (e: FormEvent<HTMLInputElement>): void => {
+    const handleInput = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         if (e.currentTarget.name === 'name') {
             setName(e.currentTarget.value)
         }

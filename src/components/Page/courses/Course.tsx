@@ -80,7 +80,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
             <span>{author}</span>
             <p>To bd zdj</p>
             <p>{description}</p>
-            {price > -1 && <h1>Price: {price} $</h1>}
+            {price > -1 && <h3>Price: {price} $</h3>}
             {pathName === "/courses" && isLogged && canBuy ? <button onClick={handleBuyCourse}>Buy</button> : <p>Bought</p>}
         </div>
     );
