@@ -15,11 +15,11 @@ const Courses: FC = () => {
 
 
     useEffect(() => {
-            dispatch(getCourses())
+        dispatch(getCourses())
     }, [])
 
     useLayoutEffect(() => {
-        Promise.resolve(coursesStore).then(res => setCourses(res))
+        Promise.resolve(coursesStore).then(res => courses !== coursesStore && setCourses(res))
         const localStorage = window.localStorage.getItem('store')
         if (localStorage !== null) {
             const store: User = JSON.parse(localStorage)
@@ -33,7 +33,10 @@ const Courses: FC = () => {
             })
         }
     }, [userStore, coursesStore])
-    courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
+
+    useEffect(() => {
+        courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
+    }, [courses])
 
     return (
         <div className='Courses-list'>

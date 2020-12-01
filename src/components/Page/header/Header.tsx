@@ -108,7 +108,7 @@ const Header: FC = () => {
     }
 
     const handleSignOut = (): void => {
-        id && dispatch(signOut(id)) 
+        id && dispatch(signOut(id))
         window.localStorage.removeItem('store')
     }
 
