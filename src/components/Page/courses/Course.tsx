@@ -64,22 +64,21 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
                 author,
                 description,
                 price,
-                img,
                 _id: id
             }
             dispatch(buyCourse(user, course)) 
             setCanBuy(false) 
         }
-    }
+    } 
  
     return ( 
         <div className="Course">
             <h2>{name}</h2>
             <span>{author}</span>
-            {img && <img src={img}/>}
+            {/* {img && <img src={img}/>} */}
             <p>{description}</p>
             {price > -1 && <h3>Price: {price} $</h3>}
-            {pathName === "/courses" ? isLogged && canBuy ? <button onClick={handleBuyCourse}>Buy</button> : <p>Bought</p> : null}
+            {pathName === "/courses" && isLogged ? canBuy ? <button onClick={handleBuyCourse}>Buy</button> : <p>Bought</p> : null}
         </div>
     );
 }
