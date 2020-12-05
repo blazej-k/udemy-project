@@ -2,13 +2,10 @@ export const ADDCOURSE = 'addcourse'
 export const GETCOURSES = 'getcourses'
 
 
-const sendData = (URL: string, body: CourseObj): Promise<Response> => (
+const sendData = (URL: string, body: FormData): Promise<Response> => (
     fetch(URL, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
+        body: body
     })
 )
 
@@ -21,14 +18,7 @@ const getData = (URL: string): Promise<Response> => (
     })
 )
 
-export const addCourse = ({name, author, description, price}: CourseObj): AddCourse => {
-
-    const course: CourseObj = {
-        name,
-        author,
-        description,
-        price
-    }
+export const addCourse = (course: FormData): AddCourse => {
 
     return{
         type: ADDCOURSE,

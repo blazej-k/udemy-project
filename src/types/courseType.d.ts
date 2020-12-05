@@ -6,6 +6,7 @@ type CourseObj = {
     author: string,
     description: string,
     price: number,
+    img: Image | File,
     error?: string
     _id?: number
 }

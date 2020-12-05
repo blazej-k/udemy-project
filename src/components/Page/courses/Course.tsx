@@ -8,12 +8,13 @@ export interface CourseProps {
     author: string,
     description: string,
     price?: number,
+    img: string,
     id: number
 }
 
-const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) => {
+const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, id }) => {
 
-    const { location } = useHistory()
+    const { location } = useHistory() 
     const pathName = location.pathname
 
     const userStore = useSelector((store: RootState) => store.userReducer)
@@ -55,10 +56,6 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
         }
     }, [userStore, id])
 
-    useEffect(() => {
-
-    }, [])
-
     const handleBuyCourse = (): void => {
         //when this course isn't in course list of user you can buy it
         if (canBuy) {
@@ -67,18 +64,19 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, id }) 
                 author,
                 description,
                 price,
+                img,
                 _id: id
             }
-            dispatch(buyCourse(user, course))
-            setCanBuy(false)
+            dispatch(buyCourse(user, course)) 
+            setCanBuy(false) 
         }
     }
-
-    return (
+ 
+    return ( 
         <div className="Course">
             <h2>{name}</h2>
             <span>{author}</span>
-            <p>To bd zdj</p>
+            {img && <img src={img}/>}
             <p>{description}</p>
             {price > -1 && <h3>Price: {price} $</h3>}
             {pathName === "/courses" ? isLogged && canBuy ? <button onClick={handleBuyCourse}>Buy</button> : <p>Bought</p> : null}

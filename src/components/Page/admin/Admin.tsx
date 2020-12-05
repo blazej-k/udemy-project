@@ -1,13 +1,10 @@
 import * as React from 'react';
-import { FC, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { addCourse } from '../../../actions/CoursesActions'
 import NewCourseModal from '../modals/NewCourseModal'
 
-export interface AdminProps {
-
-}
 
 const Admin: FC = () => {
 
@@ -18,7 +15,8 @@ const Admin: FC = () => {
     const [author, setAuthor] = useState<string>('')
     const [description, setDescription] = useState<string>('')
     const [price, setPrice] = useState<number>(0)
-    const [warning, setWarning] = useState('')
+    const [warning, setWarning] = useState<string>('')
+    const [img, setImg] = useState<File>()
 
     const store = useSelector((store: RootState) => store.userReducer)
     //isAdmin true beucase when is false he redirect immediately, use effect corrects is isAdmin true or false
@@ -58,12 +56,17 @@ const Admin: FC = () => {
         else if (e.currentTarget.name === 'description') {
             setDescription(e.currentTarget.value)
         }
-        else {
+        else if (e.currentTarget.name === 'price') {
             setPrice(Number(e.currentTarget.value))
         }
     }
 
-    const addCourseToDb = (): void => {
+    const handleImgInput = (e: ChangeEvent<HTMLInputElement>): void => {
+        e.currentTarget.files && setImg(e.currentTarget.files[0])
+    }
+
+    const addCourseToDb = (e: FormEvent<HTMLFormElement>): void => {
+        e.preventDefault()
         if (!name.length || !description.length || !author.length) {
             setWarning('Some input is empty')
             return
@@ -76,7 +79,13 @@ const Admin: FC = () => {
             setWarning('Description can has 50 letters')
             return
         }
-        dispatch(addCourse({ name, author, description, price}))
+        const course = new FormData()
+        img && course.append('img', img)
+        course.append('name', name)
+        course.append('price', String(price))
+        course.append('author', author)
+        course.append('description', description)
+        dispatch(addCourse(course))
         setisModalVisiblity(false)
     }
 
@@ -98,6 +107,7 @@ const Admin: FC = () => {
                 values={values}
                 visiblity={isModalVisiblity}
                 add={addCourseToDb}
+                handleImgInput={handleImgInput}
             />
         </>
     );

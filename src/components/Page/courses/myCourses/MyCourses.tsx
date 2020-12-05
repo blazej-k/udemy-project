@@ -38,6 +38,7 @@ const MyCourses: FC = () => {
                     name={course.name}
                     author={course.author}
                     description={course.description}
+                    img={course.img}
                     id={course._id}
                 /></li>
             })}

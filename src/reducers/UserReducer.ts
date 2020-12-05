@@ -3,6 +3,7 @@ import { SIGNIN, SIGNOUT, SIGNUP, BUYCOURSE, GETSTATE } from '../actions/UserAct
 export const UserReducer = async (state: User = {}, action: UserActionType) => {
     const { localStorage } = window
     switch (action.type) {
+        case SIGNUP:
         case SIGNIN:
             await action.payload
                 .then(res => res.json())
@@ -11,15 +12,6 @@ export const UserReducer = async (state: User = {}, action: UserActionType) => {
                     if (!res.error) localStorage.setItem('store', JSON.stringify(res))
                 })
             return state
-
-        case SIGNUP:
-                await action.payload
-                    .then(res => res.json())
-                    .then((res: User) => state = res)
-                    .then(res => {
-                        if (!res.error) localStorage.setItem('store', JSON.stringify(res))
-                    })
-                return state
 
         case SIGNOUT:
             state.isUserLogged = false

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FC, FormEvent } from 'react';
+import { ChangeEvent, FC, FormEvent } from 'react';
 import { Modal, Button } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -14,46 +14,47 @@ export interface NewCourseModalProps {
         price: number,
         warning: string
     },
-    add: () => void 
+    handleImgInput: (e: ChangeEvent<HTMLInputElement>) => void,
+    add: (e: FormEvent<HTMLFormElement>) => void
 }
- 
-const NewCourseModal: FC<NewCourseModalProps> = ({visiblity, values, toogleModal, handleInput, add}) => {
 
-    const {name, author, description, price, warning} = values
+const NewCourseModal: FC<NewCourseModalProps> = ({ visiblity, values, toogleModal, handleInput, add, handleImgInput }) => {
+
+    const { name, author, description, price, warning } = values
 
     return (
-        <Modal show={visiblity} animation={false} onHide={() => toogleModal(visiblity)}> 
-             <Modal.Header closeButton={true}>
-                <Modal.Title>Create new course</Modal.Title> 
+        <Modal show={visiblity} animation={false} onHide={() => toogleModal(visiblity)}>
+            <Modal.Header closeButton={true}>
+                <Modal.Title>Create new course</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <label>
-                    Name:
+                <form encType="multipart/form-data" onSubmit={add}>
+                    <label>
+                        Name:
                     <input type='text' name='name' required value={name} onChange={handleInput} />
-                </label><br/>
-                <label>
-                    Author:
+                    </label><br />
+                    <label>
+                        Author:
                     <input type='text' name='author' required value={author} onChange={handleInput} />
-                </label><br/>
-                <label>
-                    Price:
+                    </label><br />
+                    <label>
+                        Price:
                     <input type='number' name='price' required value={price} onChange={handleInput} />
-                </label> <br/>
-                {/* <label>
-                    Description:
-                    <input type='text' name='description' required value={description} onChange={handleInput} />
-                </label> */}
-                <textarea onChange={handleInput} name='description' value={description} rows={5} placeholder="description to your course" style={{'resize': 'none', 'width': '100%'}}></textarea>
+                    </label> <br />
+                    <input type='file' accept='.jpg, .png' name='img' required onChange={handleImgInput} />
+                    <textarea onChange={handleInput} name='description' value={description} rows={5} placeholder="description to your course" style={{ 'resize': 'none', 'width': '100%' }}></textarea>
+                    <input type='submit' value='ADD!'/>               
+                </form>
                 <div className='Modal-invalidFormValidate'>
                     {warning.length ? warning : null}
                 </div>
             </Modal.Body>
-            <Modal.Footer>
+            {/* <Modal.Footer>
                 <Button variant="primary" onClick={add}>ADD!</Button>
-            </Modal.Footer>
+            </Modal.Footer> */}
 
         </Modal>
     );
 }
- 
+
 export default NewCourseModal;
