@@ -75,7 +75,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
         <div className="Course">
             <h2>{name}</h2>
             <span>{author}</span>
-            {/* {img && <img src={img}/>} */}
+            <img src={img} style={{'width': '10%'}}/>
             <p>{description}</p>
             {price > -1 && <h3>Price: {price} $</h3>}
             {pathName === "/courses" && isLogged ? canBuy ? <button onClick={handleBuyCourse}>Buy</button> : <p>Bought</p> : null}

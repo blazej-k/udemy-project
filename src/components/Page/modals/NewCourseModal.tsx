@@ -23,7 +23,7 @@ const NewCourseModal: FC<NewCourseModalProps> = ({ visiblity, values, toogleModa
     const { name, author, description, price, warning } = values
 
     return (
-        <Modal show={visiblity} animation={false} onHide={() => toogleModal(visiblity)}>
+        <Modal show={visiblity} animation={false} onHide={() => toogleModal(visiblity)} data-aos="fade-up">
             <Modal.Header closeButton={true}>
                 <Modal.Title>Create new course</Modal.Title>
             </Modal.Header>

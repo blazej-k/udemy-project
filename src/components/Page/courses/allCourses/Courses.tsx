@@ -66,7 +66,7 @@ const Courses: FC = () => {
             {!areCoursesDownloaded ? <p>Loading...</p> : !courses.length ? <p>There isn't courses to buy...</p> :
                 <ul>
                     {courses.map((course, index) => {
-                        return course._id && <li key={course._id}><Course
+                        return course._id && <li key={course._id}  data-aos="zoom-in-left"><Course
                             name={course.name}
                             author={course.author}
                             description={course.description}

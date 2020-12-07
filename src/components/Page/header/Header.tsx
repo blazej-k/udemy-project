@@ -1,7 +1,9 @@
 import React, { FC, FormEvent, useEffect, useState } from 'react'
 import ModalElement from '../modals/Modal'
+import Logo from './Logo'
 import { useDispatch, useSelector } from 'react-redux'
 import { signIn, signOut, signUp } from '../../../actions/UserActions'
+import './Header.scss'
 
 const Header: FC = () => {
 
@@ -147,17 +149,24 @@ const Header: FC = () => {
     }
 
     return (
-        <>
-            {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{userLogin}</h3>{isUserAdmin && <h3>(A)</h3>}</> :
-                <>
-                    <div
-                        onClick={toggleModal}
-                        className='signIn'>Zaloguj</div>
-                    <div
-                        className='signUp'
-                        onClick={toggleModal}>Zarejestruj</div>
-                </>
-            }
+        <div className="Header">
+            <div className='Logo'>
+                <Logo />
+            </div>
+            <div className="client-actions">
+                {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{userLogin}</h3>{isUserAdmin && <h3>(A)</h3>}</> :
+                    <>
+                        <button
+                            onClick={toggleModal}
+                            className='signIn'>Zaloguj
+                        </button>
+                        <button
+                            className='signUp'
+                            onClick={toggleModal}>Zarejestruj
+                        </button>
+                    </>
+                }
+            </div>
             <ModalElement
                 loginValue={formLogin}
                 passwordValue={password}
@@ -169,7 +178,7 @@ const Header: FC = () => {
                 warning={warning}
                 modalType={modalType}
             />
-        </>
+        </div>
     );
 }
 

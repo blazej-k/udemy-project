@@ -29,7 +29,7 @@ const ModalElement: FC<ModalElementProps> = ({
 
 
     return (
-        <Modal show={showModal} animation={false} onHide={toogleModal}>
+        <Modal show={showModal} animation={false} onHide={toogleModal} data-aos="fade-up">
             <Modal.Header closeButton={true}>
                 {modalType === "signIn" ? <Modal.Title>Sign in!</Modal.Title> : <Modal.Title>Sign up!</Modal.Title>}
             </Modal.Header>

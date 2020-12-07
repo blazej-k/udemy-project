@@ -21,7 +21,7 @@ const Page: FC = () => {
 
     return (
         <>
-            <Nav/>
+            {/* <Nav/> */}
             <Header/>
             <Switch>
                 <Route path='/' exact component={Home}/>

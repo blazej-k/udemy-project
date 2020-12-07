@@ -28,7 +28,7 @@ const Nav: FC = () => {
     }, [store])
 
     return (
-        <div className="Nav">
+        <div className="Nav" data-aos="fade-in">
             <ul>
                 <NavLink to='/' exact>Home</NavLink>
                 <NavLink to='/courses' exact>Buy courses</NavLink>
