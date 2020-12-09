@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Home from './Page/Home'
-import Nav from './Page/nav/Nav'
 import MyCourses from './Page/courses/myCourses/MyCourses'
 import Courses from './Page/courses/allCourses/Courses'
 import Header from './Page/header/Header'
@@ -20,8 +19,7 @@ const Page: FC = () => {
     }, [])
 
     return (
-        <>
-            {/* <Nav/> */}
+        <> 
             <Header/>
             <Switch>
                 <Route path='/' exact component={Home}/>

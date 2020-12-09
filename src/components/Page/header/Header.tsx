@@ -3,7 +3,8 @@ import ModalElement from '../modals/Modal'
 import Logo from './Logo'
 import { useDispatch, useSelector } from 'react-redux'
 import { signIn, signOut, signUp } from '../../../actions/UserActions'
-import './Header.scss'
+import '../../../style/Header.scss'
+import Nav from './nav/Nav'
 
 const Header: FC = () => {
 
@@ -143,7 +144,7 @@ const Header: FC = () => {
         if (modalType === 'signIn') {
             return handleSignIn()
         }
-        else {
+        else { 
             return handleSignUp()
         }
     }
@@ -154,7 +155,8 @@ const Header: FC = () => {
                 <Logo />
             </div>
             <div className="client-actions">
-                {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{userLogin}</h3>{isUserAdmin && <h3>(A)</h3>}</> :
+                <Nav/>
+                {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{userLogin}</h3></> :
                     <>
                         <button
                             onClick={toggleModal}

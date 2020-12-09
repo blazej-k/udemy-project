@@ -1,35 +1,42 @@
 $border-color: black;
 
-.Header{
+.Header {
     width: 100%;
     margin: 0;
     overflow: auto;
     border-bottom: 1px solid $border-color;
-    .client-actions{
+    background-color: white;
+    .client-actions {
         float: right;
         font-size: 150%;
         line-height: 70px;
-        button{
+        button {
             border: none;
             background-color: unset;
             outline: none;
-            line-height:normal;
+            line-height: normal;
             display: inline-block;
-            vertical-align:bottom;
-            transition: .4s;
+            vertical-align: bottom;
+            transition: 0.4s;
         }
-        button:first-child{
+        button:first-child {
             border-right: 1px solid $border-color;
         }
-        button:hover{
+        button:last-child {
+            border-left: 1px solid $border-color;
+        }
+        button:hover {
             color: gray;
         }
+        .Nav-open-button {
+            padding: 0 5px;
+        }
     }
-    .Logo{
+    .Logo {
         float: left;
         width: 20%;
-        img{
+        img {
             width: 100%;
-        } 
+        }
     }
 }

@@ -64,9 +64,9 @@ const Courses: FC = () => {
         <div className='Courses-list'>
             {!isLogged && <h2>Sign in to buy course</h2>}
             {!areCoursesDownloaded ? <p>Loading...</p> : !courses.length ? <p>There isn't courses to buy...</p> :
-                <ul>
+                <ul data-aos="zoom-in-left">
                     {courses.map((course, index) => {
-                        return course._id && <li key={course._id}  data-aos="zoom-in-left"><Course
+                        return course._id && <li key={course._id}><Course
                             name={course.name}
                             author={course.author}
                             description={course.description}
