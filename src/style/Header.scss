@@ -7,6 +7,7 @@ $border-line: 1px solid black;
     overflow: auto;
     border-bottom: $border-line;
     background-color: white;
+    z-index: 1;
     .client-actions {
         span{
             font-size: 107%;

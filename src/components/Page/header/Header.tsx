@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, useEffect, useState } from 'react'
+import React, { CSSProperties, FC, FormEvent, useEffect, useRef, useState } from 'react'
 import ModalElement from '../modals/Modal'
 import Logo from './Logo'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,7 +17,8 @@ const Header: FC = () => {
         [isAdminInForm, setIsAdminInForm] = useState<boolean>(false),
         [isUserAdmin, setIsUserAdmin] = useState<boolean>(false),
         [warning, setWarning] = useState<string>(''),
-        [id, setId] = useState<string>()
+        [id, setId] = useState<string>(),
+        [navStyle, setNavStyle] = useState<CSSProperties>({position: 'static'})
 
     const dispatch = useDispatch()
     const store: User = useSelector((store: RootState) => store.userReducer)
@@ -73,12 +74,17 @@ const Header: FC = () => {
         }
     }, [store])
 
-    // useEffect(() => {
-    //     document.addEventListener<any>('scroll', (e: ScrollEvent<HTMLDivElement>): void => closeNav(e))
-    //     return () => {
-    //         document.removeEventListener<any>('click', (e: ChangeEvent<HTMLDivElement>) => closeNav(e))
-    //     }
-    // }, [navWidth])
+    const changeNavStyle = (): void => {
+        window.scrollY > 80 ? setNavStyle({position: 'fixed'}) : setNavStyle({position: 'static'})
+    }
+
+    useEffect(() => {
+
+        document.addEventListener<any>('scroll', changeNavStyle)
+        return () => {
+            document.removeEventListener<any>('scroll', changeNavStyle)
+        }
+    }, [])
 
 
     const handleSignIn = (): void => {
@@ -157,8 +163,8 @@ const Header: FC = () => {
     }
 
     return (
-        <>
-            <div className="Header">
+        <> 
+            <div className="Header" style={navStyle}>
                 <div className='Logo'>
                     <Logo />
                 </div>
