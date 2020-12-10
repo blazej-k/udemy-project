@@ -73,6 +73,13 @@ const Header: FC = () => {
         }
     }, [store])
 
+    // useEffect(() => {
+    //     document.addEventListener<any>('scroll', (e: ScrollEvent<HTMLDivElement>): void => closeNav(e))
+    //     return () => {
+    //         document.removeEventListener<any>('click', (e: ChangeEvent<HTMLDivElement>) => closeNav(e))
+    //     }
+    // }, [navWidth])
+
 
     const handleSignIn = (): void => {
         dispatch(signIn({ login: formLogin, password }))
@@ -144,30 +151,34 @@ const Header: FC = () => {
         if (modalType === 'signIn') {
             return handleSignIn()
         }
-        else { 
+        else {
             return handleSignUp()
         }
     }
 
     return (
-        <div className="Header">
-            <div className='Logo'>
-                <Logo />
-            </div>
-            <div className="client-actions">
-                <Nav/>
-                {isLogged ? <><div onClick={handleSignOut}>Wyloguj</div><h3>{userLogin}</h3></> :
-                    <>
-                        <button
-                            onClick={toggleModal}
-                            className='signIn'>Zaloguj
+        <>
+            <div className="Header">
+                <div className='Logo'>
+                    <Logo />
+                </div>
+                <div className="client-actions">
+                    <br />
+                    {isLogged && <span><b>{userLogin}{isUserAdmin && <>(A)</>}</b></span>}
+                    <Nav />
+                    {isLogged ? <><button onClick={handleSignOut}>Wyloguj</button></> :
+                        <>
+                            <button
+                                onClick={toggleModal}
+                                className='signIn'>Zaloguj
                         </button>
-                        <button
-                            className='signUp'
-                            onClick={toggleModal}>Zarejestruj
+                            <button
+                                className='signUp'
+                                onClick={toggleModal}>Zarejestruj
                         </button>
-                    </>
-                }
+                        </>
+                    }
+                </div>
             </div>
             <ModalElement
                 loginValue={formLogin}
@@ -180,7 +191,7 @@ const Header: FC = () => {
                 warning={warning}
                 modalType={modalType}
             />
-        </div>
+        </>
     );
 }
 
