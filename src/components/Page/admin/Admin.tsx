@@ -75,8 +75,8 @@ const Admin: FC = () => {
             setWarning('Incorrect price')
             return
         }
-        if (description.length > 50) {
-            setWarning('Description can has 50 letters')
+        if (description.length > 450) {
+            setWarning('Description can has 450 letters')
             return
         }
         const course = new FormData()

@@ -2,6 +2,8 @@ import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { buyCourse } from '../../../actions/UserActions'
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export interface CourseProps {
     name: string,
@@ -14,7 +16,7 @@ export interface CourseProps {
 
 const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, id }) => {
 
-    const { location } = useHistory() 
+    const { location } = useHistory()
     const pathName = location.pathname
 
     const userStore = useSelector((store: RootState) => store.userReducer)
@@ -66,19 +68,26 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
                 price,
                 _id: id
             }
-            dispatch(buyCourse(user, course)) 
-            setCanBuy(false) 
+            dispatch(buyCourse(user, course))
+            setCanBuy(false)
         }
-    } 
- 
-    return ( 
+    }
+
+    return (
         <div className="Course">
-            <h2>{name}</h2>
-            <span>{author}</span>
-            <img src={img} style={{'width': '10%'}}/>
-            <p>{description}</p>
-            {price > -1 && <h3>Price: {price} $</h3>}
-            {pathName === "/courses" && isLogged ? canBuy ? <button onClick={handleBuyCourse}>Buy</button> : <p>Bought</p> : null}
+            <img src={img} alt='logo of course' />
+            <div className='info'>
+                <h2>{name}</h2>
+                <span>{author}</span>
+                <p>{description}</p>
+                {price > -1 && <h3>{price} $</h3>}
+
+            </div>
+            {pathName === "/courses" && isLogged ? canBuy ?
+                <Button className="mt-3" onClick={handleBuyCourse} variant="outline-success">I'm buying!</Button> :
+                <Button className="mt-3" disabled onClick={handleBuyCourse} variant="outline-success">Bought</Button>  : null
+            }
+            <hr />
         </div>
     );
 }

@@ -43,6 +43,7 @@ const NewCourseModal: FC<NewCourseModalProps> = ({ visiblity, values, toogleModa
                     </label> <br />
                     <input type='file' accept='.jpg, .png' name='img' required onChange={handleImgInput} />
                     <textarea onChange={handleInput} name='description' value={description} rows={5} placeholder="description to your course" style={{ 'resize': 'none', 'width': '100%' }}></textarea>
+                    <span>Długość: {description.length}</span>
                     <input type='submit' value='ADD!'/>               
                 </form>
                 <div className='Modal-invalidFormValidate'>
