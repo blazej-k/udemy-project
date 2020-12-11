@@ -28,6 +28,11 @@
                         color: grey;
                     }
                 }
+                button span svg{
+                    font-size: 150%;
+                    position: relative;
+                    bottom: 7%;
+                }
             }
         }
         li:last-child{

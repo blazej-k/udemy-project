@@ -1,9 +1,10 @@
-import React, { FC, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { buyCourse } from '../../../actions/UserActions'
+import React, { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { buyCourse } from '../../../actions/UserActions';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {BiCheck} from 'react-icons/bi';
 
 export interface CourseProps {
     name: string,
@@ -85,7 +86,8 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
             </div>
             {pathName === "/courses" && isLogged ? canBuy ?
                 <Button className="mt-3" onClick={handleBuyCourse} variant="outline-success">I'm buying!</Button> :
-                <Button className="mt-3" disabled onClick={handleBuyCourse} variant="outline-success">Bought</Button>  : null
+                <Button className="mt-3" disabled onClick={handleBuyCourse} variant="outline-success">Bought
+                <span className='icon'><BiCheck/></span></Button> : null
             }
             <hr />
         </div>

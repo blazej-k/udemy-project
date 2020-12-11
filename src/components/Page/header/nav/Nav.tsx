@@ -1,6 +1,11 @@
-import React, { ChangeEvent, FC, MouseEvent, MouseEventHandler, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { AiFillHome } from "react-icons/ai";
+import { CgPlayListCheck } from "react-icons/cg";
+import { BiListPlus } from "react-icons/bi";
+import { RiContactsLine } from 'react-icons/ri'
+import { MdContactPhone } from 'react-icons/md'
 import '../../../../style/Nav.scss'
 
 const Nav: FC = () => {
@@ -54,11 +59,21 @@ const Nav: FC = () => {
         <button onClick={toogleNav} className="Nav-open-button">Menu</button>
         <div className="Nav-list" style={{"width": navWidth}} ref={nav}>
             <ul>
-                <li><NavLink to='/' exact onClick={toogleNav}>Home</NavLink></li>
-                <li><NavLink to='/courses' exact onClick={toogleNav}>Buy courses</NavLink></li>
-                <li><NavLink to='/myCourses' exact onClick={toogleNav}>My Courses</NavLink></li>
-                <li><NavLink to='/contact' exact onClick={toogleNav}>Contact</NavLink></li>
-                {isAdmin && <li><NavLink to='/admin' exact onClick={toogleNav}>Admin</NavLink></li>}
+                <li>
+                    <NavLink to='/' exact onClick={toogleNav}><AiFillHome/></NavLink>
+                </li>
+                <li>
+                    <NavLink to='/courses' exact onClick={toogleNav}><BiListPlus style={{fontSize: '120%'}}/>Buy courses</NavLink>
+                </li>
+                <li>
+                    <NavLink to='/myCourses' exact onClick={toogleNav}><CgPlayListCheck style={{fontSize: '120%'}}/>My Courses</NavLink>
+                </li>
+                <li>
+                    <NavLink to='/contact' exact onClick={toogleNav}><MdContactPhone/><span>Contact</span></NavLink>
+                    </li>
+                {isAdmin && <li>
+                    <NavLink to='/admin' exact onClick={toogleNav}><RiContactsLine style={{fontSize: '90%'}}/><span>Admin</span></NavLink>
+                </li>}
             </ul>
         </div>
         </>

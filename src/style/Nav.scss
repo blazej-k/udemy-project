@@ -22,12 +22,16 @@
         position: sticky;
         margin: 20px auto;
         a {
-            display: block;
             color: white;
             font-size: 150%;
             padding: 0 10px;
             transition: 0.35s linear;
             border-left: 0px solid black;
+            span{
+                font-size: 100% !important;
+                border-right: none !important;
+                margin-left: 5px;
+            }
         }
         a.active:hover,
         a.active,
