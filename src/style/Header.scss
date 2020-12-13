@@ -8,6 +8,8 @@ $border-line: 1px solid black;
     border-bottom: $border-line;
     background-color: white;
     z-index: 1;
+    top: 0;
+    position: sticky !important;
     .client-actions {
         span{
             font-size: 107%;

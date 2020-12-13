@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, FormEvent, useEffect, useRef, useState } from 'react'
+import React, {FC, FormEvent, useEffect, useState } from 'react'
 import ModalElement from '../modals/Modal'
 import Logo from './Logo'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,8 +17,7 @@ const Header: FC = () => {
         [isAdminInForm, setIsAdminInForm] = useState<boolean>(false),
         [isUserAdmin, setIsUserAdmin] = useState<boolean>(false),
         [warning, setWarning] = useState<string>(''),
-        [id, setId] = useState<string>(),
-        [navStyle, setNavStyle] = useState<CSSProperties>({position: 'static'})
+        [id, setId] = useState<string>()
 
     const dispatch = useDispatch()
     const store: User = useSelector((store: RootState) => store.userReducer)
@@ -73,19 +72,6 @@ const Header: FC = () => {
             cleanUserInfo()
         }
     }, [store])
-
-    const changeNavStyle = (): void => {
-        window.scrollY > 80 ? setNavStyle({position: 'fixed'}) : setNavStyle({position: 'static'})
-    }
-
-    useEffect(() => {
-
-        document.addEventListener<any>('scroll', changeNavStyle)
-        return () => {
-            document.removeEventListener<any>('scroll', changeNavStyle)
-        }
-    }, [])
-
 
     const handleSignIn = (): void => {
         dispatch(signIn({ login: formLogin, password }))
@@ -164,7 +150,7 @@ const Header: FC = () => {
 
     return (
         <> 
-            <div className="Header" style={navStyle}>
+            <div className="Header">
                 <div className='Logo'>
                     <Logo />
                 </div>
