@@ -29,12 +29,12 @@ const Courses: FC = () => {
     };
 
     useLayoutEffect(() => {
-        Promise.resolve(coursesStore).then(res => {
-            const base64Flag = 'data:image/jpeg;base64,';
+        Promise.resolve(coursesStore).then((res: CourseObj[]) => {
             const imgStringsTab: string[] = []
             courses !== coursesStore && res.map(course => {
+                console.log(course.img.contentType)
                 const imageStr = arrayBufferToBase64(course.img.data.data);
-                return imgStringsTab.push(base64Flag + imageStr) 
+                return imgStringsTab.push(`data:${course.img.contentType};base64,` + imageStr) 
             })
             setImgStrings(imgStringsTab)
             setCourses(res)
