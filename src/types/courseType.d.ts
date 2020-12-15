@@ -8,7 +8,8 @@ type CourseObj = {
     price: number,
     img?: Image | File,
     error?: string
-    _id?: number
+    _id?: number,
+    imgStringsTab?: string
 }
 
 type AddCourse = {

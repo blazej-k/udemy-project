@@ -5,11 +5,11 @@ $border-line: 1px solid black;
     width: 100%;
     margin: 0;
     overflow: auto;
-    border-bottom: $border-line;
     background-color: white;
     z-index: 1;
     top: 0;
     position: sticky !important;
+    box-shadow: 0 0 17px 0 gray;
     .client-actions {
         span{
             font-size: 107%;

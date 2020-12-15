@@ -30,13 +30,12 @@ const Courses: FC = () => {
 
     useLayoutEffect(() => {
         Promise.resolve(coursesStore).then((res: CourseObj[]) => {
-            const imgStringsTab: string[] = []
-            courses !== coursesStore && res.map(course => {
-                console.log(course.img.contentType)
-                const imageStr = arrayBufferToBase64(course.img.data.data);
-                return imgStringsTab.push(`data:${course.img.contentType};base64,` + imageStr) 
-            })
-            setImgStrings(imgStringsTab)
+            // const imgStringsTab: string[] = []
+            // courses !== coursesStore && res.map(course => {
+            //     const imageStr = arrayBufferToBase64(course.img.data.data);
+            //     return imgStringsTab.push(`data:${course.img.contentType};base64,` + imageStr) 
+            // })
+            // setImgStrings(imgStringsTab)
             setCourses(res)
         })
         const localStorage = window.localStorage.getItem('store')
@@ -66,13 +65,13 @@ const Courses: FC = () => {
             {!isLogged && <h2>Sign in to buy course</h2>}
             {!areCoursesDownloaded ? <p>Loading...</p> : !courses.length ? <p>There isn't courses to buy...</p> :
                 <ul data-aos="zoom-in-left">
-                    {courses.map((course, index) => {
+                    {courses.map((course) => {
                         return course._id && <li key={course._id}><Course
                             name={course.name}
                             author={course.author}
                             description={course.description}
                             price={course.price}
-                            img={imgStrings[index]}
+                            img={course.imgStringsTab || 'fsdfd'}
                             id={course._id}
                         /></li>
                     })}
