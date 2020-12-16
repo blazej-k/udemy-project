@@ -64,10 +64,10 @@ const Nav: FC = () => {
                     <NavLink to='/' exact onClick={toogleNav}><AiFillHome/></NavLink>
                 </li>
                 <li>
-                    <NavLink to='/courses' exact onClick={toogleNav}><BiListPlus style={{fontSize: '120%'}}/>Buy courses</NavLink>
+                    <NavLink to='/courses' exact onClick={toogleNav}><BiListPlus style={{fontSize: '120%'}}/>Buy course</NavLink>
                 </li>
                 <li>
-                    <NavLink to='/myCourses' exact onClick={toogleNav}><CgPlayListCheck style={{fontSize: '120%'}}/>My Courses</NavLink>
+                    <NavLink to='/myCourses' exact onClick={toogleNav}><CgPlayListCheck style={{fontSize: '120%'}}/>My courses</NavLink>
                 </li>
                 <li>
                     <NavLink to='/contact' exact onClick={toogleNav}><MdContactPhone/><span>Contact</span></NavLink>

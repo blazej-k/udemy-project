@@ -36,6 +36,9 @@ body{
         h1{
             font-size: 400%;
             height: 30vh;
+            .counter{
+                display: inline;
+            }
         }
     }
     .reviews{

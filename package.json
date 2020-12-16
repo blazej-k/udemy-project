@@ -16,6 +16,7 @@
     "jquery": "^3.5.1",
     "multer": "^1.4.2",
     "node-sass": "^4.14.1",
+    "number-counter": "^1.0.3",
     "react": "^17.0.1",
     "react-animated-text": "^0.1.4",
     "react-bootstrap": "^1.4.0",

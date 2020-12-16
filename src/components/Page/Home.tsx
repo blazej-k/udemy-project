@@ -1,6 +1,7 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import '../../style/Home.scss'
 import ReactTextRotator from 'react-text-rotator';
+import NumberCounter from 'number-counter';
 
 
 const Home: FC = () => {
@@ -26,7 +27,12 @@ const Home: FC = () => {
             text: "Growth",
             animation: "squeeze",
         },
+        {
+            text: "WITH US!",
+            animation: "squeeze",
+        },
     ];
+    
 
     return (
 
@@ -34,8 +40,8 @@ const Home: FC = () => {
             <div className='Home-page'>
                 <div className='annivesary'>
                     <br /><br /><br /><br />
-                    <h1 data-aos="fade-up">10 years of
-                    <ReactTextRotator content={content} time={3000} startDelay={0} transitionTime={300} /></h1>
+                    <h1 data-aos="fade-up"><NumberCounter end={10} delay={1} className="counter"/> years of
+                    <ReactTextRotator content={content} time={3000} startDelay={1000} transitionTime={300} /></h1>
                 </div>
                 <div className="reviews" data-aos="fade-right" data-aos-once={true}>
                     <div className='review'>
