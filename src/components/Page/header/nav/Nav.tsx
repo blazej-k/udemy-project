@@ -17,8 +17,9 @@ const Nav: FC = () => {
     const nav = useRef<HTMLDivElement>(null)
 
     const closeNav = (e: ChangeEvent<HTMLDivElement>) => {
-        if(e.target.className === 'Nav-open-button') return
-        e.target.className !== 'Nav-list' && navWidth === '30%' && toogleNav()
+        const {className} = e.target
+        if(className === 'Nav-open-button' || className === 'Nav-open-list' || className === 'Nav-list-ul') return
+        className !== 'Nav-list' && navWidth === '30%' && toogleNav()
     }
 
     useEffect(() => {
@@ -58,7 +59,7 @@ const Nav: FC = () => {
         <>
         <button onClick={toogleNav} className="Nav-open-button">Menu</button>
         <div className="Nav-list" style={{"width": navWidth}} ref={nav}>
-            <ul>
+            <ul className='Nav-list-ul'>
                 <li>
                     <NavLink to='/' exact onClick={toogleNav}><AiFillHome/></NavLink>
                 </li>

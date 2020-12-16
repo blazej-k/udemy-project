@@ -34,7 +34,7 @@ const Home: FC = () => {
             <div className='Home-page'>
                 <div className='annivesary'>
                     <br /><br /><br /><br />
-                    <h1>10 years of
+                    <h1 data-aos="fade-up">10 years of
                     <ReactTextRotator content={content} time={3000} startDelay={0} transitionTime={300} /></h1>
                 </div>
                 <div className="reviews" data-aos="fade-right" data-aos-once={true}>
