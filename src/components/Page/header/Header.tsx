@@ -150,7 +150,7 @@ const Header: FC = () => {
 
     return (
         <> 
-            <div className="Header">
+            <div className="Header" data-aos="fade-down">
                 <div className='Logo'>
                     <Logo />
                 </div>

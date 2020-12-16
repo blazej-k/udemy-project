@@ -1,0 +1,52 @@
+@mixin review($float){
+    width: 100%;
+    overflow: auto;
+    margin: 80px 0;
+    p{
+        width: 40%;
+        float: $float;
+        text-align: $float;
+        @if $float == left{
+            margin-left: 20px;
+        }
+        @else{
+            margin-right: 20px;
+        }
+        .author{
+            color: grey;
+            display: block;
+            font-family: fantasy;
+        }
+    }
+}
+
+body{
+    overflow-x: hidden;
+}
+
+.Home-page{
+    width: 100%;
+    margin: auto;
+    .annivesary{
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        border-radius: 0 0 10px 10px;
+        background: linear-gradient(90deg, rgb(255, 251, 0) 0%, rgb(231, 224, 14) 46%);
+        h1{
+            font-size: 400%;
+            height: 30vh;
+        }
+    }
+    .reviews{
+        width: 100%;
+        margin: 100px auto;
+        overflow: auto;
+        .review{
+            @include review($float: left)
+        }
+        .review:nth-child(2n){
+            @include review($float: right)
+        }
+    }
+}

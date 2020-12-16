@@ -20,22 +20,8 @@ const Courses: FC = () => {
         dispatch(getCourses())
     }, [])
 
-
-    const arrayBufferToBase64 = (buffer: ArrayBufferLike) => {
-        let binary = '';
-        const bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach((b) => binary += String.fromCharCode(b));
-        return window.btoa(binary);
-    };
-
     useLayoutEffect(() => {
         Promise.resolve(coursesStore).then((res: CourseObj[]) => {
-            // const imgStringsTab: string[] = []
-            // courses !== coursesStore && res.map(course => {
-            //     const imageStr = arrayBufferToBase64(course.img.data.data);
-            //     return imgStringsTab.push(`data:${course.img.contentType};base64,` + imageStr) 
-            // })
-            // setImgStrings(imgStringsTab)
             setCourses(res)
         })
         const localStorage = window.localStorage.getItem('store')

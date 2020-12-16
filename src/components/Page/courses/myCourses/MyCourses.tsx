@@ -9,27 +9,8 @@ const MyCourses: FC = () => {
 
     const [courses, setCourses] = useState<CourseObj[]>([])
     const [isLogged, setIsLogged] = useState<boolean>()
-    const [imgStrings, setImgStrings] = useState<string[]>([])
-
-    const arrayBufferToBase64 = (buffer: ArrayBufferLike) => {
-        let binary = '';
-        const bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach((b) => binary += String.fromCharCode(b));
-        return window.btoa(binary);
-    };
 
     useLayoutEffect(() => {
-        // Promise.resolve(store).then(res => {
-        //     const base64Flag = 'data:image/jpeg;base64,';
-        //     const imgStringsTab: string[] = []
-        //     courses !== res.courses && res.courses?.map(course => {
-        //         const imageStr = arrayBufferToBase64(course.img.data.data);
-        //         return imgStringsTab.push(base64Flag + imageStr) 
-        //     })
-        //     // setImgStrings(imgStringsTab)
-        //     // res.courses && setCourses(res.courses)
-        //     console.log(res)
-        // })
         const localStorage = window.localStorage.getItem('store')
         if (localStorage !== null) {
             const store: User = JSON.parse(localStorage)

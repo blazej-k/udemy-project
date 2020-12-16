@@ -21,13 +21,10 @@ export const CoursesReducer = async (state: CourseObj[] = [], action: CoursesRed
             state = []  
             await Promise.resolve(action.payload).then(res => res.json()).then(res => {
                 state = res
-                res.map((course: CourseObj, index: number) => {
+                res.map((course: CourseObj, index: number): string => {
                     const imageStr = arrayBufferToBase64(course.img.data.data);
-                    state[index].imgStringsTab = `data:${course.img.contentType};base64,` + imageStr
-                    console.log(state[index])
-                    // return `data:${course.img.contentType};base64,` + imageStr
+                    return state[index].imgStringsTab = `data:${course.img.contentType};base64,` + imageStr
                 })
-                console.log(state)
             })
             return state
         default:
