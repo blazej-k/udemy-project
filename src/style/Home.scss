@@ -24,6 +24,10 @@ body{
     overflow-x: hidden;
 }
 
+html{
+    scroll-behavior: smooth;
+}
+
 .Home-page{
     width: 100%;
     margin: auto;
@@ -31,8 +35,7 @@ body{
         width: 100%;
         margin: auto;
         text-align: center;
-        border-radius: 0 0 10px 10px;
-        background: linear-gradient(90deg, rgb(255, 251, 0) 0%, rgb(231, 224, 14) 46%);
+        background: linear-gradient(90deg, rgb(251, 255, 0) 0%, rgb(231, 224, 14) 46%);
         h1{
             font-size: 400%;
             height: 30vh;
@@ -41,15 +44,42 @@ body{
             }
         }
     }
-    .reviews{
-        width: 100%;
-        margin: 100px auto;
-        overflow: auto;
-        .review{
-            @include review($float: left)
+    .nav{
+        li{
+            display: inline-block;
+            margin: auto 20px;
+            a{
+                color: rgb(61, 61, 61) !important;
+                text-transform: uppercase;
+            }
+            a:hover{
+                text-decoration: none;
+                transition-duration: .3s;
+                color: gray !important;
+            }
         }
-        .review:nth-child(2n){
-            @include review($float: right)
+        ul{
+            width: 100%;
+            margin: auto 20px;
+            padding: 10px 0;
+            border-bottom: 0.1px solid grey;
+            text-align: center;
         }
     }
-}
+    .content{ 
+        .reviews{
+            width: 100%;
+            margin: 100px auto;
+            overflow: auto;
+            .review:first-child{
+                margin-top: 40px;
+            }
+            .review{
+                @include review($float: left)
+            }
+            .review:nth-child(2n){
+                @include review($float: right)
+            }
+        }
+    }
+}   

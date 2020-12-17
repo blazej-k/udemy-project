@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { AnimatedSwitch } from 'react-router-transition';
 import Home from './Page/Home'
 import MyCourses from './Page/courses/myCourses/MyCourses'
 import Courses from './Page/courses/allCourses/Courses'
@@ -12,23 +13,28 @@ const Page: FC = () => {
 
     const dispatch = useDispatch()
 
-  
+
     useEffect(() => {
-      const store = window.localStorage.getItem('store')
-      store && dispatch(getState(JSON.parse(store)))
+        const store = window.localStorage.getItem('store')
+        store && dispatch(getState(JSON.parse(store)))
     }, [])
 
     return (
-        <> 
-            <Header/>
-            <Switch>
-                <Route path='/' exact component={Home}/>
+        <>
+            <Header />
+            <AnimatedSwitch
+                atEnter={{ opacity: 1 }}
+                atLeave={{ opacity: 0.1 }}
+                atActive={{ opacity: 1 }}
+                className="switch-wrapper"
+            >
+                <Route path='/' exact component={Home} />
                 <Route path='/myCourses' component={MyCourses} />
                 <Route path='/courses' component={Courses} />
                 <Route path='/contact' component={() => <h1>kontakt</h1>} />
                 <Route path='/admin' component={Admin} />
                 <Redirect to='/404' />
-            </Switch>
+            </AnimatedSwitch>
         </>
     );
 }
