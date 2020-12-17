@@ -22,19 +22,20 @@ const Page: FC = () => {
     return (
         <>
             <Header />
-            <AnimatedSwitch
+            {/* <AnimatedSwitch
                 atEnter={{ opacity: 1 }}
-                atLeave={{ opacity: 0.1 }}
+                atLeave={{ opacity: 0 }}
                 atActive={{ opacity: 1 }}
                 className="switch-wrapper"
-            >
+            > */}
+            <Switch>
                 <Route path='/' exact component={Home} />
                 <Route path='/myCourses' component={MyCourses} />
                 <Route path='/courses' component={Courses} />
                 <Route path='/contact' component={() => <h1>kontakt</h1>} />
                 <Route path='/admin' component={Admin} />
                 <Redirect to='/404' />
-            </AnimatedSwitch>
+            </Switch>
         </>
     );
 }
