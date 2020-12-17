@@ -27,6 +27,7 @@
     "react-router-transition": "^2.0.0",
     "react-scripts": "4.0.0",
     "react-text-rotator": "^1.0.1",
+    "reactjs-counter": "^0.5.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "typescript": "^4.0.5",

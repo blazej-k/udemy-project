@@ -1,6 +1,7 @@
-import React, { FC } from 'react'
+import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import '../../style/Home.scss'
 import ReactTextRotator from 'react-text-rotator';
+import Counter from 'reactjs-counter'
 import NumberCounter from 'number-counter';
 
 
@@ -33,6 +34,21 @@ const Home: FC = () => {
         },
     ];
 
+    const counters = useRef<HTMLDivElement>(null)
+
+    const [show, setShow] = useState(false)
+
+    const showCounters = () => {
+        counters.current?.offsetTop && window.pageYOffset >= counters.current?.offsetTop - 1000 && setShow(true)
+    }
+
+    useEffect(() => {
+        document.addEventListener<any>('scroll', (): void => showCounters())
+        return () => {
+            document.removeEventListener<any>('scroll', (): void => showCounters())
+        }
+    }, [])
+
 
     return (
         <>
@@ -46,7 +62,7 @@ const Home: FC = () => {
                     <ul>
                         <li><a href='#reviews'>Reviews</a></li>
                         <li><a href='#recomended'>Recomended courses</a></li>
-                        <li><a href='#recomended'>Recomendses</a></li>
+                        <li><a href='#recomended'>Stats</a></li>
                         <li><a href='#recomended'>Recomendd courses</a></li>
                     </ul>
                 </div>
@@ -96,6 +112,73 @@ const Home: FC = () => {
                     <div className="recomended" id='recomended'>
                         <h2>We recomended: </h2>
                     </div>
+                    <div id='stats'>
+                        <h2>Stats</h2>
+                    </div>
+                    <div className='counters-wrapper' ref={counters} id='stats'>
+                        {show && <div className='counters'>
+                        <div className="counter-users">
+                            <Counter to={953453} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>} /><br/>
+                            <div className='des'>users</div>
+                        </div>
+                        <div className='counter-courses'>
+                            <Counter to={42334} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>courses</div>
+                        </div>
+                        <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
+                        </div>}
+                    </div>
+                    <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
+                        <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
+                        <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
+                        <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
+                        <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
+                        <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
+                        <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
+                        <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
+                        <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
+                        <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
+                        <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
+                        <div className='counter-reviews'>
+                            <Counter to={10394} duration={4000} render={(val: number) => <div className='value'><b>{val.toFixed(0)}</b></div>}/><br/>
+                            <div className='des'>positive reviews</div>
+                        </div>
                 </div>
             </div>
         </>
