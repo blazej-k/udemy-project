@@ -1,12 +1,18 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
 import '../../style/Home.scss'
 import ReactTextRotator from 'react-text-rotator';
-import CountTo from 'react-count-to'; 
+import CountTo from 'react-count-to';
 import NumberCounter from 'number-counter';
- 
+import { NavLink } from 'react-router-dom';
+import { BiCopyright } from 'react-icons/bi';
+import { AiFillFacebook, AiOutlineTwitter } from 'react-icons/ai';
+import { FiInstagram } from 'react-icons/fi';
+
+
+
 
 const Home: FC = () => {
- 
+
     const content = [
         {
             text: "Expirience",
@@ -49,7 +55,7 @@ const Home: FC = () => {
         }
     }, [])
 
-    const fn = (value:any) => <div className='value'><b>{value}</b></div>;
+    const fn = (value: any) => <div className='value'><b>{value}</b></div>;
 
 
     return (
@@ -67,7 +73,7 @@ const Home: FC = () => {
                         <li><a href='#stats' onClick={() => setShow(true)}>Stats</a></li>
                         <li><a href='#footer' onClick={() => setShow(true)}>Footer</a></li>
                     </ul>
-                </div> 
+                </div>
                 <div className='content'>
                     <div className="reviews" data-aos="fade-right" data-aos-once={true} id='reviews'>
                         <div className='review'>
@@ -119,22 +125,64 @@ const Home: FC = () => {
                     </div>
                     <div className='counters-wrapper' ref={counters} id='stats'>
                         {show && <div className='counters'>
-                        <div className="counter-users">
-                        <CountTo to={953445} speed={3000} >{fn}</CountTo><br/>
-                            <div className='des'>users</div>
-                        </div>
-                        <div className='counter-courses'>
-                        <CountTo to={45345} speed={3000} >{fn}</CountTo><br/>
-                            <div className='des'>courses</div>
-                        </div>
-                        <div className='counter-reviews'>
-                        <CountTo to={92432} speed={3000} >{fn}</CountTo><br/>
-                            <div className='des'>positive reviews</div>
-                        </div>
+                            <div className="counter-users">
+                                <CountTo to={953445} speed={3000} >{fn}</CountTo><br />
+                                <div className='des'>users</div>
+                            </div>
+                            <div className='counter-courses'>
+                                <CountTo to={45345} speed={3000} >{fn}</CountTo><br />
+                                <div className='des'>courses</div>
+                            </div>
+                            <div className='counter-reviews'>
+                                <CountTo to={92432} speed={3000} >{fn}</CountTo><br />
+                                <div className='des'>positive reviews</div>
+                            </div>
                         </div>}
                     </div>
                 </div>
-                <div id='footer'>sdfds</div>
+                <div id='footer'>
+                    <div className='pages'>
+                        <h3>Links:</h3>
+                        <ul>
+                            <li>
+                                <NavLink to='/' exact>Home</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to='/courses' exact>Buy course</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to='/myCourses' exact>My courses</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to='/contact' exact>Contact</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to='/job' exact>Work with us</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to='/regulations' exact>Regulations</NavLink>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className='contact'>
+                        <h3>Contact in:</h3>
+                        <ul>
+                            <li>Warszawa, ul.Piłsudskiego 25a,</li>
+                            <li>tel: 434-654-254</li>
+                            <li>e-mail: contact@udemy.com</li>
+                            <li id='social-media'><AiFillFacebook/><FiInstagram/><AiOutlineTwitter/></li>
+                        </ul>
+                    </div>
+                    <div className="authors">
+                        <h3>This page is made by:</h3>
+                        <ul>
+                            <li>UdemyGroupIT</li>
+                            <li>TechWeb</li>
+                            <li>Star Servers</li>
+                        </ul>
+                    </div><br/>
+                    <div className="copyright">UdemyGroup <BiCopyright style={{fontSize: '70%'}}/> {new Date().getFullYear()} all rights reserved</div>
+                </div>
             </div>
         </>
     );
