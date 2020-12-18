@@ -34,7 +34,7 @@ const Annivesary: FC = () => {
     return (
         <div className='annivesary'>
             <br /><br /><br /><br />
-            <h1 data-aos="fade-up"><NumberCounter end={10} delay={1} className="counter" /> years of
+            <h1 data-aos="fade-up"><NumberCounter end={10} delay={1.3} className="counter" /> years of
                     {fadingTextPropsTransition.map(({ item, props, key }) => (
                 <animated.div key={key} style={{ ...props, position: 'absolute', width: '100%', textAlign: 'center' }}>
                     {item.title}
