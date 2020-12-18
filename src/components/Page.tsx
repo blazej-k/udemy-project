@@ -24,7 +24,7 @@ const Page: FC = () => {
             <Header />
             <AnimatedSwitch
                 atEnter={{ opacity: 1 }}
-                atLeave={{ opacity: 0.3 }}
+                atLeave={{ opacity: 0 }}
                 atActive={{ opacity: 1 }}
                 className="switch-wrapper"
             >

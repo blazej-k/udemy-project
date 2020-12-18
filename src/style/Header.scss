@@ -1,6 +1,5 @@
 $border-line: 1px solid black;
 
-
 .Header {
     width: 100%;
     margin: 0;
@@ -10,39 +9,7 @@ $border-line: 1px solid black;
     top: 0;
     position: sticky !important;
     box-shadow: 0 0 17px 0 gray;
-    .client-actions {
-        span{
-            font-size: 107%;
-            border-right: 2px solid black;
-            padding: 4px 5px;
-            box-sizing: border-box;
-        }
-        float: right;
-        font-size: 150%;
-        // line-height: 70px;
-        button {
-            border: none;
-            background-color: unset;
-            outline: none;
-            // line-height: normal;
-            // display: inline-block;
-            // vertical-align: bottom;
-            transition: 0.4s;
-        }
-        button:first-child {
-            color: firebrick;
-            border-right: $border-line;
-        }
-        button:last-child {
-            border-left: $border-line;
-        }
-        button:hover {
-            color: gray;
-        }
-        .Nav-open-button {
-            padding: 0 5px;
-        }
-    }
+    @import './Client-actions';
     .Logo {
         float: left;
         width: 20%;

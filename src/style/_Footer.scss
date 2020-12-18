@@ -1,0 +1,54 @@
+#footer{
+    background-color: rgb(92, 21, 21);
+    color: white;
+    font-size: 160%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    margin-top: 80px;
+    background: linear-gradient(90deg,rgb(146, 27, 27) 0%, rgba(116,0,0,1) 68%);
+    h3{
+        width: 100%;
+        margin: auto;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .pages, .contact{
+        width: 33%;
+        ul{
+            width: 70%;
+            margin: auto;
+            li{
+                a{
+                    color: white;
+                }
+            }
+        }
+    }
+    .contact{
+        border-left: 0.2px solid white;
+        border-right: 0.2px solid white;
+        #social-media{
+            list-style: none;
+            text-align: center;
+            margin-top: 14px;
+            *{
+                font-size: 300%;
+                margin: auto 10px;
+            }
+        }
+    }
+    .authors{
+        width: 33%;
+        ul{
+            width: 70%;
+            margin: auto;
+        }
+    }
+    .copyright{
+        width: 100%;
+        margin: auto;
+        margin-top: 15px;
+        text-align: center;
+    }
+}

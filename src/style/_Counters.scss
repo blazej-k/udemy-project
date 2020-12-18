@@ -1,0 +1,23 @@
+.counters-wrapper{
+    width: 100%;
+    margin: auto;
+    .counters{
+        width: 100%;
+        display: flex;
+        text-align: center;
+        margin: auto;
+        div{
+            width: 33.3%;
+            .value{
+                font-size: 400%;
+                width: 100%;
+            }
+            .des{
+                width: 100%;
+                font-size: 280%;
+                margin: auto;
+                text-transform: uppercase;
+            }
+        }
+    }
+}

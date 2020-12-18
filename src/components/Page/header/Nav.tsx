@@ -1,4 +1,4 @@
-import React, { ChangeEvent, CSSProperties, FC, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { AiFillHome } from "react-icons/ai";
@@ -6,7 +6,6 @@ import { CgPlayListCheck } from "react-icons/cg";
 import { BiListPlus } from "react-icons/bi";
 import { RiContactsLine } from 'react-icons/ri'
 import { MdContactPhone } from 'react-icons/md'
-import '../../../../style/Nav.scss'
 
 const Nav: FC = () => {
 
@@ -20,7 +19,6 @@ const Nav: FC = () => {
     const closeNav = (e: ChangeEvent<HTMLDivElement>) => {
         const {className} = e.target
         if(className === 'Nav-open-button' || className === 'Nav-open-list' || className === 'Nav-list-ul') return
-        // if(className === 'link active') setDispaly('0')
         className !== 'Nav-list' && navWidth === '30%' && toogleNav()
     }
 

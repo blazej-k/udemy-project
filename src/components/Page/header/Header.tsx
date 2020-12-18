@@ -4,7 +4,7 @@ import Logo from './Logo'
 import { useDispatch, useSelector } from 'react-redux'
 import { signIn, signOut, signUp } from '../../../actions/UserActions'
 import '../../../style/Header.scss'
-import Nav from './nav/Nav'
+import Nav from './Nav'
 
 const Header: FC = () => {
 
