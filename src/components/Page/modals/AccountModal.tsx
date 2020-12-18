@@ -1,6 +1,7 @@
 import React, { FC, FormEvent } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.css";
+import '../../../style/Modal.scss'
 
 
 type ModalElementProps = {
@@ -34,20 +35,22 @@ const ModalElement: FC<ModalElementProps> = ({
                 {modalType === "signIn" ? <Modal.Title>Sign in!</Modal.Title> : <Modal.Title>Sign up!</Modal.Title>}
             </Modal.Header>
             <Modal.Body>
-                <label>
-                    Login:
+                <div id='modal'>
+                    <label>
+                        Login:
                     <input type='text' name='login' value={loginValue} onChange={inputHandler} />
-                </label>
-                <label>
-                    Password:
+                    </label><br />
+                    <label>
+                        Password:
                     <input type='password' name='password' value={passwordValue} onChange={inputHandler} />
-                </label>
-                {modalType === "signUp" && <><br /><label>
-                    I'm admin:
+                    </label>
+                    {modalType === "signUp" && <><br /><label>
                     <input type='checkbox' name='admin' checked={isAdmin} onChange={inputHandler} />
-                </label></>}
-                <div className='Modal-invalidFormValidate'>
-                    {warning.length ? warning : null}
+                    Admin
+                    </label></>}
+                    <div className='Modal-invalidFormValidate'>
+                        {warning.length ? warning : null}
+                    </div>
                 </div>
             </Modal.Body>
             <Modal.Footer>

@@ -1,5 +1,5 @@
 import React, {FC, FormEvent, useEffect, useState } from 'react'
-import ModalElement from '../modals/Modal'
+import ModalElement from '../modals/AccountModal'
 import Logo from './Logo'
 import { useDispatch, useSelector } from 'react-redux'
 import { signIn, signOut, signUp } from '../../../actions/UserActions'

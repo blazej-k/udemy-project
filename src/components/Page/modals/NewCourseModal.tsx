@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { ChangeEvent, FC, FormEvent } from 'react';
-import { Modal, Button } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.css";
+import '../../../style/Modal.scss'
 
 export interface NewCourseModalProps {
     visiblity: boolean,
@@ -11,7 +12,7 @@ export interface NewCourseModalProps {
         name: string,
         author: string,
         description: string,
-        price: number,
+        price: number | undefined,
         warning: string
     },
     handleImgInput: (e: ChangeEvent<HTMLInputElement>) => void,
@@ -28,32 +29,33 @@ const NewCourseModal: FC<NewCourseModalProps> = ({ visiblity, values, toogleModa
                 <Modal.Title>Create new course</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <form encType="multipart/form-data" onSubmit={add}>
+                <form encType="multipart/form-data" onSubmit={add} id='modal'>
                     <label>
                         Name:
-                    <input type='text' name='name' required value={name} onChange={handleInput} />
+                    <input type='text' name='name' value={name} onChange={handleInput} placeholder='Course name' />
                     </label><br />
                     <label>
                         Author:
-                    <input type='text' name='author' required value={author} onChange={handleInput} />
+                    <input type='text' name='author' value={author} onChange={handleInput} placeholder='Course author' />
                     </label><br />
                     <label>
                         Price:
-                    <input type='number' name='price' required value={price} onChange={handleInput} />
+                    <input type='number' name='price' value={price} onChange={handleInput} />
                     </label> <br />
-                    <input type='file' accept='.jpg, .png' name='img' required onChange={handleImgInput} />
-                    <textarea onChange={handleInput} name='description' value={description} rows={5} placeholder="description to your course" style={{ 'resize': 'none', 'width': '100%' }}></textarea>
-                    <span>Długość: {description.length}</span>
-                    <input type='submit' value='ADD!'/>               
+                    <input type='file' accept='.jpg, .png' name='img' onChange={handleImgInput} />
+                    <textarea
+                        onChange={handleInput}
+                        name='description'
+                        value={description}
+                        rows={5} placeholder="Description to your course"
+                    ></textarea>
+                    <span>Length: {description.length}</span><br />
+                    <div className='Modal-invalidFormValidate'>
+                        {warning.length > 0 ? warning : null}
+                    </div>
+                    <Button variant="primary" type='submit'>ADD!</Button>
                 </form>
-                <div className='Modal-invalidFormValidate'>
-                    {warning.length ? warning : null}
-                </div>
             </Modal.Body>
-            {/* <Modal.Footer>
-                <Button variant="primary" onClick={add}>ADD!</Button>
-            </Modal.Footer> */}
-
         </Modal>
     );
 }

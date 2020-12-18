@@ -14,7 +14,7 @@ const Admin: FC = () => {
     const [name, setName] = useState<string>('')
     const [author, setAuthor] = useState<string>('')
     const [description, setDescription] = useState<string>('')
-    const [price, setPrice] = useState<number>(0)
+    const [price, setPrice] = useState<number>()
     const [warning, setWarning] = useState<string>('')
     const [img, setImg] = useState<File>()
 
@@ -71,7 +71,7 @@ const Admin: FC = () => {
             setWarning('Some input is empty')
             return
         }
-        if (price < 0 || isNaN(price)) {
+        if ((!price) && ((price) && (price < 0 || isNaN(price)))) {
             setWarning('Incorrect price')
             return
         }
