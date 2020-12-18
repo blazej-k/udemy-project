@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
-import '../../style/Home.scss'
-import ReactTextRotator from 'react-text-rotator';
+import '../../../style/Home.scss'
 import CountTo from 'react-count-to';
 import NumberCounter from 'number-counter';
+import { animated, useTransition } from 'react-spring'
 import { NavLink } from 'react-router-dom';
 import { BiCopyright } from 'react-icons/bi';
 import { AiFillFacebook, AiOutlineTwitter } from 'react-icons/ai';
@@ -12,33 +12,23 @@ import { FiInstagram } from 'react-icons/fi';
 
 
 const Home: FC = () => {
+ 
 
-    const content = [
-        {
-            text: "Expirience",
-            animation: "squeeze",
-        },
-        {
-            text: "Science",
-            animation: "squeeze",
-        },
-        {
-            text: "Joy",
-            animation: "squeeze",
-        },
-        {
-            text: "Evolution",
-            animation: "squeeze",
-        },
-        {
-            text: "Growth",
-            animation: "squeeze",
-        },
-        {
-            text: "WITH US!",
-            animation: "squeeze",
-        },
-    ];
+    const [items] = useState([
+        { title: 'Expirience', id: 0 },
+        { title: 'Science', id: 1 },
+        { title: 'Joy', id: 2 },
+        { title: 'Evolution', id: 3 },
+        { title: 'Growth', id: 4 },
+        { title: 'PRIDE!', id: 5 }
+    ]);
+    const [index, setIndex] = useState(0);
+    const fadingTextPropsTransition = useTransition(items[index], item => item.id, {
+        from: { opacity: 0 },
+        enter: { opacity: 1 },
+        leave: { opacity: 0 },
+        config: { duration: 1000},
+    });
 
     const counters = useRef<HTMLDivElement>(null)
 
@@ -50,12 +40,16 @@ const Home: FC = () => {
 
     useEffect(() => {
         document.addEventListener<any>('scroll', (): void => showCounters())
+        const interval = setInterval(() => {
+            setIndex((state) => (state + 1) % items.length);
+        }, 4000);
         return () => {
             document.removeEventListener<any>('scroll', (): void => showCounters())
+            clearInterval(interval);
         }
     }, [])
 
-    const fn = (value: any) => <div className='value'><b>{value}</b></div>;
+    const val = (value: any) => <div className='value'><b>{value}</b></div>;
 
 
     return (
@@ -64,7 +58,12 @@ const Home: FC = () => {
                 <div className='annivesary'>
                     <br /><br /><br /><br />
                     <h1 data-aos="fade-up"><NumberCounter end={10} delay={1} className="counter" /> years of
-                    <ReactTextRotator content={content} time={3000} startDelay={1000} transitionTime={300} /></h1>
+                    {fadingTextPropsTransition.map(({ item, props, key }) => (
+                        <animated.div key={key} style={{ ...props, position: 'absolute', width:'100%', textAlign: 'center'}}>
+                            {item.title}
+                        </animated.div>
+                    ))}
+                    </h1>
                 </div>
                 <div className='nav'>
                     <ul>
@@ -126,15 +125,15 @@ const Home: FC = () => {
                     <div className='counters-wrapper' ref={counters} id='stats'>
                         {show && <div className='counters'>
                             <div className="counter-users">
-                                <CountTo to={953445} speed={3000} >{fn}</CountTo><br />
+                                <CountTo to={953445} speed={3000} >{val}</CountTo><br />
                                 <div className='des'>users</div>
                             </div>
                             <div className='counter-courses'>
-                                <CountTo to={45345} speed={3000} >{fn}</CountTo><br />
+                                <CountTo to={45345} speed={3000} >{val}</CountTo><br />
                                 <div className='des'>courses</div>
                             </div>
                             <div className='counter-reviews'>
-                                <CountTo to={92432} speed={3000} >{fn}</CountTo><br />
+                                <CountTo to={92432} speed={3000} >{val}</CountTo><br />
                                 <div className='des'>positive reviews</div>
                             </div>
                         </div>}
@@ -170,18 +169,18 @@ const Home: FC = () => {
                             <li>Warszawa, ul.Piłsudskiego 25a,</li>
                             <li>tel: 434-654-254</li>
                             <li>e-mail: contact@udemy.com</li>
-                            <li id='social-media'><AiFillFacebook/><FiInstagram/><AiOutlineTwitter/></li>
+                            <li id='social-media'><AiFillFacebook /><FiInstagram /><AiOutlineTwitter /></li>
                         </ul>
                     </div>
                     <div className="authors">
-                        <h3>This page is made by:</h3>
+                        <h3>This page was made by:</h3>
                         <ul>
                             <li>UdemyGroupIT</li>
                             <li>TechWeb</li>
                             <li>Star Servers</li>
                         </ul>
-                    </div><br/>
-                    <div className="copyright">UdemyGroup <BiCopyright style={{fontSize: '70%'}}/> {new Date().getFullYear()} all rights reserved</div>
+                    </div><br />
+                    <div className="copyright">UdemyGroup <BiCopyright style={{ fontSize: '70%' }} /> {new Date().getFullYear()} all rights reserved</div>
                 </div>
             </div>
         </>
