@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { signIn, signOut, signUp } from '../../../actions/UserActions'
 import '../../../style/Header.scss'
 import Nav from './Nav'
+import { Redirect } from 'react-router-dom'
 
 const Header: FC = () => {
 
@@ -17,7 +18,8 @@ const Header: FC = () => {
         [isAdminInForm, setIsAdminInForm] = useState<boolean>(false),
         [isUserAdmin, setIsUserAdmin] = useState<boolean>(false),
         [warning, setWarning] = useState<string>(''),
-        [id, setId] = useState<string>()
+        [id, setId] = useState<string>(),
+        [backToHome, setBackToHome] = useState<boolean>(false)
 
     const dispatch = useDispatch()
     const store: User = useSelector((store: RootState) => store.userReducer)
@@ -73,6 +75,12 @@ const Header: FC = () => {
         }
     }, [store])
 
+    useEffect(() => { 
+        return () => {
+            setBackToHome(false)
+        }
+    }, [])
+
     const handleSignIn = (): void => {
         dispatch(signIn({ login: formLogin, password }))
     }
@@ -112,6 +120,8 @@ const Header: FC = () => {
     const handleSignOut = (): void => {
         id && dispatch(signOut(id))
         window.localStorage.removeItem('store')
+        setBackToHome(true)
+        window.scrollTo(0, 0)
     }
 
     const toggleModal = (e: React.MouseEvent): void => {
@@ -150,6 +160,7 @@ const Header: FC = () => {
 
     return (
         <> 
+            {backToHome && <Redirect to='/'/>}
             <div className="Header">
                 <div className='Logo'>
                     <Logo />
