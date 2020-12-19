@@ -1,15 +1,18 @@
 export const SENDMESSAGETOMODER = 'sendmessagetomoder'
 export const GETMESSAGES = 'getmessages'
 
-const send = (message: string): Promise<Response> => (
-    fetch('localhost:2000/sendMessageToModer', {
+const send = (message: object): Promise<Response> => (
+    fetch('http://localhost:2000/sendMessageToModer', {
         method: 'POST',
-        body: message
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(message)
     })
 )
 
 const getMessages = (): Promise<Response> => (
-    fetch('localhost:2000/getMessagesToModer', {
+    fetch('http://localhost:2000/getMessagesToModer', {
         method: 'GET'
     })
 )
@@ -18,7 +21,7 @@ const getMessages = (): Promise<Response> => (
 export const sendMessageToModer = (message: string): SendMessageToModer => {
     return {
         type: SENDMESSAGETOMODER,
-        payload: send(message)
+        payload: send({message})
     }
 }
 
