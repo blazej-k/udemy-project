@@ -2,6 +2,7 @@ import React, { FC, FormEvent, useState } from 'react'
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { sendMessageToModer } from '../../../actions/ContactActions';
+import '../../../style/Contact.scss'
 
 
 const Contact: FC = () => {
@@ -45,11 +46,11 @@ const Contact: FC = () => {
                 <p>We'll very satisfied when you follow that rules and you'll nice client. Be smile, you're not alone here :).</p>
             </div>
             <div className="form">
-                <form onSubmit={validateForm}>
-                    <textarea value={message} placeholder="I've problem with..." onChange={handleTextarea}></textarea>
-                    <Button variant='primary' type='submit'>Send</Button>
-                </form>
                 Length: {message.length}<br/>
+                <form onSubmit={validateForm}>
+                    <textarea rows={10} value={message} placeholder="I've problem with..." onChange={handleTextarea}></textarea>
+                    <Button variant='success' type='submit'>Send</Button>
+                </form>
                 {warning}
             </div>
         </div>

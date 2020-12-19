@@ -1,9 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
 import '../../../style/Home.scss'
-import CountTo from 'react-count-to';
-import NumberCounter from 'number-counter';
-import { animated, useTransition } from 'react-spring'
-import Footer from './Footer'
+import Footer from '../footer/Footer'
 import Stats from './Stats';
 import Reviews from './Reviews';
 import Annivesary from './Annivesary';
@@ -47,7 +44,7 @@ const Home: FC = () => {
                         <h2>Stats</h2>
                     </div>
                     <Stats show={show} counters={counters}/>
-                    <Footer/>
+                    {/* <Footer/> */}
                 </div>
             </div>
         </>

@@ -1,0 +1,27 @@
+.Contact{
+    padding: 20px;
+    .introdution{
+        p, li{
+            font-size: 150%;
+        }
+    }
+    .form{
+        width: 90%;
+        margin: auto;
+        form{
+            width: 100%;
+            margin: auto;
+            textarea{
+                width: 100%;
+                margin: auto;
+                display: block;
+                resize: none;
+            }
+            button{
+                float: right;
+                margin-top: 10px;
+                font-size: 150%;
+            }
+        }
+    }
+}

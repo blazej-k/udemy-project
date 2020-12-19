@@ -9,6 +9,7 @@ import Admin from './Page/admin/Admin'
 import { useDispatch } from 'react-redux';
 import { getState } from '../actions/UserActions';
 import Contact from './Page/contact/Contact';
+import Footer from './Page/footer/Footer';
 
 const Page: FC = () => {
 
@@ -70,6 +71,7 @@ const Page: FC = () => {
                 <Route path='/admin' component={Admin} />
                 <Redirect to='/404' />
             </AnimatedSwitch>
+            <Footer/>
         </>
     );
 }

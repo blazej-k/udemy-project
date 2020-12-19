@@ -3,6 +3,7 @@ import { AiFillFacebook, AiOutlineTwitter } from 'react-icons/ai';
 import { BiCopyright } from 'react-icons/bi';
 import { FiInstagram } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
+import '../../../style/Footer.scss'
 
 const Footer: FC = () => {
     return (
