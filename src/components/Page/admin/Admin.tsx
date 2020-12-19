@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom';
 import { addCourse } from '../../../actions/CoursesActions'
 import NewCourseModal from '../modals/NewCourseModal'
 import Messages from './Messages';
+import '../../../style/Admin.scss'
+import { Button } from 'react-bootstrap';
 
 
 const Admin: FC = () => {
@@ -22,6 +24,10 @@ const Admin: FC = () => {
     const store = useSelector((store: RootState) => store.userReducer)
     //isAdmin true beucase when is false he redirect immediately, use effect corrects is isAdmin true or false
     const [isAdmin, setIsAdmin] = useState<boolean>(true)
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     useEffect(() => {
         const localStorage = window.localStorage.getItem('store')
@@ -101,16 +107,22 @@ const Admin: FC = () => {
     return (
         <>
             {!isAdmin && <Redirect to='/' />}
-            <button onClick={() => showModal(false)}>Add course</button>
-            <NewCourseModal
-                toogleModal={showModal}
-                handleInput={handleInput}
-                values={values}
-                visiblity={isModalVisiblity}
-                add={addCourseToDb}
-                handleImgInput={handleImgInput}
-            />
-            <Messages/>
+            <div className="Admin">
+                <h2>Admin panel:</h2>
+                <div className="panel">
+                    <Button variant='primary' onClick={() => showModal(false)}>Add course</Button>
+                </div>
+                <NewCourseModal
+                    toogleModal={showModal}
+                    handleInput={handleInput}
+                    values={values}
+                    visiblity={isModalVisiblity}
+                    add={addCourseToDb}
+                    handleImgInput={handleImgInput}
+                />
+                <h3>Messages from users:</h3>
+                <Messages />
+            </div>
         </>
     );
 }

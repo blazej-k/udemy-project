@@ -1,0 +1,29 @@
+.Admin{
+    width: 100%;
+    padding: 10px;
+    .panel{
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        margin: 10px auto 45px auto;
+    }
+    .messages{
+        width: 100%;
+        margin: auto;
+        ul{
+            list-style-type: none;
+            li{
+                margin: 30px auto;
+                .message{
+                    width: 100%;
+                    margin: auto;
+                    font-size: 120%;
+                }
+                span{
+                    font-size: 80%;
+                    color: gray;
+                }
+            }
+        }
+    }
+}

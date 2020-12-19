@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, useState } from 'react'
+import React, { FC, FormEvent, useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { sendMessageToModer } from '../../../actions/ContactActions';
@@ -12,6 +12,10 @@ const Contact: FC = () => {
         [warning, setWarning] = useState<string>('')
  
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
 
     const handleTextarea = (e: FormEvent<HTMLTextAreaElement>) => {

@@ -17,6 +17,7 @@ const Home: FC = () => {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         document.addEventListener<any>('scroll', (): void => showCounters())
         return () => {
             document.removeEventListener<any>('scroll', (): void => showCounters())

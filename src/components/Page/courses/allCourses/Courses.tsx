@@ -18,6 +18,7 @@ const Courses: FC = () => {
 
     useEffect(() => {
         dispatch(getCourses())
+        window.scrollTo(0, 0)
     }, [])
 
     useLayoutEffect(() => {

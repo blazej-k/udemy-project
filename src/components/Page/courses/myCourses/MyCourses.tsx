@@ -1,4 +1,4 @@
-import React, { useState, FC, useLayoutEffect } from 'react'
+import React, { useState, FC, useLayoutEffect, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import Course from '../Course'
 
@@ -30,6 +30,10 @@ const MyCourses: FC = () => {
             setIsLogged(false)
         }
     }, [store])
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const coursesElement =
         <ul>
