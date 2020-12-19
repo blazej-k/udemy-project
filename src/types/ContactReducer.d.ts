@@ -1,0 +1,1 @@
+type ContactReducerType = SendMessageToModer | GetMessages
