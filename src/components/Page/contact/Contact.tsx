@@ -35,7 +35,7 @@ const Contact: FC = () => {
     }
 
     return (
-        <div className="Contact">
+        <div className="Contact" data-aos="fade-up">
             <div className="introdution">
                 <h2>Write to us if you have a problem</h2>
                 <p>If there's some problem, question or something else you can write to our moderation. We write back as

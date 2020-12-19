@@ -19,7 +19,6 @@ const Messages: FC = () => {
     useEffect(() => {
         if (loaded) {
             Promise.resolve(store).then(res => {
-                console.log(res)
                 setMessages(res)
             })
         }

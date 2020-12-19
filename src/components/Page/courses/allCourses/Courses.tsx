@@ -48,7 +48,7 @@ const Courses: FC = () => {
 
 
     return (
-        <div className='Courses-list'>
+        <div className='Courses-list' data-aos="fade-up">
             {!isLogged && <h2>Sign in to buy course</h2>}
             {!areCoursesDownloaded ? <p>Loading...</p> : !courses.length ? <p>There isn't courses to buy...</p> :
                 <ul data-aos="zoom-in-left">

@@ -107,7 +107,7 @@ const Admin: FC = () => {
     return (
         <>
             {!isAdmin && <Redirect to='/' />}
-            <div className="Admin">
+            <div className="Admin" data-aos="fade-up">
                 <h2>Admin panel:</h2>
                 <div className="panel">
                     <Button variant='primary' onClick={() => showModal(false)}>Add course</Button>

@@ -26,7 +26,7 @@ const Home: FC = () => {
 
     return (
         <>
-            <div className='Home-page'>
+            <div className='Home-page' data-aos="fade-up">
                 <Annivesary/>
                 <div className='nav'>
                     <ul>
