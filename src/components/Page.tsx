@@ -8,6 +8,7 @@ import Header from './Page/header/Header'
 import Admin from './Page/admin/Admin'
 import { useDispatch } from 'react-redux';
 import { getState } from '../actions/UserActions';
+import Contact from './Page/contact/Contact';
 
 const Page: FC = () => {
 
@@ -65,7 +66,7 @@ const Page: FC = () => {
                 <Route path='/' exact component={Home} />
                 <Route path='/myCourses' component={MyCourses} />
                 <Route path='/courses' component={Courses} />
-                <Route path='/contact' component={() => <h1>kontakt</h1>} />
+                <Route path='/contact' component={Contact} />
                 <Route path='/admin' component={Admin} />
                 <Redirect to='/404' />
             </AnimatedSwitch>
