@@ -14,4 +14,5 @@ type GetMessages = {
 type Message = {
     message: string
     date: string
+    _id: undefined | string
 }

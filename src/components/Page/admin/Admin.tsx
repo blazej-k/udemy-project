@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { addCourse } from '../../../actions/CoursesActions'
 import NewCourseModal from '../modals/NewCourseModal'
+import Messages from './Messages';
 
 
 const Admin: FC = () => {
@@ -109,6 +110,7 @@ const Admin: FC = () => {
                 add={addCourseToDb}
                 handleImgInput={handleImgInput}
             />
+            <Messages/>
         </>
     );
 }

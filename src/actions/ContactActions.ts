@@ -11,8 +11,8 @@ const send = (message: object): Promise<Response> => (
     })
 )
 
-const getMessages = (): Promise<Response> => (
-    fetch('http://localhost:2000/getMessagesToModer', {
+const getMessagesFromDb = (): Promise<Response> => (
+    fetch('http://localhost:2000/getMessages', {
         method: 'GET'
     })
 )
@@ -25,9 +25,9 @@ export const sendMessageToModer = (message: string): SendMessageToModer => {
     }
 }
 
-export const GetMessages = (): GetMessages => {
+export const getMessages = (): GetMessages => {
     return {
         type: GETMESSAGES,
-        payload: getMessages()
+        payload: getMessagesFromDb()
     }
 }
