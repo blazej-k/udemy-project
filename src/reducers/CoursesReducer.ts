@@ -6,7 +6,7 @@ const arrayBufferToBase64 = (buffer: ArrayBufferLike) => {
     bytes.forEach((b) => binary += String.fromCharCode(b));
     return window.btoa(binary);
 };
-
+ 
 export const CoursesReducer = async (state: CourseObj[] = [], action: CoursesRedcucerType) => {
     switch (action.type) {
         case ADDCOURSE:
@@ -26,6 +26,7 @@ export const CoursesReducer = async (state: CourseObj[] = [], action: CoursesRed
                     return state[index].imgStringsTab = `data:${course.img.contentType};base64,` + imageStr
                 })
             })
+            console.log(state)
             return state
         default:
             return state

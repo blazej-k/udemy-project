@@ -9,7 +9,6 @@ const Courses: FC = () => {
     const coursesStore = useSelector((store: RootState) => store.coursesReducer)
     const userStore = useSelector((store: RootState) => store.userReducer)
     const [areCoursesDownloaded, setAreCoursesDownloaded] = useState<boolean>(false)
-    const [imgStrings, setImgStrings] = useState<string[]>([])
     const dispatch = useDispatch()
 
     const [courses, setCourses] = useState<CourseObj[]>([])
@@ -58,7 +57,8 @@ const Courses: FC = () => {
                             author={course.author}
                             description={course.description}
                             price={course.price}
-                            img={course.imgStringsTab || 'fsdfd'}
+                            img={course.imgStringsTab || ''}
+                            imgSrc={course.img}
                             id={course._id}
                         /></li>
                     })}

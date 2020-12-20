@@ -12,10 +12,11 @@ export interface CourseProps {
     description: string,
     price?: number,
     img: string,
+    imgSrc?: File,
     id: number
 }
 
-const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, id }) => {
+const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, imgSrc, id }) => {
 
     const { location } = useHistory()
     const pathName = location.pathname
@@ -61,12 +62,14 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
 
     const handleBuyCourse = (): void => {
         //when this course isn't in course list of user you can buy it
+        console.log(imgSrc)
         if (canBuy) {
             const course: CourseObj = {
                 name,
                 author,
                 description,
                 price,
+                img: imgSrc,
                 _id: id
             }
             dispatch(buyCourse(user, course))
@@ -86,7 +89,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
             </div>
             {pathName === "/courses" && isLogged ? canBuy ?
                 <Button className="mt-3" onClick={handleBuyCourse} variant="outline-success">I'm buying!</Button> :
-                <Button className="mt-3" disabled onClick={handleBuyCourse} variant="outline-success">Bought
+                <Button className="mt-3" disabled variant="outline-success">Bought
                 <span className='icon'><BiCheck/></span></Button> : null
             }
             <hr />
