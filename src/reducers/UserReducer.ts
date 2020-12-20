@@ -1,4 +1,4 @@
-import { SIGNIN, SIGNOUT, SIGNUP, BUYCOURSE, GETSTATE } from '../actions/UserActions'
+import { SIGNIN, SIGNOUT, SIGNUP, BUYCOURSE, GETSTATE, GETUSERCOURSES } from '../actions/UserActions'
 
 
 const arrayBufferToBase64 = (buffer: ArrayBufferLike) => {
@@ -18,8 +18,9 @@ export const UserReducer = async (state: User = {}, action: UserActionType) => {
                 .then((res: User) => state = res)
                 .then(res => {
                     if (!res.error){
-                        res.courses = []
-                        localStorage.setItem('store', JSON.stringify(res))
+                        const resToStorage = res
+                        delete resToStorage.courses
+                        localStorage.setItem('store', JSON.stringify(resToStorage))
                     }
                 })
             return state
@@ -38,11 +39,27 @@ export const UserReducer = async (state: User = {}, action: UserActionType) => {
                         const imageStr = arrayBufferToBase64(course.img.data.data);
                         return course.imgStringsTab = `data:${course.img.contentType};base64,` + imageStr
                     })
+                    console.log(state)
                 })
             return state
         
         case GETSTATE:
             return state = action.payload
+        case GETUSERCOURSES:
+            let newState: User = {}
+            await Promise.resolve(state).then(res => newState = res).then(async() => {
+                await action.payload
+                    .then(res => res.json())
+                    .then((res: CourseObj[]) => {
+                        newState = {...newState, courses: res}
+                        newState.courses?.map((course: CourseObj): string => {
+                            const imageStr = arrayBufferToBase64(course.img.data.data);
+                            return course.imgStringsTab = `data:${course.img.contentType};base64,` + imageStr
+                        })
+                    })
+                }
+            )
+                return state = newState
         default:
             return state
     }

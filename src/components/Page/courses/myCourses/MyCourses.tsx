@@ -1,26 +1,31 @@
 import React, { useState, FC, useLayoutEffect, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserCourses } from '../../../../actions/UserActions'
 import Course from '../Course'
 
 
 const MyCourses: FC = () => {
 
     const store = useSelector((store: RootState) => store.userReducer)
+    const dispatch = useDispatch()
 
     const [courses, setCourses] = useState<CourseObj[]>([])
     const [isLogged, setIsLogged] = useState<boolean>()
+    const [id, setId] = useState<string>('')
 
     useLayoutEffect(() => {
         const localStorage = window.localStorage.getItem('store')
         if (localStorage !== null) {
             const store: User = JSON.parse(localStorage)
             setIsLogged(store.isUserLogged || false)
+            store._id && setId(store._id)
         }
 
         Promise.resolve(store).then(store => {
-            if ((store.courses) && (store.isUserLogged)) {
+            if (store.isUserLogged){
                 isLogged !== true && setIsLogged(store.isUserLogged)
-                setCourses(store.courses)
+                store.courses && setCourses(store.courses)
+                store._id && setId(store._id)
             }
         })
         return () => {
@@ -31,6 +36,13 @@ const MyCourses: FC = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
+
+    useEffect(() => {
+        if (id !== ''){
+            dispatch(getUserCourses(id))
+        }
+    }, [id])
+
 
 const coursesElement =
     <ul>

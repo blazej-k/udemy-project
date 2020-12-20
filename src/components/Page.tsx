@@ -6,7 +6,7 @@ import Courses from './Page/courses/allCourses/Courses'
 import Header from './Page/header/Header'
 import Admin from './Page/admin/Admin'
 import { useDispatch } from 'react-redux';
-import { getState } from '../actions/UserActions';
+import { getState, getUserCourses } from '../actions/UserActions';
 import Contact from './Page/contact/Contact';
 import Footer from './Page/footer/Footer';
 
@@ -17,7 +17,8 @@ const Page: FC = () => {
 
     useEffect(() => {
         const store = window.localStorage.getItem('store')
-        store && dispatch(getState(JSON.parse(store)))
+        store && dispatch(getState(JSON.parse(store))) //state must be equal to local storage
+        store && dispatch(getUserCourses(JSON.parse(store)._id))
     }, [])
 
     return (
