@@ -39,7 +39,6 @@ export const UserReducer = async (state: User = {}, action: UserActionType) => {
                         const imageStr = arrayBufferToBase64(course.img.data.data);
                         return course.imgStringsTab = `data:${course.img.contentType};base64,` + imageStr
                     })
-                    console.log(state)
                 })
             return state
         
@@ -59,7 +58,8 @@ export const UserReducer = async (state: User = {}, action: UserActionType) => {
                     })
                 }
             )
-                return state = newState
+            console.log(newState)
+            return state = newState
         default:
             return state
     }

@@ -15,6 +15,16 @@ const sendData = (URL: string, data: User): Promise<Response> => (
     })
 )
 
+const buy = (id: string, course: CourseObj): Promise<Response> => (
+    fetch('http://localhost:2000/buyCourse', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id, course})
+    })
+)
+
 const getCourses = (id: string): Promise<Response> => (
     fetch('http://localhost:2000/getUserCourses', {
         method: 'POST',
@@ -48,13 +58,11 @@ export const signIn = ({ login, password }: User): SignIn => {
     }
 }
 
-export const buyCourse = (userObj: User, course: CourseObj): BuyCourse => {
+export const buyCourse = (id: string = '', course: CourseObj): BuyCourse => {
 
-    userObj.courses?.push(course)
-    
     return{
         type: BUYCOURSE, 
-        payload: sendData('http://localhost:2000/buyCourse', userObj)
+        payload: buy(id, course)
     }
 }
 

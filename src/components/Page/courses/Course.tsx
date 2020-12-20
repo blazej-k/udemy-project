@@ -68,7 +68,7 @@ const handleBuyCourse = (): void => {
             img: imgSrc,
             _id: id
         }
-        dispatch(buyCourse(user, course))
+        dispatch(buyCourse(user._id, course))
         setCanBuy(false)
     }
 }
