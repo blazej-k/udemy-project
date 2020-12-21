@@ -26,7 +26,7 @@ const MyCourses: FC = () => {
         }
 
         Promise.resolve(store).then(store => {
-            if (store.isUserLogged){
+            if (store.isUserLogged) {
                 isLogged !== true && setIsLogged(store.isUserLogged)
                 store.courses && setCourses(store.courses)
                 store._id && setId(store._id)
@@ -35,14 +35,15 @@ const MyCourses: FC = () => {
         return () => {
             setCourses([])
             setIsLogged(false)
-    }}, [store])
+        }
+    }, [store])
 
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
 
     useEffect(() => {
-        if (id !== ''){
+        if (id !== '') {
             dispatch(getUserCourses(id))
         }
     }, [id])
@@ -52,30 +53,36 @@ const MyCourses: FC = () => {
     }, [courses])
 
 
-const coursesElements =
-    <ul>
-        {courses.map(course => {
-            return course._id && <li key={course._id}><Course
-                name={course.name}
-                author={course.author}
-                description={course.description}
-                img={course.imgStringsTab || ''}
-                id={course._id}
-            /></li>
-        })}
-    </ul >
-return (
-    <div className="MyCourses-list" data-aos="fade-up">
-        {!isLogged && <h1>Sign in to see your bought courses</h1>}
-        {!areCoursesDownloaded ? <div className='loader'><Loader
-        type="Oval" 
-        color='#fb2c48' 
-        height={140} 
-        width={140} 
-        timeout={10000}/>
-        </div> : !courses?.length ? <p>There isn't courses to buy...</p> : coursesElements}
-    </div>
-);
+    const coursesElements =
+        <ul>
+            {courses.map(course => {
+                return course._id && <li key={course._id}><Course
+                    name={course.name}
+                    author={course.author}
+                    description={course.description}
+                    img={course.imgStringsTab || ''}
+                    id={course._id}
+                /></li>
+            })}
+        </ul >
+    return (
+        <div className="MyCourses">
+            {isLogged ? <h2>Your bought courses</h2> : <h2>Sign in to see you courses</h2>}
+            <p>{courses.length > 0 && <>You've bought <b>{courses.length}</b> courses</>}
+            </p>
+            {!areCoursesDownloaded ? <div className='loader'><Loader
+                type="Oval"
+                color='#fb2c48'
+                height={140}
+                width={140}
+            />
+            </div> :
+                <div className='Courses-list'>
+                    {coursesElements}
+                </div>
+            }
+        </div>
+    );
 }
 
 export default MyCourses;

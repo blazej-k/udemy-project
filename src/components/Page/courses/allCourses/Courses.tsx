@@ -63,15 +63,22 @@ const Courses: FC = () => {
         </ul>
 
     return (
-        <div className='Courses-list' data-aos="fade-up">
-            {!isLogged && <h2>Sign in to buy course</h2>}
+        <div className="Courses">
+            {isLogged ? <h2>The kingdom of knowladge</h2> : <h2>Sign up to buy some courses</h2>}
+            <p>Here you can find courses from every filed. There's programming, psychology, fitness and more! We
+                have good price for every course. {courses.length > 0 && <>Choose whatever
+                from <b>{courses.length}</b> courses and go learn. Have a fun!</>}</p>
             {!areCoursesDownloaded ? <div className='loader'><Loader
                 type="Oval"
                 color='#fb2c48'
                 height={140}
                 width={140}
-                timeout={10000} />
-            </div> : !courses?.length ? <p>There isn't courses to buy...</p> : coursesElements}
+            />
+            </div> :
+                <div className='Courses-list'>
+                    {coursesElements}
+                </div>
+            }
         </div>
     );
 }

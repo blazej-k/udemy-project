@@ -1,51 +1,62 @@
-.Courses-list, .MyCourses-list {
-    .loader{
+.Courses, .MyCourses {
+    min-height: 100vh;
+    margin-top: 30px;
+    > p{
+        padding: 15px;
+        font-size: 150%;
+    }
+    > h2{
+        padding: 15px;
+    }
+    .loader {
         color: firebrick;
         width: 100%;
         margin: auto;
         text-align: center;
         margin-top: 40px;
     }
-    width: 100%;
-    margin: auto;
-    padding: 10px;
-    min-height: 100vh;
-    ul {
-        list-style-type: none;
-        padding: 0 40px;
-        li {
-            border-bottom: 0.1px solid gray;
-            .Course {
-                width: 100%;
-                display: flex;
-                flex-wrap: wrap;
-                padding: 20px 0;
-                img {
-                    display: block;
-                    width: 20%;
-                    height: 200px;
-                    border: 0.5px solid gray;
-                    border-radius: 10px;
-                }
-                .info {
-                    width: 80%;
-                    padding-left: 20px;
-                    h2 {
+    .Courses-list,
+    .MyCourses-list {
+        width: 100%;
+        margin: auto;
+        padding: 10px;
+        ul {
+            list-style-type: none;
+            padding: 0 40px;
+            li {
+                border-bottom: 0.1px solid gray;
+                .Course {
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding: 20px 0;
+                    img {
+                        display: block;
+                        width: 20%;
+                        height: 200px;
+                        border: 0.5px solid gray;
+                        border-radius: 10px;
+                    }
+                    .info {
                         width: 80%;
+                        padding-left: 20px;
+                        h2 {
+                            width: 80%;
+                        }
+                        span {
+                            color: grey;
+                        }
                     }
-                    span {
-                        color: grey;
+                    button span svg {
+                        font-size: 150%;
+                        position: relative;
+                        bottom: 7%;
                     }
-                }
-                button span svg{
-                    font-size: 150%;
-                    position: relative;
-                    bottom: 7%;
                 }
             }
-        }
-        li:last-child{
-            border-bottom: none;
+            li:last-child {
+                border-bottom: none;
+            }
         }
     }
 }
