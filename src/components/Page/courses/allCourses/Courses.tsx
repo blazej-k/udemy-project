@@ -2,7 +2,9 @@ import React, { FC, useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCourses } from '../../../../actions/CoursesActions'
 import Course from '../Course'
+import Loader from 'react-loader-spinner'
 import '../../../../style/Courses.scss'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 const Courses: FC = () => {
 
@@ -47,9 +49,9 @@ const Courses: FC = () => {
 
 
     return (
-        <div className='Courses-list' data-aos="fade-up">
+        <div className='Courses-list' data-aos="fade-up"> 
             {!isLogged && <h2>Sign in to buy course</h2>}
-            {!areCoursesDownloaded ? <p>Loading...</p> : !courses.length ? <p>There isn't courses to buy...</p> :
+            {!areCoursesDownloaded ? <div className='loader'><Loader type="Oval" color='#fb2c48' height={140} width={140} timeout={10000}/></div> : !courses?.length ? <p>There isn't courses to buy...</p> :
                 <ul data-aos="zoom-in-left">
                     {courses.map((course) => {
                         return course._id && <li key={course._id}><Course

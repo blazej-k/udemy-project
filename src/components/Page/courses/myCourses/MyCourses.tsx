@@ -13,6 +13,7 @@ const MyCourses: FC = () => {
     const [courses, setCourses] = useState<CourseObj[]>([])
     const [isLogged, setIsLogged] = useState<boolean>()
     const [id, setId] = useState<string>('')
+    const [areCoursesDownloaded, setAreCoursesDownloaded] = useState<boolean>(false)
 
     useLayoutEffect(() => {
         const localStorage = window.localStorage.getItem('store')
@@ -43,6 +44,10 @@ const MyCourses: FC = () => {
             dispatch(getUserCourses(id))
         }
     }, [id])
+
+    useEffect(() => {
+        courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
+    }, [courses])
 
 
 const coursesElement =

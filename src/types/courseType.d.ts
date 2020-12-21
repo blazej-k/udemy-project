@@ -9,7 +9,11 @@ type CourseObj = {
     img?: Image | File,
     error?: string
     _id?: number,
-    imgStringsTab?: string
+    imgStringsTab?: string,
+}
+
+type ErrorCourseObj = {
+    error: string
 }
 
 type AddCourse = {
