@@ -36,7 +36,7 @@ const Courses: FC = () => {
                 if (store.isUserLogged) {
                     setIsLogged(store.isUserLogged)
                 }
-                else{
+                else {
                     setIsLogged(false)
                 }
             })
@@ -47,24 +47,31 @@ const Courses: FC = () => {
         courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
     }, [courses])
 
+    const coursesElements =
+        <ul data-aos="zoom-in-left">
+            {courses.map((course) => {
+                return course._id && <li key={course._id}><Course
+                    name={course.name}
+                    author={course.author}
+                    description={course.description}
+                    price={course.price}
+                    img={course.imgStringsTab || ''}
+                    imgSrc={course.img}
+                    id={course._id}
+                /></li>
+            })}
+        </ul>
 
     return (
-        <div className='Courses-list' data-aos="fade-up"> 
+        <div className='Courses-list' data-aos="fade-up">
             {!isLogged && <h2>Sign in to buy course</h2>}
-            {!areCoursesDownloaded ? <div className='loader'><Loader type="Oval" color='#fb2c48' height={140} width={140} timeout={10000}/></div> : !courses?.length ? <p>There isn't courses to buy...</p> :
-                <ul data-aos="zoom-in-left">
-                    {courses.map((course) => {
-                        return course._id && <li key={course._id}><Course
-                            name={course.name}
-                            author={course.author}
-                            description={course.description}
-                            price={course.price}
-                            img={course.imgStringsTab || ''}
-                            imgSrc={course.img}
-                            id={course._id}
-                        /></li>
-                    })}
-                </ul>}
+            {!areCoursesDownloaded ? <div className='loader'><Loader
+                type="Oval"
+                color='#fb2c48'
+                height={140}
+                width={140}
+                timeout={10000} />
+            </div> : !courses?.length ? <p>There isn't courses to buy...</p> : coursesElements}
         </div>
     );
 }

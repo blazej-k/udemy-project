@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUserCourses } from '../../../../actions/UserActions'
 import Course from '../Course'
 import '../../../../style/Courses.scss'
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 
 const MyCourses: FC = () => {
@@ -50,7 +52,7 @@ const MyCourses: FC = () => {
     }, [courses])
 
 
-const coursesElement =
+const coursesElements =
     <ul>
         {courses.map(course => {
             return course._id && <li key={course._id}><Course
@@ -64,8 +66,14 @@ const coursesElement =
     </ul >
 return (
     <div className="MyCourses-list" data-aos="fade-up">
-        {isLogged ? courses.length ? coursesElement : <h1>Buy some courses and go learn!</h1> :
-            <h1>Sign in to see your bought courses</h1>}
+        {!isLogged && <h1>Sign in to see your bought courses</h1>}
+        {!areCoursesDownloaded ? <div className='loader'><Loader
+        type="Oval" 
+        color='#fb2c48' 
+        height={140} 
+        width={140} 
+        timeout={10000}/>
+        </div> : !courses?.length ? <p>There isn't courses to buy...</p> : coursesElements}
     </div>
 );
 }
