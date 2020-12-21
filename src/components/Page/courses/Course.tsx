@@ -75,7 +75,7 @@ const handleBuyCourse = (): void => {
 
 return (
     <div className="Course">
-        <img src={img} style={{'width': '10%'}} alt='logo of course' />
+        <img src={img} alt='logo of course' />
         <div className='info'>
             <h2>{name}</h2>
             <span>{author}</span>

@@ -2,6 +2,7 @@ import React, { useState, FC, useLayoutEffect, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserCourses } from '../../../../actions/UserActions'
 import Course from '../Course'
+import '../../../../style/Courses.scss'
 
 
 const MyCourses: FC = () => {
