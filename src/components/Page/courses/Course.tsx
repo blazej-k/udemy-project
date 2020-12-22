@@ -34,10 +34,6 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
         if (localStorage !== null) {
             const userStore: User = JSON.parse(localStorage)
             setIsLogged(userStore.isUserLogged || false)
-            // userStore.courses?.map(course => {
-            //     course._id === id && setCanBuy(false)
-            //     return null
-            // })
         }
         Promise.resolve(userStore).then(userStore => {
             if (userStore.isUserLogged) {

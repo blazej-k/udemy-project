@@ -3,7 +3,7 @@ import '../../../style/Home.scss'
 import Stats from './Stats';
 import Reviews from './Reviews';
 import Annivesary from './Annivesary';
-import Recomended from './Recomended';
+import Recommended from './Recommended';
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
@@ -12,12 +12,8 @@ const Home: FC = () => {
 
     const counters = useRef<HTMLDivElement>(null)
 
-    // const dispatch = useDispatch()
-
     const [show, setShow] = useState(false)
     const [showRecomended, setShowRecomended] = useState<boolean>(false)
-    // const [recomendedCourses, setRecomendedCourses] = useState<CourseObj[]>([])
-    // const coursesStore = useSelector((store: RootState) => store.coursesReducer)
 
     const showCounters = () => {
         counters.current?.offsetTop && window.pageYOffset >= counters.current?.offsetTop - 1000 && setShow(true)
@@ -36,29 +32,7 @@ const Home: FC = () => {
         }
     }, [])
 
-    // useEffect(() => {
-    //     dispatch(getCourses())
-    // }, [])
 
-    // useEffect(() => {
-    //     Promise.resolve(coursesStore).then((res: CourseObj[]) => {
-    //         console.log(1)
-    //         if (res.length) {
-    //             let numbers: number[] = []
-    //             for (let i = 0; i <= 2;) {
-    //                 const number = Math.floor(Math.random() * res.length)
-    //                 const find = numbers.find(el => el === number)
-    //                 if(find === undefined){
-    //                     numbers.push(number)
-    //                     console.log(2)
-    //                     setRecomendedCourses(prev => [...prev, res[number]])
-    //                     console.log(3)
-    //                     i++
-    //                 }
-    //             }
-    //         }
-    //     })
-    // }, [coursesStore])
 
     return (
         <>
@@ -75,14 +49,14 @@ const Home: FC = () => {
                 <div className='content'> 
                     <Reviews />
                     <div className="recomended" id='recomended'>
-                        <h2>We recomended: </h2>
+                        <h2>We recommended: </h2>
                         {!showRecomended ? <div className='loader'><Loader
                             type="Oval"
                             color='#fb2c48'
                             height={140}
                             width={140}
                         />
-                        </div> : <Recomended />}
+                        </div> : <Recommended />}
                     </div>
                     <div id='stats'>
                         <h2>Stats</h2>
