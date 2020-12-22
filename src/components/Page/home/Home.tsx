@@ -3,9 +3,9 @@ import '../../../style/Home.scss'
 import Stats from './Stats';
 import Reviews from './Reviews';
 import Annivesary from './Annivesary';
-import { useDispatch } from 'react-redux';
 import Recomended from './Recomended';
-import { getCourses } from '../../../actions/CoursesActions';
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 
 const Home: FC = () => {
@@ -15,6 +15,7 @@ const Home: FC = () => {
     // const dispatch = useDispatch()
 
     const [show, setShow] = useState(false)
+    const [showRecomended, setShowRecomended] = useState<boolean>(false)
     // const [recomendedCourses, setRecomendedCourses] = useState<CourseObj[]>([])
     // const coursesStore = useSelector((store: RootState) => store.coursesReducer)
 
@@ -24,8 +25,12 @@ const Home: FC = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0)
+        const timer = setTimeout(() => {
+            setShowRecomended(true)
+        }, 3500)
         document.addEventListener<any>('scroll', (): void => showCounters())
         return () => {
+            clearTimeout(timer)
             document.removeEventListener<any>('scroll', (): void => showCounters())
         }
     }, [])
@@ -70,7 +75,13 @@ const Home: FC = () => {
                     <Reviews />
                     <div className="recomended" id='recomended'>
                         <h2>We recomended: </h2>
-                        <Recomended/>
+                        {!showRecomended ? <div className='loader'><Loader
+                            type="Oval"
+                            color='#fb2c48'
+                            height={140}
+                            width={140}
+                        />
+                        </div> : <Recomended />}
                     </div>
                     <div id='stats'>
                         <h2>Stats</h2>

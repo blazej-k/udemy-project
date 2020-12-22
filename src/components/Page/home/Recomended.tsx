@@ -33,14 +33,15 @@ const Recomended: FC = () => {
     }, [coursesStore])
 
     return (
-        <>{recomendedCourses.length && recomendedCourses.map(course => (
+        <div className='recomended-courses' data-aos="fade-up">{recomendedCourses.length > 0 && recomendedCourses.map(course => (
             <div className="Home-course" key={course._id}>
-                <img src={course.imgStringsTab} style={{ width: '10%' }} alt="recomended" />
+                <img src={course.imgStringsTab} alt="recomended" />
                 <h2>{course.name}</h2>
-                <div>{course.price}</div>
+                <span>{course.author}</span>
+                {/* <h3>Price: {course.price}$</h3> */}
             </div>
         ))}
-        </>
+        </div>
     );
 }
 

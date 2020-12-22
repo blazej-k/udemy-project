@@ -1,0 +1,19 @@
+.recomended-courses{
+    display: flex;
+    margin-top: 50px;
+    .Home-course{
+        width: 33%;
+        img{
+            width: 100%;
+            height: 300px;
+        }
+        h2, span, h3{
+            text-align: center;
+        }
+        span{
+            display: block;
+            font-size: 80%;
+            color: gray;
+        }
+    }
+}

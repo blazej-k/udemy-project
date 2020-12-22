@@ -12,10 +12,6 @@ type CourseObj = {
     imgStringsTab?: string,
 }
 
-type ErrorCourseObj = {
-    error: string
-}
-
 type AddCourse = {
     type: typeof ADDCOURSE
     payload: Promise<Response>

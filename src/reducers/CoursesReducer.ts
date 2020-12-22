@@ -20,7 +20,7 @@ export const CoursesReducer = async (state: CourseObj[] = [], action: CoursesRed
                     return state[index].imgStringsTab = `data:${course.img.contentType};base64,` + imageStr
                 })
             })
-            return state
+            return state 
         default: 
             return state
     }

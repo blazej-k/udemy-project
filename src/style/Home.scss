@@ -84,6 +84,23 @@ html{
                 @include review($float: right)
             }
         }
+        .recomended{
+            padding: 20px;
+            margin-bottom: 80px;
+            > h2{
+                width: 100%;
+                margin: auto;
+                text-align: center;
+                font-size: 400%;
+            }
+            .loader{
+                width: 100%;
+                margin: auto;
+                text-align: center;
+                margin-top: 50px
+            }
+            @import './Recomended';
+        }
         #stats{
             width: 100%;
             margin: auto;
