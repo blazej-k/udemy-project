@@ -16,12 +16,13 @@ const Recomended: FC = () => {
     useEffect(() => {
         dispatch(getCourses())
         return () => {
-            setRecomendedCourses([])
+            setRecomendedCourses([]) 
         }
     }, [])
 
     useEffect(() => {
         Promise.resolve(coursesStore).then((res: CourseObj[]) => {
+            if(recomendedCourses.length === 3) return;
             if (res.length) {
                 let numbers: number[] = []
                 for (let i = 0; i <= 2;) {
@@ -30,6 +31,7 @@ const Recomended: FC = () => {
                     if (find === undefined) {
                         numbers.push(number)
                         setRecomendedCourses(prev => [...prev, res[number]])
+                        if(recomendedCourses.length === 3) break;
                         i++
                     }
                 }
@@ -43,13 +45,14 @@ const Recomended: FC = () => {
 
     return (
         <div className='recomended-courses' data-aos="fade-up">
-            {recomendedCourses.length > 0 && recomendedCourses.map(course => (
-                <div className="Home-course" key={course._id} onClick={redirectToClickedCourse} id={String(course._id)}>
+            {recomendedCourses.length > 0 && recomendedCourses.map((course, index) => {
+                if(index > 2) return null
+                return <div className="Home-course" key={course._id} onClick={redirectToClickedCourse} id={String(course._id)}>
                     <img src={course.imgStringsTab} alt="recomended" />
                     <h2>{course.name}</h2>
                     <span>{course.author}</span>
                 </div>
-            ))}
+            })}
         </div>
     );
 }

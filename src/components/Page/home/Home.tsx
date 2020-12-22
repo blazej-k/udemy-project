@@ -31,6 +31,7 @@ const Home: FC = () => {
         document.addEventListener<any>('scroll', (): void => showCounters())
         return () => {
             clearTimeout(timer)
+            setShowRecomended(false)
             document.removeEventListener<any>('scroll', (): void => showCounters())
         }
     }, [])
@@ -71,7 +72,7 @@ const Home: FC = () => {
                         <li><a href='#footer' onClick={() => setShow(true)}>Footer</a></li>
                     </ul>
                 </div>
-                <div className='content'>
+                <div className='content'> 
                     <Reviews />
                     <div className="recomended" id='recomended'>
                         <h2>We recomended: </h2>
