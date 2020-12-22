@@ -1,4 +1,5 @@
 import { SIGNIN, SIGNOUT, SIGNUP, BUYCOURSE, GETSTATE, GETUSERCOURSES } from '../actions/UserActions'
+import arrayBufferToBase64 from './arrayBufferToBase64'
 
 
 export const UserReducer = async (state: User = {}, action: UserActionType) => {
@@ -51,7 +52,6 @@ export const UserReducer = async (state: User = {}, action: UserActionType) => {
                     })
                 }
             )
-            console.log(newState)
             return state = newState
         default:
             return state

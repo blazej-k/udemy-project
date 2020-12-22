@@ -1,4 +1,5 @@
 import { ADDCOURSE, GETCOURSES } from '../actions/CoursesActions'
+import arrayBufferToBase64 from './arrayBufferToBase64'
  
 export const CoursesReducer = async (state: CourseObj[] = [], action: CoursesRedcucerType) => {
     switch (action.type) {
@@ -20,7 +21,7 @@ export const CoursesReducer = async (state: CourseObj[] = [], action: CoursesRed
                 })
             })
             return state
-        default:
+        default: 
             return state
     }
 }
