@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { FC, memo, useEffect, useRef, useState } from 'react'
 import '../../../style/Home.scss'
 import Stats from './Stats';
 import Reviews from './Reviews';
@@ -93,4 +93,4 @@ const Home: FC = () => {
     );
 }
 
-export default Home;
+export default memo(Home);

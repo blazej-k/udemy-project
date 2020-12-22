@@ -5,6 +5,7 @@ import Course from '../Course'
 import Loader from 'react-loader-spinner'
 import '../../../../style/Courses.scss'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import { useHistory } from 'react-router-dom'
 
 const Courses: FC = () => {
 
@@ -12,6 +13,7 @@ const Courses: FC = () => {
     const userStore = useSelector((store: RootState) => store.userReducer)
     const [areCoursesDownloaded, setAreCoursesDownloaded] = useState<boolean>(false)
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const [courses, setCourses] = useState<CourseObj[]>([])
     const [isLogged, setIsLogged] = useState<boolean>(false)
@@ -19,12 +21,13 @@ const Courses: FC = () => {
 
     useEffect(() => {
         dispatch(getCourses())
-        window.scrollTo(0, 0)
+        history.location.hash === '' && window.scrollTo(0, 0)
     }, [])
 
     useLayoutEffect(() => {
         Promise.resolve(coursesStore).then((res: CourseObj[]) => {
             setCourses(res)
+            return res
         })
         const localStorage = window.localStorage.getItem('store')
         if (localStorage !== null) {
@@ -46,6 +49,19 @@ const Courses: FC = () => {
     useEffect(() => {
         courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
     }, [courses])
+
+    useEffect(() => {
+        if(areCoursesDownloaded){
+            let { hash } = history.location
+            hash = hash.substring(1)
+            console.log(hash)
+            if ((history.location.hash) && (courses.length > 0)) {
+                const el = document.getElementById(String(hash))?.offsetTop
+                console.log(el)
+                window.scrollTo(0, el || 0)
+            }
+        }
+    }, [areCoursesDownloaded])
 
     const coursesElements =
         <ul data-aos="zoom-in-left">
