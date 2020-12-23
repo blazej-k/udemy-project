@@ -7,11 +7,13 @@ import '../../../../style/Courses.scss'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import { useHistory } from 'react-router-dom'
 
-const Courses: FC = () => {
+const Courses: FC = () => { 
 
     const coursesStore = useSelector((store: RootState) => store.coursesReducer)
     const userStore = useSelector((store: RootState) => store.userReducer)
     const [areCoursesDownloaded, setAreCoursesDownloaded] = useState<boolean>(false)
+    const [subscribePromises, setSubscribePromises] = useState<boolean>(true)
+
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -20,45 +22,52 @@ const Courses: FC = () => {
 
 
     useEffect(() => {
-        dispatch(getCourses())
-        history.location.hash === '' && window.scrollTo(0, 0)
+        if(subscribePromises){
+            dispatch(getCourses())
+            history.location.hash === '' && window.scrollTo(0, 0)
+        }
+        return () => setSubscribePromises(false)
     }, [])
 
     useLayoutEffect(() => {
-        Promise.resolve(coursesStore).then((res: CourseObj[]) => {
-            setCourses(res)
-            return res
-        })
-        const localStorage = window.localStorage.getItem('store')
-        if (localStorage !== null) {
-            const store: User = JSON.parse(localStorage)
-            setIsLogged(store.isUserLogged || false)
-        }
-        else {
-            Promise.resolve(userStore).then(store => {
-                if (store.isUserLogged) {
-                    setIsLogged(store.isUserLogged)
-                }
-                else {
-                    setIsLogged(false)
-                }
+        if(subscribePromises){
+            Promise.resolve(coursesStore).then((res: CourseObj[]) => {
+                setCourses(res)
+                return res
             })
+            const localStorage = window.localStorage.getItem('store')
+            if (localStorage !== null) {
+                const store: User = JSON.parse(localStorage)
+                setIsLogged(store.isUserLogged || false)
+            }
+            else {
+                Promise.resolve(userStore).then(store => {
+                    if (store.isUserLogged) {
+                        setIsLogged(store.isUserLogged)
+                    }
+                    else {
+                        setIsLogged(false)
+                    }
+                })
+            }
         }
     }, [userStore, coursesStore])
 
     useEffect(() => {
-        courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
+        if(subscribePromises){
+            courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
+        }
     }, [courses])
 
     useEffect(() => {
-        if(areCoursesDownloaded){
-            let { hash } = history.location
-            hash = hash.substring(1)
-            console.log(hash)
-            if ((history.location.hash) && (courses.length > 0)) {
-                const el = document.getElementById(String(hash))?.offsetTop
-                console.log(el)
-                window.scrollTo(0, el || 0)
+        if(subscribePromises){
+            if(areCoursesDownloaded){
+                let { hash } = history.location
+                hash = hash.substring(1)
+                if ((history.location.hash) && (courses.length > 0)) {
+                    const el = document.getElementById(String(hash))?.offsetTop
+                    window.scrollTo(0, el || 0)
+                }
             }
         }
     }, [areCoursesDownloaded])

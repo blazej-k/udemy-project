@@ -28,7 +28,6 @@ const ModalElement: FC<ModalElementProps> = ({
     warning
 }) => {
 
-
     return (
         <Modal show={showModal} animation={false} onHide={toogleModal} data-aos="fade-up">
             <Modal.Header closeButton={true}>

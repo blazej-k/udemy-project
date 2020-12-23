@@ -56,6 +56,7 @@ const Nav: FC = () => {
         setNavWidth('0%')
     }
 
+
     return (
         <>
         <button onClick={toogleNav} className="Nav-open-button">Menu</button>

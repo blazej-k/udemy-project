@@ -70,7 +70,7 @@ const MyCourses: FC = () => {
             {isLogged ? <h2>Your bought courses</h2> : <h2>Sign in to see you courses</h2>}
             <p>{courses.length > 0 && <>You've bought <b>{courses.length}</b> courses</>}
             </p>
-            {!areCoursesDownloaded ? <div className='loader'><Loader
+            {isLogged && !areCoursesDownloaded ? <div className='loader'><Loader
                 type="Oval"
                 color='#fb2c48'
                 height={140}

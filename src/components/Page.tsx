@@ -14,7 +14,7 @@ const Page: FC = () => {
 
     const dispatch = useDispatch()
 
-
+ 
     useEffect(() => {
         const store = window.localStorage.getItem('store')
         store && dispatch(getState(JSON.parse(store))) //state must be equal to local storage

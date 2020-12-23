@@ -168,7 +168,7 @@ const Header: FC = () => {
                 <div className="client-actions">
                     <br />
                     {isLogged && <span><b>{userLogin}{isUserAdmin && <>(A)</>}</b></span>}
-                    <Nav />
+                    <Nav/>
                     {isLogged ? <><button onClick={handleSignOut}>Wyloguj</button></> :
                         <>
                             <button
