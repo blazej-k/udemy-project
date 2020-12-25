@@ -28,6 +28,12 @@
     button{
         float: right;
     }
+    .loader{
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        margin-top: 30px;
+    }
 }
 .Modal-invalidFormValidate{
     color: red;

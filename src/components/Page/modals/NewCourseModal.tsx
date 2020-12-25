@@ -57,7 +57,7 @@ const NewCourseModal: FC<NewCourseModalProps> = ({ visiblity, values, toogleModa
                     </div>
                     {!warning && showLoader && <div className="loader"><Loader
                         type="Oval"
-                        color='#fb2c48'
+                        color='#383ffe'
                         height={70}
                         width={70} />
                     </div>}
