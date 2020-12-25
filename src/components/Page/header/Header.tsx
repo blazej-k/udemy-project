@@ -19,7 +19,8 @@ const Header: FC = () => {
         [isUserAdmin, setIsUserAdmin] = useState<boolean>(false),
         [warning, setWarning] = useState<string>(''),
         [id, setId] = useState<string>(),
-        [backToHome, setBackToHome] = useState<boolean>(false)
+        [backToHome, setBackToHome] = useState<boolean>(false),
+        [subscribe, setSubscribe] = useState<boolean>(true)
 
     const dispatch = useDispatch()
     const store: User = useSelector((store: RootState) => store.userReducer)
@@ -38,7 +39,8 @@ const Header: FC = () => {
 
 
     useEffect(() => {
-        const localStorage = window.localStorage.getItem('store')
+        if(subscribe){
+            const localStorage = window.localStorage.getItem('store')
         if (localStorage !== null) {
             const store: User = JSON.parse(localStorage)
             setUserLogin(store.login || '')
@@ -69,6 +71,7 @@ const Header: FC = () => {
                 }
             })
         }
+        }
         return () => {
             cleanForm()
             cleanUserInfo()
@@ -78,12 +81,15 @@ const Header: FC = () => {
     useEffect(() => { 
         return () => {
             setBackToHome(false)
+            setSubscribe(false)
         }
     }, [])
 
     const handleSignIn = (): void => {
-        dispatch(signIn({ login: formLogin, password }))
-    }
+        if(subscribe){
+            dispatch(signIn({ login: formLogin, password }))
+        }
+    }   
 
     const handleSignUp = (): void => {
         let isLoginCorrect = false, isPasswordCorrect = false
@@ -168,7 +174,7 @@ const Header: FC = () => {
                 <div className="client-actions">
                     <br />
                     {isLogged && <span><b>{userLogin}{isUserAdmin && <>(A)</>}</b></span>}
-                    <Nav/>
+                    <Nav subscribe={subscribe}/>
                     {isLogged ? <><button onClick={handleSignOut}>Wyloguj</button></> :
                         <>
                             <button

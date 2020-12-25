@@ -2,8 +2,11 @@ import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getMessages } from '../../../actions/ContactActions';
 
+interface MessagesProps{
+    subscribe: boolean
+}
 
-const Messages: FC = () => {
+const Messages: FC<MessagesProps> = ({subscribe}) => {
 
     const [messages, setMessages] = useState<Message[]>([])
 
@@ -12,12 +15,14 @@ const Messages: FC = () => {
     const [loaded, setLoaded] = useState<boolean>(false)
 
     useEffect(() => {
-        dispatch(getMessages())
-        setLoaded(true)
+        if(subscribe){
+            dispatch(getMessages())
+            setLoaded(true)
+        }
     }, [])
 
     useEffect(() => {
-        if (loaded) {
+        if ((loaded) && (subscribe)) {
             Promise.resolve(store).then(res => {
                 setMessages(res)
             })

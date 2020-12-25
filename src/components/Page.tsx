@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Route, Redirect, Switch } from 'react-router-dom';
 import Home from './Page/home/Home'
 import MyCourses from './Page/courses/myCourses/MyCourses'
@@ -14,11 +14,16 @@ const Page: FC = () => {
 
     const dispatch = useDispatch()
 
+    const [subscribe, setSubscribe] = useState(true)
+
  
     useEffect(() => {
-        const store = window.localStorage.getItem('store')
-        store && dispatch(getState(JSON.parse(store))) //state must be equal to local storage
-        store && dispatch(getUserCourses(JSON.parse(store)._id))
+        if(subscribe){
+            const store = window.localStorage.getItem('store')
+            store && dispatch(getState(JSON.parse(store))) //state must be equal to local storage
+            store && dispatch(getUserCourses(JSON.parse(store)._id))
+        }
+        return () => setSubscribe(false)
     }, [])
 
     return (

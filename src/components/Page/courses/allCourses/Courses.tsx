@@ -12,7 +12,7 @@ const Courses: FC = () => {
     const coursesStore = useSelector((store: RootState) => store.coursesReducer)
     const userStore = useSelector((store: RootState) => store.userReducer)
     const [areCoursesDownloaded, setAreCoursesDownloaded] = useState<boolean>(false)
-    const [subscribePromises, setSubscribePromises] = useState<boolean>(true)
+    const [subscribe, setSubscribe] = useState<boolean>(true)
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -22,15 +22,15 @@ const Courses: FC = () => {
 
 
     useEffect(() => {
-        if(subscribePromises){
+        if(subscribe){
             dispatch(getCourses())
             history.location.hash === '' && window.scrollTo(0, 0)
         }
-        return () => setSubscribePromises(false)
+        return () => setSubscribe(false)
     }, [])
 
     useLayoutEffect(() => {
-        if(subscribePromises){
+        if(subscribe){
             Promise.resolve(coursesStore).then((res: CourseObj[]) => {
                 setCourses(res)
                 return res
@@ -54,13 +54,13 @@ const Courses: FC = () => {
     }, [userStore, coursesStore])
 
     useEffect(() => {
-        if(subscribePromises){
+        if(subscribe){
             courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
         }
     }, [courses])
 
     useEffect(() => {
-        if(subscribePromises){
+        if(subscribe){
             if(areCoursesDownloaded){
                 let { hash } = history.location
                 hash = hash.substring(1)
@@ -83,6 +83,7 @@ const Courses: FC = () => {
                     img={course.imgStringsTab || ''}
                     imgSrc={course.img}
                     id={course._id}
+                    subscribe={subscribe}
                 /></li>
             })}
         </ul>

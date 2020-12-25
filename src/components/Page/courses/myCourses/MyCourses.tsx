@@ -16,22 +16,25 @@ const MyCourses: FC = () => {
     const [isLogged, setIsLogged] = useState<boolean>()
     const [id, setId] = useState<string>('')
     const [areCoursesDownloaded, setAreCoursesDownloaded] = useState<boolean>(false)
+    const [subscribe, setSubscribe] = useState<boolean>(true)
 
     useLayoutEffect(() => {
-        const localStorage = window.localStorage.getItem('store')
-        if (localStorage !== null) {
-            const store: User = JSON.parse(localStorage)
-            setIsLogged(store.isUserLogged || false)
-            store._id && setId(store._id)
-        }
-
-        Promise.resolve(store).then(store => {
-            if (store.isUserLogged) {
-                isLogged !== true && setIsLogged(store.isUserLogged)
-                store.courses && setCourses(store.courses)
+        if(subscribe){
+            const localStorage = window.localStorage.getItem('store')
+            if (localStorage !== null) {
+                const store: User = JSON.parse(localStorage)
+                setIsLogged(store.isUserLogged || false)
                 store._id && setId(store._id)
             }
-        })
+    
+            Promise.resolve(store).then(store => {
+                if (store.isUserLogged) {
+                    isLogged !== true && setIsLogged(store.isUserLogged)
+                    store.courses && setCourses(store.courses)
+                    store._id && setId(store._id)
+                }
+            })
+        }
         return () => {
             setCourses([])
             setIsLogged(false)
@@ -40,16 +43,19 @@ const MyCourses: FC = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0)
+        return () => setSubscribe(false)
     }, [])
 
     useEffect(() => {
-        if (id !== '') {
+        if ((id !== '') && (subscribe)) {
             dispatch(getUserCourses(id))
         }
     }, [id])
 
     useEffect(() => {
-        courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
+        if(subscribe){
+            courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
+        }
     }, [courses])
 
 
@@ -62,6 +68,7 @@ const MyCourses: FC = () => {
                     description={course.description}
                     img={course.imgStringsTab || ''}
                     id={course._id}
+                    subscribe={subscribe}
                 /></li>
             })}
         </ul >

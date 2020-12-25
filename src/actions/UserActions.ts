@@ -7,8 +7,6 @@ export const GETUSERCOURSES = 'getusercourses'
 
 const {REACT_APP_BUY, REACT_APP_USER_COURSES, REACT_APP_SAVE_USER, REACT_APP_SIGN_IN, REACT_APP_SIGN_OUT} = process.env
 
-console.log(process.env)
-
 const sendData = (URL: string, data: User): Promise<Response> => (
     fetch(URL, {
         method: 'POST',

@@ -20,6 +20,7 @@ const Admin: FC = () => {
     const [price, setPrice] = useState<number>()
     const [warning, setWarning] = useState<string>('')
     const [img, setImg] = useState<File>()
+    const [subscribe, setSubscribe] = useState<boolean>(true)
 
     const store = useSelector((store: RootState) => store.userReducer)
     //isAdmin true beucase when is false he redirect immediately, use effect corrects is isAdmin true or false
@@ -30,24 +31,28 @@ const Admin: FC = () => {
     }, [])
 
     useEffect(() => {
-        const localStorage = window.localStorage.getItem('store')
-        if (localStorage !== null) {
-            const store: User = JSON.parse(localStorage)
-            setIsAdmin(store.isAdmin || false)
-        }
-        else {
-            Promise.resolve(store).then(store => {
-                if (store.isAdmin) {
-                    setIsAdmin(true)
-                }
-                else {
-                    setIsAdmin(false)
-                }
-            })
-        }
-        return () => {
+        if (subscribe) {
+            const localStorage = window.localStorage.getItem('store')
+            if (localStorage !== null) {
+                const store: User = JSON.parse(localStorage)
+                setIsAdmin(store.isAdmin || false)
+            }
+            else {
+                Promise.resolve(store).then(store => {
+                    if (store.isAdmin) {
+                        setIsAdmin(true)
+                    }
+                    else {
+                        setIsAdmin(false)
+                    }
+                })
+            }
         }
     }, [store])
+
+    useEffect(() => {
+        return () => setSubscribe(false)
+    }, [])
 
     const showModal = (prev: boolean): void => {
         setisModalVisiblity(!prev)
@@ -121,7 +126,7 @@ const Admin: FC = () => {
                     handleImgInput={handleImgInput}
                 />
                 <h3>Messages from users:</h3>
-                <Messages />
+                <Messages subscribe={subscribe}/>
             </div>
         </>
     );

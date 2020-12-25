@@ -7,7 +7,11 @@ import { BiListPlus } from "react-icons/bi";
 import { RiContactsLine } from 'react-icons/ri'
 import { MdContactPhone } from 'react-icons/md'
 
-const Nav: FC = () => {
+interface NavProps{
+    subscribe: boolean
+}
+
+const Nav: FC<NavProps> = ({subscribe}) => {
 
     const store = useSelector((store: RootState) => store.userReducer)
     const [isAdmin, setIsAdmin] = useState<boolean>(false)
@@ -23,20 +27,22 @@ const Nav: FC = () => {
     }
 
     useEffect(() => {
-        const localStorage = window.localStorage.getItem('store')
-        if (localStorage !== null) {
-            const store: User = JSON.parse(localStorage)
-            setIsAdmin(store.isAdmin || false)
-        }
-        else {
-            Promise.resolve(store).then(store => {
-                if (store.isAdmin) {
-                    setIsAdmin(true)
-                }
-                else {
-                    setIsAdmin(false)
-                }
-            })
+        if(subscribe){
+            const localStorage = window.localStorage.getItem('store')
+            if (localStorage !== null) {
+                const store: User = JSON.parse(localStorage)
+                setIsAdmin(store.isAdmin || false)
+            }
+            else {
+                Promise.resolve(store).then(store => {
+                    if (store.isAdmin) {
+                        setIsAdmin(true)
+                    }
+                    else {
+                        setIsAdmin(false)
+                    }
+                })
+            }
         }
     }, [store])
 

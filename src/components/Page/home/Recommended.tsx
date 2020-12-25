@@ -11,32 +11,37 @@ const Recommended: FC = () => {
     const history = useHistory()
 
     const [recommendedCourses, setRecommendedCourses] = useState<CourseObj[]>([])
+    const [subscribe, setSubscribe] = useState<boolean>(true)
+
     const coursesStore = useSelector((store: RootState) => store.coursesReducer)
 
     useEffect(() => {
         dispatch(getCourses())
         return () => {
-            setRecommendedCourses([]) 
+            setRecommendedCourses([])
+            setSubscribe(false) 
         }
     }, [])
 
     useEffect(() => {
-        Promise.resolve(coursesStore).then((res: CourseObj[]) => {
-            if(recommendedCourses.length === 3) return;
-            if (res.length) {
-                let numbers: number[] = []
-                for (let i = 0; i <= 2;) {
-                    const number = Math.floor(Math.random() * res.length)
-                    const find = numbers.find(el => el === number)
-                    if (find === undefined) {
-                        numbers.push(number)
-                        setRecommendedCourses(prev => [...prev, res[number]])
-                        if(recommendedCourses.length === 3) break;
-                        i++
+        if(subscribe){
+            Promise.resolve(coursesStore).then((res: CourseObj[]) => {
+                if(recommendedCourses.length === 3) return;
+                if (res.length) {
+                    let numbers: number[] = []
+                    for (let i = 0; i <= 2;) {
+                        const number = Math.floor(Math.random() * res.length)
+                        const find = numbers.find(el => el === number)
+                        if (find === undefined) {
+                            numbers.push(number)
+                            setRecommendedCourses(prev => [...prev, res[number]])
+                            if(recommendedCourses.length === 3) break;
+                            i++
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
     }, [coursesStore])
 
     const redirectToClickedCourse = (e: React.MouseEvent<HTMLDivElement>): void => {
