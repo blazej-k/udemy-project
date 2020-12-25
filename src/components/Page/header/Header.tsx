@@ -20,7 +20,8 @@ const Header: FC = () => {
         [warning, setWarning] = useState<string>(''),
         [id, setId] = useState<string>(),
         [backToHome, setBackToHome] = useState<boolean>(false),
-        [subscribe, setSubscribe] = useState<boolean>(true)
+        [subscribe, setSubscribe] = useState<boolean>(true),
+        [showLoader, setShowLoader] = useState<boolean>(false)
 
     const dispatch = useDispatch()
     const store: User = useSelector((store: RootState) => store.userReducer)
@@ -131,6 +132,7 @@ const Header: FC = () => {
     }
 
     const toggleModal = (e: React.MouseEvent): void => {
+        setShowLoader(false)
         if (showModal === false) {
             setModalType(e.currentTarget.className)
         }
@@ -156,6 +158,7 @@ const Header: FC = () => {
     }
 
     const handleGoButton = (): void => {
+        setShowLoader(true)
         if (modalType === 'signIn') {
             return handleSignIn()
         }
@@ -199,6 +202,7 @@ const Header: FC = () => {
                 toogleModal={toggleModal}
                 warning={warning}
                 modalType={modalType}
+                showLoader={showLoader}
             />
         </>
     );

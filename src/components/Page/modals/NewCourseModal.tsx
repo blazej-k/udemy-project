@@ -3,6 +3,7 @@ import { ChangeEvent, FC, FormEvent } from 'react';
 import { Button, Modal } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.css";
 import '../../../style/Modal.scss'
+import Loader from 'react-loader-spinner'
 
 export interface NewCourseModalProps {
     visiblity: boolean,
@@ -13,7 +14,8 @@ export interface NewCourseModalProps {
         author: string,
         description: string,
         price: number | undefined,
-        warning: string
+        warning: string,
+        showLoader: boolean
     },
     handleImgInput: (e: ChangeEvent<HTMLInputElement>) => void,
     add: (e: FormEvent<HTMLFormElement>) => void
@@ -21,7 +23,7 @@ export interface NewCourseModalProps {
 
 const NewCourseModal: FC<NewCourseModalProps> = ({ visiblity, values, toogleModal, handleInput, add, handleImgInput }) => {
 
-    const { name, author, description, price, warning } = values
+    const { name, author, description, price, warning, showLoader } = values
 
     return (
         <Modal show={visiblity} animation={false} onHide={() => toogleModal(visiblity)} data-aos="fade-up">
@@ -53,6 +55,12 @@ const NewCourseModal: FC<NewCourseModalProps> = ({ visiblity, values, toogleModa
                     <div className='Modal-invalidFormValidate'>
                         {warning.length > 0 ? warning : null}
                     </div>
+                    {!warning && showLoader && <div className="loader"><Loader
+                        type="Oval"
+                        color='#fb2c48'
+                        height={70}
+                        width={70} />
+                    </div>}
                     <Button variant="primary" type='submit'>ADD!</Button>
                 </form>
             </Modal.Body>

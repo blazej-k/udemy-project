@@ -2,6 +2,7 @@ import React, { FC, FormEvent } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.css";
 import '../../../style/Modal.scss'
+import Loader from 'react-loader-spinner'
 
 
 type ModalElementProps = {
@@ -11,6 +12,7 @@ type ModalElementProps = {
     showModal: boolean,
     warning: string,
     modalType: string,
+    showLoader: boolean,
     inputHandler: (e: FormEvent<HTMLInputElement>) => void,
     handleGoButton: () => void,
     toogleModal: (e: React.MouseEvent) => void
@@ -22,6 +24,7 @@ const ModalElement: FC<ModalElementProps> = ({
     isAdmin,
     showModal,
     modalType,
+    showLoader,
     inputHandler,
     handleGoButton,
     toogleModal,
@@ -44,12 +47,18 @@ const ModalElement: FC<ModalElementProps> = ({
                     <input type='password' name='password' value={passwordValue} onChange={inputHandler} />
                     </label>
                     {modalType === "signUp" && <><br /><label>
-                    <input type='checkbox' name='admin' checked={isAdmin} onChange={inputHandler} />
-                    Admin
+                        <input type='checkbox' name='admin' checked={isAdmin} onChange={inputHandler} />
+                        Admin
                     </label></>}
                     <div className='Modal-invalidFormValidate'>
                         {warning.length ? warning : null}
                     </div>
+                    {!warning && showLoader && <div className='loader'><Loader
+                        type="Oval"
+                        color='#fb2c48'
+                        height={70}
+                        width={70} />
+                    </div>}
                 </div>
             </Modal.Body>
             <Modal.Footer>

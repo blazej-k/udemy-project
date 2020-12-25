@@ -13,7 +13,7 @@ const Admin: FC = () => {
 
     const dispatch = useDispatch()
 
-    const [isModalVisiblity, setisModalVisiblity] = useState<boolean>(false)
+    const [isModalVisiblity, setIsModalVisiblity] = useState<boolean>(false)
     const [name, setName] = useState<string>('')
     const [author, setAuthor] = useState<string>('')
     const [description, setDescription] = useState<string>('')
@@ -21,6 +21,7 @@ const Admin: FC = () => {
     const [warning, setWarning] = useState<string>('')
     const [img, setImg] = useState<File>()
     const [subscribe, setSubscribe] = useState<boolean>(true)
+    const [showLoader, setShowLoader] = useState<boolean>(false)
 
     const store = useSelector((store: RootState) => store.userReducer)
     //isAdmin true beucase when is false he redirect immediately, use effect corrects is isAdmin true or false
@@ -55,7 +56,8 @@ const Admin: FC = () => {
     }, [])
 
     const showModal = (prev: boolean): void => {
-        setisModalVisiblity(!prev)
+        !isModalVisiblity && setShowLoader(false)
+        setIsModalVisiblity(!prev)
     }
 
     const handleInput = (e: FormEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -79,6 +81,7 @@ const Admin: FC = () => {
 
     const addCourseToDb = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault()
+        setShowLoader(true)
         if (!name.length || !description.length || !author.length) {
             setWarning('Some input is empty')
             return
@@ -98,7 +101,7 @@ const Admin: FC = () => {
         course.append('author', author)
         course.append('description', description)
         dispatch(addCourse(course))
-        setisModalVisiblity(false)
+        setIsModalVisiblity(false)
     }
 
     const values = {
@@ -106,7 +109,8 @@ const Admin: FC = () => {
         author,
         description,
         price,
-        warning
+        warning,
+        showLoader
     }
 
     return (
