@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import logo from './udemy-logo.png'
+import logo from '../../../assets/images/udemy-logo.png'
 
  
 const Logo: FC = () => {

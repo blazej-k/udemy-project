@@ -11,7 +11,7 @@ import { Button } from 'react-bootstrap';
 
 const Admin: FC = () => {
 
-    interface lastCourses{
+    interface lastCoursesInterface{
         name: string,
         author: string
     }
@@ -27,7 +27,7 @@ const Admin: FC = () => {
     const [img, setImg] = useState<File>()
     const [subscribe, setSubscribe] = useState<boolean>(true)
     const [showLoader, setShowLoader] = useState<boolean>(false)
-    const [lastCourses, setLastCourses] = useState<lastCourses[]>([])
+    const [lastCourses, setLastCourses] = useState<lastCoursesInterface[]>([])
 
     const userStore = useSelector((store: RootState) => store.userReducer)
     const couresStore = useSelector((store: RootState) => store.coursesReducer)
@@ -73,7 +73,7 @@ const Admin: FC = () => {
             }
             else{
                 Promise.resolve(couresStore).then(store => {
-                    let courses: lastCourses[] = []
+                    let courses: lastCoursesInterface[] = []
                     courses = store.map(course => {
                         return {author: course.author, name: course.name}
                     })
@@ -128,7 +128,6 @@ const Admin: FC = () => {
             }
             return null
         })
-        console.log(lastCourses)
         if(!unique){
             setWarning('Course of this person already exist')
             return
