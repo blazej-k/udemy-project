@@ -20,7 +20,7 @@ export interface CourseProps {
 const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, imgSrc, id, subscribe }) => {
 
     const { location } = useHistory()
-    const pathName = location.pathname
+    const {pathname, hash} = location
 
     const userStore = useSelector((store: RootState) => store.userReducer)
     const dispatch = useDispatch()
@@ -83,7 +83,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
                 {price > -1 && <h3>{price} $</h3>}
 
             </div>
-            {pathName === "/courses" && isLogged ? canBuy ?
+            {(pathname === "/courses" || hash.length > 0) && isLogged ? canBuy ?
                 <Button className="mt-3" onClick={handleBuyCourse} variant="outline-success">I'm buying!</Button> :
                 <Button className="mt-3" disabled variant="outline-success">Bought
                 <span className='icon'><BiCheck /></span></Button> : null

@@ -178,15 +178,15 @@ const Header: FC = () => {
                     <br />
                     {isLogged && <span><b>{userLogin}{isUserAdmin && <>(A)</>}</b></span>}
                     <Nav subscribe={subscribe}/>
-                    {isLogged ? <><button onClick={handleSignOut}>Wyloguj</button></> :
+                    {isLogged ? <><button onClick={handleSignOut}>Log Out</button></> :
                         <>
                             <button
                                 onClick={toggleModal}
-                                className='signIn'>Zaloguj
+                                className='signIn'>Sign In
                         </button>
                             <button
                                 className='signUp'
-                                onClick={toggleModal}>Zarejestruj
+                                onClick={toggleModal}>Sign Up
                         </button>
                         </>
                     }
