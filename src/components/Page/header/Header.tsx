@@ -1,4 +1,4 @@
-import React, {FC, FormEvent, useEffect, useState } from 'react'
+import React, { FC, FormEvent, useEffect, useState } from 'react'
 import ModalElement from '../modals/AccountModal'
 import Logo from './Logo'
 import { useDispatch, useSelector } from 'react-redux'
@@ -40,38 +40,38 @@ const Header: FC = () => {
 
 
     useEffect(() => {
-        if(subscribe){
+        if (subscribe) {
             const localStorage = window.localStorage.getItem('store')
-        if (localStorage !== null) {
-            const store: User = JSON.parse(localStorage)
-            setUserLogin(store.login || '')
-            setIsUserAdmin(store.isAdmin || false)
-            setIsLogged(store.isUserLogged || false)
-            setId(store._id)
-        }
-        else {
-            Promise.resolve(store).then((store) => {
-                if (store.login) {
-                    window.localStorage.setItem('store', JSON.stringify(store))
-                    setUserLogin(store.login)
-                    setId(store._id)
-                }
-                if (store.isAdmin) {
-                    setIsUserAdmin(store.isAdmin)
-                }
-                if (store.error) {
-                    setWarning(store.error)
-                }
-                if (store.isUserLogged) {
-                    cleanForm()
-                    setIsLogged(true)
-                    setShowModal(false)
-                }
-                else {
-                    cleanUserInfo()
-                }
-            })
-        }
+            if (localStorage !== null) {
+                const store: User = JSON.parse(localStorage)
+                setUserLogin(store.login || '')
+                setIsUserAdmin(store.isAdmin || false)
+                setIsLogged(store.isUserLogged || false)
+                setId(store._id)
+            }
+            else {
+                Promise.resolve(store).then((store) => {
+                    if (store.login) {
+                        window.localStorage.setItem('store', JSON.stringify(store))
+                        setUserLogin(store.login)
+                        setId(store._id)
+                    }
+                    if (store.isAdmin) {
+                        setIsUserAdmin(store.isAdmin)
+                    }
+                    if (store.error) {
+                        setWarning(store.error)
+                    }
+                    if (store.isUserLogged) {
+                        cleanForm()
+                        setIsLogged(true)
+                        setShowModal(false)
+                    }
+                    else {
+                        cleanUserInfo()
+                    }
+                })
+            }
         }
         return () => {
             cleanForm()
@@ -79,7 +79,7 @@ const Header: FC = () => {
         }
     }, [store])
 
-    useEffect(() => { 
+    useEffect(() => {
         return () => {
             setBackToHome(false)
             setSubscribe(false)
@@ -87,10 +87,10 @@ const Header: FC = () => {
     }, [])
 
     const handleSignIn = (): void => {
-        if(subscribe){
+        if (subscribe) {
             dispatch(signIn({ login: formLogin, password }))
         }
-    }   
+    }
 
     const handleSignUp = (): void => {
         let isLoginCorrect = false, isPasswordCorrect = false
@@ -167,9 +167,19 @@ const Header: FC = () => {
         }
     }
 
+    const values = {
+        loginValue: formLogin,
+        passwordValue: password,
+        isAdmin: isAdminInForm,
+        showModal: showModal,
+        warning: warning,
+        modalType: modalType,
+        showLoader: showLoader,
+    }
+
     return (
-        <> 
-            {backToHome && <Redirect to='/'/>}
+        <>
+            {backToHome && <Redirect to='/' />}
             <div className="Header">
                 <div className='Logo'>
                     <Logo />
@@ -177,7 +187,7 @@ const Header: FC = () => {
                 <div className="client-actions">
                     <br />
                     {isLogged && <span><b>{userLogin}{isUserAdmin && <>(A)</>}</b></span>}
-                    <Nav subscribe={subscribe}/>
+                    <Nav subscribe={subscribe} />
                     {isLogged ? <><button onClick={handleSignOut}>Log Out</button></> :
                         <>
                             <button
@@ -193,16 +203,10 @@ const Header: FC = () => {
                 </div>
             </div>
             <ModalElement
-                loginValue={formLogin}
-                passwordValue={password}
-                isAdmin={isAdminInForm}
-                showModal={showModal}
+                values={values}
                 inputHandler={handleInput}
                 handleGoButton={handleGoButton}
                 toogleModal={toggleModal}
-                warning={warning}
-                modalType={modalType}
-                showLoader={showLoader}
             />
         </>
     );

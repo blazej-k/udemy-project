@@ -6,31 +6,27 @@ import Loader from 'react-loader-spinner'
 
 
 type ModalElementProps = {
-    loginValue: string,
-    passwordValue: string,
-    isAdmin: boolean,
-    showModal: boolean,
-    warning: string,
-    modalType: string,
-    showLoader: boolean,
+    values: {
+        loginValue: string,
+        passwordValue: string,
+        isAdmin: boolean,
+        showModal: boolean,
+        warning: string,
+        modalType: string,
+        showLoader: boolean,
+    }
     inputHandler: (e: FormEvent<HTMLInputElement>) => void,
     handleGoButton: () => void,
     toogleModal: (e: React.MouseEvent) => void
 }
 
 const ModalElement: FC<ModalElementProps> = ({
-    loginValue,
-    passwordValue,
-    isAdmin,
-    showModal,
-    modalType,
-    showLoader,
+    values,
     inputHandler,
     handleGoButton,
-    toogleModal,
-    warning
+    toogleModal
 }) => {
-
+    const {loginValue, passwordValue, isAdmin, showLoader, showModal, modalType, warning} = values
     return (
         <Modal show={showModal} animation={false} onHide={toogleModal} data-aos="fade-up">
             <Modal.Header closeButton={true}>
