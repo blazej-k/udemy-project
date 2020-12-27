@@ -1,40 +1,42 @@
-#modal{
-    label{
+#modal {
+    label {
         width: 50% !important;
-        input{
+        input {
             width: 100%;
             border: none;
             border-bottom: 1px solid black;
             outline: none;
         }
     }
-    input[type='file']{
+    input[type="file"] {
+        outline: none;
         margin: 15px auto;
     }
-    input[type='number']{
-        width: 30% !important;
-        border: 1px solid black;
-        text-align: center;
-        margin: auto;
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        display: none;
     }
-    input[type='checkbox']{
+    input[type="checkbox"] {
         width: auto;
         margin-right: 10px;
     }
-    textarea{
+    textarea {
         resize: none;
         width: 100%;
+        padding: 10px;
+        outline: none;
     }
-    button{
+    button {
         float: right;
     }
-    .loader{
+    .loader {
         width: 100%;
         margin: auto;
         text-align: center;
         margin-top: 30px;
     }
 }
-.Modal-invalidFormValidate{
+.Modal-invalidFormValidate {
     color: red;
 }

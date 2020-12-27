@@ -55,6 +55,18 @@ const Admin: FC = () => {
         return () => setSubscribe(false)
     }, [])
 
+    useEffect(() => {
+        if(subscribe){
+            if(!isModalVisiblity){
+                setWarning('')
+                setAuthor('')
+                setDescription('')
+                setName('')
+                setPrice(0)
+            }
+        }
+    }, [isModalVisiblity])
+
     const showModal = (prev: boolean): void => {
         !isModalVisiblity && setShowLoader(false)
         setIsModalVisiblity(!prev)
@@ -101,7 +113,7 @@ const Admin: FC = () => {
         course.append('author', author)
         course.append('description', description)
         dispatch(addCourse(course))
-        setIsModalVisiblity(false)
+        // setIsModalVisiblity(false)
     }
 
     const values = {
