@@ -11,6 +11,11 @@ import { Button } from 'react-bootstrap';
 
 const Admin: FC = () => {
 
+    interface lastCourses{
+        name: string,
+        author: string
+    }
+
     const dispatch = useDispatch()
 
     const [isModalVisiblity, setIsModalVisiblity] = useState<boolean>(false)
@@ -22,8 +27,10 @@ const Admin: FC = () => {
     const [img, setImg] = useState<File>()
     const [subscribe, setSubscribe] = useState<boolean>(true)
     const [showLoader, setShowLoader] = useState<boolean>(false)
+    const [lastCourses, setLastCourses] = useState<lastCourses[]>([])
 
-    const store = useSelector((store: RootState) => store.userReducer)
+    const userStore = useSelector((store: RootState) => store.userReducer)
+    const couresStore = useSelector((store: RootState) => store.coursesReducer)
     //isAdmin true beucase when is false he redirect immediately, use effect corrects is isAdmin true or false
     const [isAdmin, setIsAdmin] = useState<boolean>(true)
 
@@ -39,7 +46,7 @@ const Admin: FC = () => {
                 setIsAdmin(store.isAdmin || false)
             }
             else {
-                Promise.resolve(store).then(store => {
+                Promise.resolve(userStore).then(store => {
                     if (store.isAdmin) {
                         setIsAdmin(true)
                     }
@@ -49,7 +56,7 @@ const Admin: FC = () => {
                 })
             }
         }
-    }, [store])
+    }, [userStore])
 
     useEffect(() => {
         return () => setSubscribe(false)
@@ -63,6 +70,15 @@ const Admin: FC = () => {
                 setDescription('')
                 setName('')
                 setPrice(0)
+            }
+            else{
+                Promise.resolve(couresStore).then(store => {
+                    let courses: lastCourses[] = []
+                    courses = store.map(course => {
+                        return {author: course.author, name: course.name}
+                    })
+                    setLastCourses(courses)
+                })
             }
         }
     }, [isModalVisiblity])
@@ -93,7 +109,7 @@ const Admin: FC = () => {
 
     const addCourseToDb = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault()
-        setShowLoader(true)
+        let unique = true
         if (!name.length || !description.length || !author.length) {
             setWarning('Some input is empty')
             return
@@ -106,6 +122,18 @@ const Admin: FC = () => {
             setWarning('Description can has 450 letters')
             return
         }
+        lastCourses.map(course => {
+            if((course.name === name) && (course.author === author)){
+                unique = false
+            }
+            return null
+        })
+        console.log(lastCourses)
+        if(!unique){
+            setWarning('Course of this person already exist')
+            return
+        }
+        setShowLoader(true)
         const course = new FormData()
         img && course.append('img', img)
         course.append('name', name)
@@ -113,7 +141,7 @@ const Admin: FC = () => {
         course.append('author', author)
         course.append('description', description)
         dispatch(addCourse(course))
-        // setIsModalVisiblity(false)
+        setIsModalVisiblity(false)
     }
 
     const values = {
