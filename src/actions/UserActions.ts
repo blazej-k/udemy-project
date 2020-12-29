@@ -18,7 +18,7 @@ const sendData = (URL: string, data: User): Promise<Response> => (
 )
 
 const buy = (id: string, course: CourseObj): Promise<Response> => (
-    fetch(`http://localhost:2000/${REACT_APP_BUY}`, {
+    fetch(`http://localhost:2000/user/${REACT_APP_BUY}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ const buy = (id: string, course: CourseObj): Promise<Response> => (
 )
 
 const getCourses = (id: string): Promise<Response> => (
-    fetch(`http://localhost:2000/${REACT_APP_USER_COURSES}`, {
+    fetch(`http://localhost:2000/user/${REACT_APP_USER_COURSES}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ export const signUp = ({ login, password, isAdmin }: User): SignUp => {
 
     return({
         type: SIGNUP,
-        payload: sendData(`http://localhost:2000/${REACT_APP_SAVE_USER}`, user)
+        payload: sendData(`http://localhost:2000/user/${REACT_APP_SAVE_USER}`, user)
     })
 }  
 
@@ -56,7 +56,7 @@ export const signIn = ({ login, password }: User): SignIn => {
 
     return{
         type: SIGNIN,
-        payload: sendData(`http://localhost:2000/${REACT_APP_SIGN_IN}`, {login, password})
+        payload: sendData(`http://localhost:2000/user/${REACT_APP_SIGN_IN}`, {login, password})
     }
 }
 
@@ -70,7 +70,7 @@ export const buyCourse = (id: string = '', course: CourseObj): BuyCourse => {
 
 export const signOut = (_id: string): SignOut => {
     
-   sendData(`http://localhost:2000/${REACT_APP_SIGN_OUT}`, {_id})
+   sendData(`http://localhost:2000/user/${REACT_APP_SIGN_OUT}`, {_id})
 
     return {
         type: SIGNOUT,

@@ -23,7 +23,7 @@ export const addCourse = (course: FormData): AddCourse => {
 
     return{
         type: ADDCOURSE,
-        payload: sendData(`http://localhost:2000/${REACT_APP_ADD}`, course)
+        payload: sendData(`http://localhost:2000/courses/${REACT_APP_ADD}`, course)
     }
 
 }
@@ -32,7 +32,7 @@ export const getCourses = (): GetCourses => {
 
     return{
         type: GETCOURSES,
-        payload: getData(`http://localhost:2000/${REACT_APP_COURSES}`)
+        payload: getData(`http://localhost:2000/courses/${REACT_APP_COURSES}`)
     }
 
 }

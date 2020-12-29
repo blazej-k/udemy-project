@@ -73,7 +73,7 @@ const MyCourses: FC = () => {
             })}
         </ul >
     return (
-        <div className="MyCourses">
+        <div className="MyCourses" data-aos="fade-up">
             {isLogged ? <h2>Your bought courses</h2> : <h2>Sign in to see you courses</h2>}
             <p>{courses.length > 0 && <>You've bought <b>{courses.length}</b> courses</>}
             </p>

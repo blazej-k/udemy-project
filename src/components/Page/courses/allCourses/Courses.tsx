@@ -73,7 +73,7 @@ const Courses: FC = () => {
     }, [areCoursesDownloaded])
 
     const coursesElements =
-        <ul data-aos="zoom-in-left">
+        <ul data-aos="zoom-in">
             {courses.map((course) => {
                 return course._id && <li key={course._id}><Course
                     name={course.name}
@@ -89,7 +89,7 @@ const Courses: FC = () => {
         </ul>
 
     return (
-        <div className="Courses">
+        <div className="Courses" data-aos="fade-up">
             {isLogged ? <h2>The kingdom of knowladge</h2> : <h2>Sign up to buy some courses</h2>}
             <p>Here you can find courses from every filed. There's programming, psychology, fitness and more! We
                 have good price for every course. {courses.length > 0 && <>Choose whatever

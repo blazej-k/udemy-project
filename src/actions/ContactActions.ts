@@ -1,10 +1,10 @@
 export const SENDMESSAGETOMODER = 'sendmessagetomoder'
 export const GETMESSAGES = 'getmessages'
 
-const {REACT_APP_MESSAGES, REACT_APP_SEND_MESSAGE_TO_MODER} = process.env
+const {REACT_APP_MESSAGES, REACT_APP_MESSAGE_TO_MODER} = process.env
 
 const send = (message: object): Promise<Response> => (
-    fetch(`http://localhost:2000/${REACT_APP_SEND_MESSAGE_TO_MODER}`, {
+    fetch(`http://localhost:2000/contact/${REACT_APP_MESSAGE_TO_MODER}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -14,7 +14,7 @@ const send = (message: object): Promise<Response> => (
 )
 
 const getMessagesFromDb = (): Promise<Response> => (
-    fetch(`http://localhost:2000/${REACT_APP_MESSAGES}`, {
+    fetch(`http://localhost:2000/contact/${REACT_APP_MESSAGES}`, {
         method: 'GET'
     })
 )
