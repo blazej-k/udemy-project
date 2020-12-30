@@ -8,12 +8,12 @@ interface MessagesProps{
 
 const Messages: FC<MessagesProps> = ({subscribe}) => {
 
-    const [messages, setMessages] = useState<Message[]>([])
-
     const dispatch = useDispatch()
     const store = useSelector((store: RootState) => store.contactReducer)
+
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
+    const [messages, setMessages] = useState<Message[]>([])
 
     useEffect(() => {
         if(subscribe){
@@ -23,9 +23,9 @@ const Messages: FC<MessagesProps> = ({subscribe}) => {
 
     useEffect(() => {
         const {state, loading, error} = store
-        setMessages(state)
+        setMessages(state.reverse())
         setLoading(loading)
-        setError(error)
+        error.search("can't send message") === -1 && setError(error)
     }, [store])
 
 

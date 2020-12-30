@@ -1,9 +1,10 @@
-const FETCHMESSAGESREQUEST = 'fetchmessagesrequest'
+const SENDREQUEST = 'sendrequest'
 const MESSAGESERROR = 'fetchmessageserror'
 const FETCHMESSAGESSUCCES = 'fetchmessagessucces'
+const MESSAGESENDED = 'messagesended'
 
-type FetchMessagesRequest = {
-    type: typeof FETCHMESSAGESREQUEST,
+type SendRequest = {
+    type: typeof SENDREQUEST,
 }
 
 type FetchMessagesSuccess = {
@@ -14,6 +15,9 @@ type FetchMessagesSuccess = {
 type MessagesError = {
     type: typeof MESSAGESERROR
     payload: string
+}
+type MessageSended = {
+    type: typeof MESSAGESENDED
 }
 
 type Message = {

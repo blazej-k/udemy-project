@@ -1,1 +1,1 @@
-type ContactReducerType = FetchMessagesRequest | MessagesError | FetchMessagesSuccess
+type ContactReducerType = SendRequest | MessagesError | FetchMessagesSuccess | MessageSended
