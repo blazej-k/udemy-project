@@ -1,22 +1,19 @@
-import { SENDMESSAGETOMODER, GETMESSAGES } from '../actions/ContactActions'
+import { FETCHMESSAGESREQUEST, MESSAGESERROR, FETCHMESSAGESSUCCES } from '../actions/ContactActions'
 
-export const ContactReducer = async (state: Message[] = [], action: ContactReducerType) => {
+const initState: ContactReducer = {
+    state: [],
+    loading: false,
+    error: ''
+}
+
+export const ContactReducer = (state = initState, action: ContactReducerType) => {
     switch (action.type) {
-        case SENDMESSAGETOMODER:
-            let newState: Message[] = []
-            await Promise.resolve(state)
-                .then(res => newState = res)
-            await Promise.resolve(action.payload)
-                .then(res => res.json())
-                .then(res => {
-                newState.push(res)
-            })
-            return state = newState
-        case GETMESSAGES:
-            await action.payload
-                .then(res => res.json())
-                .then(res => state = res)
-            return state
+        case FETCHMESSAGESREQUEST:
+            return state = {...state, loading: true}
+        case MESSAGESERROR: 
+            return state = {...state, loading: false, error: action.payload} 
+        case FETCHMESSAGESSUCCES: 
+            return state = {loading: false, error: '', state: action.payload} 
         default:
             return state
     }

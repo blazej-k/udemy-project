@@ -1,1 +1,1 @@
-type ContactReducerType = SendMessageToModer | GetMessages
+type ContactReducerType = FetchMessagesRequest | MessagesError | FetchMessagesSuccess

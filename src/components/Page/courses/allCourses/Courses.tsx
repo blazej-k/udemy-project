@@ -65,8 +65,8 @@ const Courses: FC = () => {
                 let { hash } = history.location
                 hash = hash.substring(1)
                 if ((history.location.hash) && (courses.length > 0)) {
-                    const el = document.getElementById(String(hash))?.offsetTop
-                    window.scrollTo(0, el || 0)
+                    const offsetTop = document.getElementById(String(hash))?.offsetTop
+                    offsetTop && offsetTop - 200 > 0 ? window.scrollTo(0, offsetTop - 200) : window.scrollTo(0, 50)
                 }
             }
         }

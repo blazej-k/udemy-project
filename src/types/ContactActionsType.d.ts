@@ -1,18 +1,29 @@
-const SENDMESSAGETOMODER = 'sendmessagetomoder'
-const GETMESSAGES = 'getmessages'
+const FETCHMESSAGESREQUEST = 'fetchmessagesrequest'
+const MESSAGESERROR = 'fetchmessageserror'
+const FETCHMESSAGESSUCCES = 'fetchmessagessucces'
 
-type SendMessageToModer = {
-    type: typeof SENDMESSAGETOMODER,
-    payload: Promise<Response>
+type FetchMessagesRequest = {
+    type: typeof FETCHMESSAGESREQUEST,
 }
 
-type GetMessages = {
-    type: typeof GETMESSAGES,
-    payload: Promise<Response>
+type FetchMessagesSuccess = {
+    type: typeof FETCHMESSAGESSUCCES,
+    payload: Message[]
+}
+
+type MessagesError = {
+    type: typeof MESSAGESERROR
+    payload: string
 }
 
 type Message = {
     message: string
     date: string
-    _id: undefined | string
+    _id?: string
+}
+
+type ContactReducer = {
+    state: Message[],
+    loading: boolean,
+    error: string
 }

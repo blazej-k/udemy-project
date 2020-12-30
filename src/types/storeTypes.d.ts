@@ -1,6 +1,6 @@
 type RootState = {
     userReducer: User
     coursesReducer: CourseObj[]
-    contactReducer: Message[]
+    contactReducer: ContactReducer
 }
 

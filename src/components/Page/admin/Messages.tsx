@@ -12,27 +12,27 @@ const Messages: FC<MessagesProps> = ({subscribe}) => {
 
     const dispatch = useDispatch()
     const store = useSelector((store: RootState) => store.contactReducer)
-    const [loaded, setLoaded] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string>('')
 
     useEffect(() => {
         if(subscribe){
             dispatch(getMessages())
-            setLoaded(true)
         }
     }, [])
 
     useEffect(() => {
-        if ((loaded) && (subscribe)) {
-            Promise.resolve(store).then(res => {
-                setMessages(res)
-            })
-        }
-    }, [loaded])
+        const {state, loading, error} = store
+        setMessages(state)
+        setLoading(loading)
+        setError(error)
+    }, [store])
 
 
     return (
         <div className="messages">
-            <ul>
+            {error.length > 0 ? <h3>{error}</h3> : loading ? <p>Loading...</p> :
+            <ul data-aos="fade-up">
                 {messages.map(message => (
                     <li key={message._id}>
                         <div className="message">
@@ -41,7 +41,7 @@ const Messages: FC<MessagesProps> = ({subscribe}) => {
                         </div>
                     </li>
                 ))}
-            </ul>
+            </ul>}
         </div>
     );
 }

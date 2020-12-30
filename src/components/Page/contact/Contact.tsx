@@ -1,7 +1,7 @@
 import React, { FC, FormEvent, useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { sendMessageToModer } from '../../../actions/ContactActions';
+// import { sendMessageToModer } from '../../../actions/ContactActions';
 import '../../../style/Contact.scss'
 
 
@@ -25,7 +25,7 @@ const Contact: FC = () => {
     const validateForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if(message.length > 29){
-            dispatch(sendMessageToModer(message))
+            // dispatch(sendMessageToModer(message))
             setMessage('')
             setWarning('')
         }
