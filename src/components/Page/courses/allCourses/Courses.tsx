@@ -13,6 +13,8 @@ const Courses: FC = () => {
     const userStore = useSelector((store: RootState) => store.userReducer)
     const [areCoursesDownloaded, setAreCoursesDownloaded] = useState<boolean>(false)
     const [subscribe, setSubscribe] = useState<boolean>(true)
+    const [loading, setLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string>('')
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -23,7 +25,7 @@ const Courses: FC = () => {
 
     useEffect(() => {
         if(subscribe){
-            dispatch(getCourses())
+            coursesStore.state.length === 0 && dispatch(getCourses())
             history.location.hash === '' && window.scrollTo(0, 0)
         }
         return () => setSubscribe(false)
@@ -31,10 +33,6 @@ const Courses: FC = () => {
 
     useLayoutEffect(() => {
         if(subscribe){
-            Promise.resolve(coursesStore).then((res: CourseObj[]) => {
-                setCourses(res)
-                return res
-            })
             const localStorage = window.localStorage.getItem('store')
             if (localStorage !== null) {
                 const store: User = JSON.parse(localStorage)
@@ -52,6 +50,15 @@ const Courses: FC = () => {
             }
         }
     }, [userStore, coursesStore])
+
+    useEffect(() => {
+        if(subscribe){
+            const {state, loading, error} = coursesStore
+            setCourses(state)
+            setLoading(loading)
+            setError(error)
+        }
+    }, [coursesStore])
 
     useEffect(() => {
         if(subscribe){

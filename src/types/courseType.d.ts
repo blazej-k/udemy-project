@@ -1,5 +1,16 @@
 const ADDCOURSE = 'addcourse'
 const GETCOURSES = 'getcourses'
+const SENDREQUEST = 'sendrequest'
+const COURSESERROR = 'courseserror'
+
+type SendRequest = {
+    type: typeof SENDREQUEST,
+}
+
+type CoursesError = {
+    type: typeof COURSESERROR
+    payload: string
+}
 
 type CourseObj = {
     name: string,
@@ -14,10 +25,15 @@ type CourseObj = {
 
 type AddCourse = {
     type: typeof ADDCOURSE
-    payload: Promise<Response>
 }
 
 type GetCourses = {
     type: typeof GETCOURSES
-    payload: Promise<Response>
+    payload: CourseObj[]
+}
+
+type CoursesReducer = {
+    state: CourseObj[]
+    loading: boolean,
+    error: string
 }

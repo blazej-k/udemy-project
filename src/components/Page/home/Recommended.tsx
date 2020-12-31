@@ -19,28 +19,44 @@ const Recommended: FC = () => {
         dispatch(getCourses())
         return () => {
             setRecommendedCourses([])
-            setSubscribe(false) 
+            setSubscribe(false)
         }
     }, [])
 
     useEffect(() => {
-        if(subscribe){
-            Promise.resolve(coursesStore).then((res: CourseObj[]) => {
-                if(recommendedCourses.length === 3) return;
-                if (res.length) {
-                    let numbers: number[] = []
-                    for (let i = 0; i <= 2;) {
-                        const number = Math.floor(Math.random() * res.length)
-                        const find = numbers.find(el => el === number)
-                        if (find === undefined) {
-                            numbers.push(number)
-                            setRecommendedCourses(prev => [...prev, res[number]])
-                            if(recommendedCourses.length === 3) break;
-                            i++
-                        }
+        if (subscribe) {
+            // Promise.resolve(coursesStore).then((res: CourseObj[]) => {
+            //     if(recommendedCourses.length === 3) return;
+            //     if (res.length) {
+            //         let numbers: number[] = []
+            //         for (let i = 0; i <= 2;) {
+            //             const number = Math.floor(Math.random() * res.length)
+            //             const find = numbers.find(el => el === number)
+            //             if (find === undefined) {
+            //                 numbers.push(number)
+            //                 setRecommendedCourses(prev => [...prev, res[number]])
+            //                 if(recommendedCourses.length === 3) break;
+            //                 i++
+            //             }
+            //         }
+            //     }
+            // })
+            const { state } = coursesStore
+            if (recommendedCourses.length === 3) return;
+            if (state.length) {
+                let numbers: number[] = []
+                for (let i = 0; i <= 2;) {
+                    const number = Math.floor(Math.random() * state.length)
+                    const find = numbers.find(el => el === number)
+                    if (find === undefined) {
+                        numbers.push(number)
+                        setRecommendedCourses(prev => [...prev, state[number]])
+                        if (recommendedCourses.length === 3) break;
+                        i++
                     }
                 }
-            })
+            }
+
         }
     }, [coursesStore])
 
@@ -51,7 +67,7 @@ const Recommended: FC = () => {
     return (
         <div className='recommended-courses' data-aos="fade-up">
             {recommendedCourses.length > 0 && recommendedCourses.map((course, index) => {
-                if(index > 2) return null
+                if (index > 2) return null
                 return <div className="Home-course" key={course._id} onClick={redirectToClickedCourse} id={String(course._id)}>
                     <img src={course.imgStringsTab} alt="recommended" />
                     <h2>{course.name}</h2>

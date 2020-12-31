@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { addCourse } from '../../../actions/CoursesActions'
+import { addCourse, getCourses } from '../../../actions/CoursesActions'
 import NewCourseModal from '../modals/NewCourseModal'
 import Messages from './Messages';
 import '../../../style/Admin.scss'
@@ -31,11 +31,15 @@ const Admin: FC = () => {
 
     const userStore = useSelector((store: RootState) => store.userReducer)
     const couresStore = useSelector((store: RootState) => store.coursesReducer)
+
     //isAdmin true beucase when is false he redirect immediately, use effect corrects is isAdmin true or false
     const [isAdmin, setIsAdmin] = useState<boolean>(true)
 
     useEffect(() => {
         window.scrollTo(0, 0)
+        if(couresStore.state.length === 0){
+            dispatch(getCourses())
+        }
     }, [])
 
     useEffect(() => {
@@ -72,13 +76,21 @@ const Admin: FC = () => {
                 setPrice(0)
             }
             else{
-                Promise.resolve(couresStore).then(store => {
+                // Promise.resolve(couresStore).then(store => {
+                //     let courses: lastCoursesInterface[] = []
+                //     courses = store.map(course => {
+                //         return {author: course.author, name: course.name}
+                //     })
+                //     setLastCourses(courses)
+                // })
+                const {state} = couresStore
+                if(state.length > 0){
                     let courses: lastCoursesInterface[] = []
-                    courses = store.map(course => {
+                    courses = state.map(course => {
                         return {author: course.author, name: course.name}
                     })
                     setLastCourses(courses)
-                })
+                }
             }
         }
     }, [isModalVisiblity])

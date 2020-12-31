@@ -12,7 +12,7 @@ export const getMessages = () => async(dispatch: Dispatch<ContactReducerType>) =
     try {
         const response: Message[] = await fetch(`http://localhost:2000/contact/${REACT_APP_MESSAGES}`).then(res => res.json())
         dispatch({type: FETCHMESSAGESSUCCES, payload: response})
-    } catch (error) {
+    } catch {
         dispatch({type: MESSAGESERROR, payload: "Upss, something go wrong and we can't get messages! Please go back \n"+
         "some time later!"})
     }
@@ -28,7 +28,7 @@ export const sendMessage = (message: string) => async(dispatch: Dispatch<Contact
             },
             body: JSON.stringify({message})
         }).then(() => dispatch({type: MESSAGESENDED}))
-    } catch (error) {
+    } catch {
         dispatch({type: MESSAGESERROR, payload: "Upss, something go wrong and we can't send message! Please go back \n"+
         "some time later!"})
     }
