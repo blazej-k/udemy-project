@@ -1,10 +1,10 @@
-const SENDREQUEST = 'sendrequest'
+const CONTACT_SENDREQUEST = 'contact_sendrequest'
 const MESSAGESERROR = 'fetchmessageserror'
 const FETCHMESSAGESSUCCES = 'fetchmessagessucces'
 const MESSAGESENDED = 'messagesended'
 
-type SendRequest = {
-    type: typeof SENDREQUEST,
+type Contact_SendRequest = {
+    type: typeof CONTACT_SENDREQUEST,
 }
 
 type FetchMessagesSuccess = {

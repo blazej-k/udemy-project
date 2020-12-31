@@ -151,6 +151,7 @@ const Admin: FC = () => {
         course.append('price', String(price))
         course.append('author', author)
         course.append('description', description)
+        console.log(img)
         dispatch(addCourse(course))
         setIsModalVisiblity(false)
     }

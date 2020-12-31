@@ -1,4 +1,4 @@
-import { SENDREQUEST, MESSAGESERROR, FETCHMESSAGESSUCCES, MESSAGESENDED } from '../actions/ContactActions'
+import { CONTACT_SENDREQUEST, MESSAGESERROR, FETCHMESSAGESSUCCES, MESSAGESENDED } from '../actions/ContactActions'
 
 const initState: ContactReducer = {
     state: [],
@@ -8,7 +8,7 @@ const initState: ContactReducer = {
 
 export const ContactReducer = (state = initState, action: ContactReducerType) => {
     switch (action.type) {
-        case SENDREQUEST:
+        case CONTACT_SENDREQUEST:
             return state = {...state, loading: true, error: ''}
         case MESSAGESERROR: 
             return state = {...state, loading: false, error: action.payload} 

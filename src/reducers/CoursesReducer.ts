@@ -1,4 +1,4 @@
-import { ADDCOURSE, GETCOURSES, SENDREQUEST, COURSESERROR } from '../actions/CoursesActions'
+import { ADDCOURSE, GETCOURSES, COURSES_SENDREQUEST, COURSESERROR } from '../actions/CoursesActions'
 import arrayBufferToBase64 from './arrayBufferToBase64'
 
 const initState: CoursesReducer = {
@@ -9,7 +9,7 @@ const initState: CoursesReducer = {
  
 export const CoursesReducer = (state = initState, action: CoursesRedcucerType) => {
     switch (action.type) {
-        case SENDREQUEST:
+        case COURSES_SENDREQUEST:
             return state = {...state, loading: true}
         case COURSESERROR:
             return state = {...state, loading: false, error: action.payload}

@@ -1,10 +1,10 @@
 const ADDCOURSE = 'addcourse'
 const GETCOURSES = 'getcourses'
-const SENDREQUEST = 'sendrequest'
+const COURSES_SENDREQUEST = 'courses_sendrequest'
 const COURSESERROR = 'courseserror'
 
-type SendRequest = {
-    type: typeof SENDREQUEST,
+type Courses_SendRequest = {
+    type: typeof COURSES_SENDREQUEST,
 }
 
 type CoursesError = {
