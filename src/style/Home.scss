@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
 @mixin review($float){
     width: 100%;
     overflow: auto;
@@ -17,7 +19,8 @@
         .author{
             color: grey;
             display: block;
-            font-family: fantasy;
+            font-family: 'Indie Flower', cursive;
+            font-size: 130%;
         }
     }
 }

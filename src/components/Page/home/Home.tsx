@@ -49,7 +49,7 @@ const Home: FC = () => {
                 <div className='content'> 
                     <Reviews />
                     <div className="recomended" id='recomended'>
-                        <h2>We recommended: </h2>
+                        <h2>We recommend: </h2>
                         {!showRecomended ? <div className='loader'><Loader
                             type="Oval"
                             color='#fb2c48'
