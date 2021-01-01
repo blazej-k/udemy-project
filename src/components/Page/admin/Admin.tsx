@@ -47,17 +47,10 @@ const Admin: FC = () => {
             const localStorage = window.localStorage.getItem('store')
             if (localStorage !== null) {
                 const store: User = JSON.parse(localStorage)
-                setIsAdmin(store.isAdmin || false)
+                setIsAdmin(store.isAdmin as unknown as boolean)
             }
             else {
-                Promise.resolve(userStore).then(store => {
-                    if (store.isAdmin) {
-                        setIsAdmin(true)
-                    }
-                    else {
-                        setIsAdmin(false)
-                    }
-                })
+                setIsAdmin(userStore.user.isAdmin as unknown as boolean)
             }
         }
     }, [userStore])

@@ -24,7 +24,7 @@ const Header: FC = () => {
         [showLoader, setShowLoader] = useState<boolean>(false)
 
     const dispatch = useDispatch()
-    const store: User = useSelector((store: RootState) => store.userReducer)
+    const userStore = useSelector((store: RootState) => store.userReducer)
 
     const cleanForm = () => {
         setFormLogin('')
@@ -42,42 +42,21 @@ const Header: FC = () => {
     useEffect(() => {
         if (subscribe) {
             const localStorage = window.localStorage.getItem('store')
+            setWarning(userStore.error)
             if (localStorage !== null) {
                 const store: User = JSON.parse(localStorage)
                 setUserLogin(store.login || '')
                 setIsUserAdmin(store.isAdmin || false)
                 setIsLogged(store.isUserLogged || false)
                 setId(store._id)
-            }
-            else {
-                Promise.resolve(store).then((store) => {
-                    if (store.login) {
-                        window.localStorage.setItem('store', JSON.stringify(store))
-                        setUserLogin(store.login)
-                        setId(store._id)
-                    }
-                    if (store.isAdmin) {
-                        setIsUserAdmin(store.isAdmin)
-                    }
-                    if (store.error) {
-                        setWarning(store.error)
-                    }
-                    if (store.isUserLogged) {
-                        cleanForm()
-                        setIsLogged(true)
-                        setShowModal(false)
-                    }
-                    else {
-                        cleanUserInfo()
-                    }
-                })
+                store?.isUserLogged && setShowModal(false)
             }
         }
         return () => {
             cleanForm()
             cleanUserInfo()
         }
-    }, [store])
+    }, [userStore])
 
     useEffect(() => {
         return () => {

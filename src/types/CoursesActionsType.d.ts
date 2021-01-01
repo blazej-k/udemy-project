@@ -19,9 +19,8 @@ type CourseObj = {
     description: string,
     price: number,
     img?: Image | File,
-    error?: string
     _id?: number,
-    imgStringsTab?: string,
+    imgString?: string,
 }
 
 type AddCourse = {
@@ -38,8 +37,3 @@ type CourseAdded = {
     payload: CourseObj
 }
 
-type CoursesReducer = {
-    courses: CourseObj[]
-    loading: boolean,
-    error: string
-}

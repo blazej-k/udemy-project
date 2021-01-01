@@ -24,7 +24,6 @@ const Courses: FC = () => {
     useEffect(() => {
         if(subscribe){
             if(coursesStore.courses.length === 0) dispatch(getCourses())
-            // else setCourses(coursesStore.state)
             history.location.hash === '' && window.scrollTo(0, 0)
         }
         return () => setSubscribe(false)
@@ -35,17 +34,10 @@ const Courses: FC = () => {
             const localStorage = window.localStorage.getItem('store')
             if (localStorage !== null) {
                 const store: User = JSON.parse(localStorage)
-                setIsLogged(store.isUserLogged || false)
+                setIsLogged(store.isUserLogged as unknown as boolean)
             }
             else {
-                Promise.resolve(userStore).then(store => {
-                    if (store.isUserLogged) {
-                        setIsLogged(store.isUserLogged)
-                    }
-                    else {
-                        setIsLogged(false)
-                    }
-                })
+                userStore.user?.isUserLogged && setIsLogged(userStore.user.isUserLogged)
             }
         }
     }, [userStore, coursesStore])
@@ -76,8 +68,6 @@ const Courses: FC = () => {
         }
     }, [areCoursesDownloaded])
 
-    console.log(coursesStore.courses)
-
     const coursesElements =
         <ul data-aos="zoom-in">
             {courses.map((course) => {
@@ -86,7 +76,7 @@ const Courses: FC = () => {
                     author={course.author}
                     description={course.description}
                     price={course.price}
-                    img={course.imgStringsTab || ''}
+                    img={course.imgString || ''}
                     imgSrc={course.img}
                     id={course._id}
                     subscribe={subscribe}

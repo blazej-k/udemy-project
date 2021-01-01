@@ -1,5 +1,5 @@
 type RootState = {
-    userReducer: User
+    userReducer: UserReducer
     coursesReducer: CoursesReducer
     contactReducer: ContactReducer
 }

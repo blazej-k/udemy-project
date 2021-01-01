@@ -53,7 +53,7 @@ const Recommended: FC = () => {
             {recommendedCourses.length > 0 && recommendedCourses.map((course, index) => {
                 if (index > 2) return null
                 return <div className="Home-course" key={course._id} onClick={redirectToClickedCourse} id={String(course._id)}>
-                    <img src={course.imgStringsTab} alt="recommended" />
+                    <img src={course.imgString} alt="recommended" />
                     <h2>{course.name}</h2>
                     <span>{course.author}</span>
                 </div>

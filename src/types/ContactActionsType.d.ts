@@ -25,9 +25,3 @@ type Message = {
     date: string
     _id?: string
 }
-
-type ContactReducer = {
-    state: Message[],
-    loading: boolean,
-    error: string
-}

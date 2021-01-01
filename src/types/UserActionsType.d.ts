@@ -1,29 +1,39 @@
+const USER_SENDREQUEST = 'user_sendrequest'
 const SIGNIN = 'signin'
 const SIGNOUT = 'signout'
 const SIGNUP = 'signup'
 const BUYCOURSE = 'buycourse'
 const GETSTATE = 'getstate'
 const GETUSERCOURSES = 'getusercourses'
+const USERERROR = 'usereror'
+
+type User_SendRequest = {
+    type: typeof USER_SENDREQUEST
+}
+
+type UserError = {
+    type: typeof USERERROR
+    payload: string
+}
 
 type SignIn = {
     type: typeof SIGNIN
-    payload: Promise<Response>
+    payload: User
 }
 
 type SignOut = {
     type: typeof SIGNOUT
-    payload: User
 }
 
 type SignUp = {
     type: typeof SIGNUP
-    payload: Promise<Response>
+    payload: User
 }
 
 
 type BuyCourse = {
     type: typeof BUYCOURSE
-    payload: Promise<Response>
+    payload: CourseObj[]
 }
 
 type GetState = {
@@ -33,9 +43,9 @@ type GetState = {
 
 type GetUserCourses = {
     type: typeof GETUSERCOURSES
-    payload: Promise<Response>
+    payload: CourseObj[]
 }
- 
+
 type User = {
     login?: string,
     password?: string,
@@ -43,6 +53,4 @@ type User = {
     isAdmin?: boolean,
     isUserLogged?: boolean,
     courses?: CourseObj[]
-    error?: string
-    
 }

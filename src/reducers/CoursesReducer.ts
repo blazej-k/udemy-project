@@ -15,13 +15,13 @@ export const CoursesReducer = (state = initState, action: CoursesRedcucerType) =
             return state = {...state, loading: false, error: action.payload}
         case COURSEADDED:
             const imageStr = arrayBufferToBase64(action.payload.img.data.data);
-            action.payload = {...action.payload, imgStringsTab: `data:${action.payload.img.contentType};base64,` + imageStr}
+            action.payload = {...action.payload, imgString: `data:${action.payload.img.contentType};base64,` + imageStr}
             return state = {courses: [...state.courses, action.payload], loading: false, error: ''}
         case GETCOURSES:
             let newState: CourseObj[] 
             newState = action.payload.map((course) => {
                 const imageStr = arrayBufferToBase64(course.img.data.data);
-                return {...course, imgStringsTab: `data:${course.img.contentType};base64,` + imageStr}
+                return {...course, imgString: `data:${course.img.contentType};base64,` + imageStr}
             })
             return state = {courses: newState, loading: false, error: ''}
         default: 

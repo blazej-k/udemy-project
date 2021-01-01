@@ -20,39 +20,24 @@ export interface CourseProps {
 const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, imgSrc, id, subscribe }) => {
 
     const { location } = useHistory()
-    const {pathname, hash} = location
+    const { pathname, hash } = location
 
     const userStore = useSelector((store: RootState) => store.userReducer)
     const dispatch = useDispatch()
 
-    const [isLogged, setIsLogged] = useState<boolean>(true)
     const [user, setUser] = useState<User>({})
     const [canBuy, setCanBuy] = useState<boolean>(true)
 
 
     useEffect(() => {
         if (subscribe) {
-            const localStorage = window.localStorage.getItem('store')
-            if (localStorage !== null) {
-                const userStore: User = JSON.parse(localStorage)
-                setIsLogged(userStore.isUserLogged || false)
-            }
-            Promise.resolve(userStore).then(userStore => {
-                if (userStore.isUserLogged) {
-                    setIsLogged(userStore.isUserLogged)
-                    setUser(userStore)
-                    userStore.courses?.map(course => {
-                        course._id === id && setCanBuy(false)
-                        return null
-                    })
-                }
-                else {
-                    setIsLogged(false)
-                }
-            })
-        }
-        return () => {
-            setIsLogged(false)
+            if(userStore.user?.isUserLogged){
+                setUser(userStore.user)
+                userStore.user.courses?.map(course => {
+                    course._id === id && setCanBuy(false)
+                    return null
+                })
+            } 
         }
     }, [userStore, id])
 
@@ -73,6 +58,8 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
         }
     }
 
+    console.log(img)
+
     return (
         <div className="Course" id={String(id)}>
             <img src={img} alt='logo of course' />
@@ -83,7 +70,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
                 {price > -1 && <h3>{price} $</h3>}
 
             </div>
-            {(pathname === "/courses" || hash.length > 0) && isLogged ? canBuy ?
+            {(pathname === "/courses" || hash.length > 0) && user.isUserLogged ? canBuy ?
                 <Button className="mt-3" onClick={handleBuyCourse} variant="outline-success">I'm buying!</Button> :
                 <Button className="mt-3" disabled variant="outline-success">Bought
                 <span className='icon'><BiCheck /></span></Button> : null

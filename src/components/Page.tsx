@@ -18,10 +18,12 @@ const Page: FC = () => {
 
  
     useEffect(() => {
-        if(subscribe){
-            const store = window.localStorage.getItem('store')
-            store && dispatch(getState(JSON.parse(store))) //state must be equal to local storage
-            store && dispatch(getUserCourses(JSON.parse(store)._id))
+        if((subscribe) && (window.localStorage?.getItem('store'))){
+            const store: User = JSON.parse(window.localStorage?.getItem('store') || '')
+            if(store.isUserLogged){
+                dispatch(getState(store)) //state must be equal to local storage
+                dispatch(getUserCourses(store._id || ''))
+            }
         }
         return () => setSubscribe(false)
     }, [])

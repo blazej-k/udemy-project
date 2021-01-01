@@ -1,58 +1,44 @@
-import { SIGNIN, SIGNOUT, SIGNUP, BUYCOURSE, GETSTATE, GETUSERCOURSES } from '../actions/UserActions'
+import { SIGNIN, SIGNOUT, SIGNUP, BUYCOURSE, GETSTATE, GETUSERCOURSES, USER_SENDREQUEST, USERERROR } from '../actions/UserActions'
 import arrayBufferToBase64 from './arrayBufferToBase64'
 
+const initState: UserReducer = {
+    user: {},
+    loading: false,
+    error: ''
+}
 
-export const UserReducer = async (state: User = {}, action: UserActionType) => {
+export const UserReducer = (state = initState, action: UserActionType) => {
     const { localStorage } = window
     switch (action.type) {
+        case USER_SENDREQUEST:
+            return state = { ...state, error: '', loading: true }
+
         case SIGNUP:
         case SIGNIN:
-            await action.payload
-                .then(res => res.json())
-                .then((res: User) => state = res)
-                .then(res => {
-                    if (!res.error){
-                        const resToStorage = res
-                        delete resToStorage.courses
-                        localStorage.setItem('store', JSON.stringify(resToStorage))
-                    }
-                })
-            return state
+            const { payload } = action
+            const { login, password, isAdmin, isUserLogged, _id } = payload
+            localStorage.setItem('store', JSON.stringify({ login, password, isAdmin, isUserLogged, _id }))
+            return state = { user: payload, loading: false, error: '' }
 
         case SIGNOUT:
-            state.isUserLogged = false
             localStorage.removeItem('store')
-            return state = {} 
+            return state = initState
 
         case BUYCOURSE:
-            await action.payload
-                .then(res => res.json())
-                .then((res: User) => {
-                    state = res
-                    res.courses?.map((course: CourseObj): string => {
-                        const imageStr = arrayBufferToBase64(course.img.data.data);
-                        return course.imgStringsTab = `data:${course.img.contentType};base64,` + imageStr
-                    })
-                })
-            return state
-        
-        case GETSTATE:
-            return state = action.payload
         case GETUSERCOURSES:
-            let newState: User = {}
-            await Promise.resolve(state).then(res => newState = res).then(async() => {
-                await action.payload
-                    .then(res => res.json())
-                    .then((res: CourseObj[]) => {
-                        newState = {...newState, courses: res}
-                        newState.courses?.map((course: CourseObj): string => {
-                            const imageStr = arrayBufferToBase64(course.img.data.data);
-                            return course.imgStringsTab = `data:${course.img.contentType};base64,` + imageStr
-                        })
-                    })
-                }
-            )
-            return state = newState
+            let newCourses: CourseObj[]
+            newCourses = action.payload.map((course) => {
+                const imageStr = arrayBufferToBase64(course.img.data.data);
+                return { ...course, imgString: `data:${course.img.contentType};base64,` + imageStr }
+            })
+            return state = { user: { ...state.user, courses: newCourses }, loading: false, error: '' }
+
+        case GETSTATE:
+            return state = { user: action.payload, loading: false, error: '' }
+
+        case USERERROR:
+            return state = { ...state, error: action.payload, loading: false }
+
         default:
             return state
     }

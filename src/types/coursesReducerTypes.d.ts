@@ -1,1 +1,0 @@
-type CoursesRedcucerType = AddCourse | GetCourses | Courses_SendRequest | CoursesError | CourseAdded

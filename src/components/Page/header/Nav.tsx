@@ -34,14 +34,7 @@ const Nav: FC<NavProps> = ({subscribe}) => {
                 setIsAdmin(store.isAdmin || false)
             }
             else {
-                Promise.resolve(store).then(store => {
-                    if (store.isAdmin) {
-                        setIsAdmin(true)
-                    }
-                    else {
-                        setIsAdmin(false)
-                    }
-                })
+                store.user?.isAdmin && setIsAdmin(store.user.isAdmin)
             }
         }
     }, [store])

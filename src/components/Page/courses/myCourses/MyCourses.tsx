@@ -13,27 +13,19 @@ const MyCourses: FC = () => {
     const dispatch = useDispatch()
 
     const [courses, setCourses] = useState<CourseObj[]>([])
-    const [isLogged, setIsLogged] = useState<boolean>()
+    const [isLogged, setIsLogged] = useState<boolean>(false)
     const [id, setId] = useState<string>('')
     const [areCoursesDownloaded, setAreCoursesDownloaded] = useState<boolean>(false)
     const [subscribe, setSubscribe] = useState<boolean>(true)
 
     useLayoutEffect(() => {
         if(subscribe){
-            const localStorage = window.localStorage.getItem('store')
-            if (localStorage !== null) {
-                const store: User = JSON.parse(localStorage)
-                setIsLogged(store.isUserLogged || false)
-                store._id && setId(store._id)
+            if (store.user?.isUserLogged) {
+                setIsLogged(store.user.isUserLogged)
+                setCourses(store.user.courses || [])
+                setId(store.user._id || '')
             }
-    
-            Promise.resolve(store).then(store => {
-                if (store.isUserLogged) {
-                    isLogged !== true && setIsLogged(store.isUserLogged)
-                    store.courses && setCourses(store.courses)
-                    store._id && setId(store._id)
-                }
-            })
+
         }
         return () => {
             setCourses([])
@@ -66,7 +58,7 @@ const MyCourses: FC = () => {
                     name={course.name}
                     author={course.author}
                     description={course.description}
-                    img={course.imgStringsTab || ''}
+                    img={course.imgString || ''}
                     id={course._id}
                     subscribe={subscribe}
                 /></li>
