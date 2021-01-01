@@ -13,8 +13,6 @@ const Courses: FC = () => {
     const userStore = useSelector((store: RootState) => store.userReducer)
     const [areCoursesDownloaded, setAreCoursesDownloaded] = useState<boolean>(false)
     const [subscribe, setSubscribe] = useState<boolean>(true)
-    const [loading, setLoading] = useState<boolean>(false)
-    const [error, setError] = useState<string>('')
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -25,7 +23,8 @@ const Courses: FC = () => {
 
     useEffect(() => {
         if(subscribe){
-            coursesStore.state.length === 0 && dispatch(getCourses())
+            if(coursesStore.courses.length === 0) dispatch(getCourses())
+            // else setCourses(coursesStore.state)
             history.location.hash === '' && window.scrollTo(0, 0)
         }
         return () => setSubscribe(false)
@@ -53,10 +52,8 @@ const Courses: FC = () => {
 
     useEffect(() => {
         if(subscribe){
-            const {state, loading, error} = coursesStore
-            setCourses(state)
-            setLoading(loading)
-            setError(error)
+            const {courses} = coursesStore
+            setCourses(courses)
         }
     }, [coursesStore])
 
@@ -78,6 +75,8 @@ const Courses: FC = () => {
             }
         }
     }, [areCoursesDownloaded])
+
+    console.log(coursesStore.courses)
 
     const coursesElements =
         <ul data-aos="zoom-in">

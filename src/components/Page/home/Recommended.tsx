@@ -25,32 +25,16 @@ const Recommended: FC = () => {
 
     useEffect(() => {
         if (subscribe) {
-            // Promise.resolve(coursesStore).then((res: CourseObj[]) => {
-            //     if(recommendedCourses.length === 3) return;
-            //     if (res.length) {
-            //         let numbers: number[] = []
-            //         for (let i = 0; i <= 2;) {
-            //             const number = Math.floor(Math.random() * res.length)
-            //             const find = numbers.find(el => el === number)
-            //             if (find === undefined) {
-            //                 numbers.push(number)
-            //                 setRecommendedCourses(prev => [...prev, res[number]])
-            //                 if(recommendedCourses.length === 3) break;
-            //                 i++
-            //             }
-            //         }
-            //     }
-            // })
-            const { state } = coursesStore
+            const { courses } = coursesStore
             if (recommendedCourses.length === 3) return;
-            if (state.length) {
+            if (courses.length) {
                 let numbers: number[] = []
                 for (let i = 0; i <= 2;) {
-                    const number = Math.floor(Math.random() * state.length)
+                    const number = Math.floor(Math.random() * courses.length)
                     const find = numbers.find(el => el === number)
                     if (find === undefined) {
                         numbers.push(number)
-                        setRecommendedCourses(prev => [...prev, state[number]])
+                        setRecommendedCourses(prev => [...prev, courses[number]])
                         if (recommendedCourses.length === 3) break;
                         i++
                     }

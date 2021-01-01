@@ -2,6 +2,7 @@ const ADDCOURSE = 'addcourse'
 const GETCOURSES = 'getcourses'
 const COURSES_SENDREQUEST = 'courses_sendrequest'
 const COURSESERROR = 'courseserror'
+const COURSEADDED = 'courseadded'
 
 type Courses_SendRequest = {
     type: typeof COURSES_SENDREQUEST,
@@ -32,8 +33,13 @@ type GetCourses = {
     payload: CourseObj[]
 }
 
+type CourseAdded = {
+    type: typeof COURSEADDED
+    payload: CourseObj
+}
+
 type CoursesReducer = {
-    state: CourseObj[]
+    courses: CourseObj[]
     loading: boolean,
     error: string
 }

@@ -23,7 +23,6 @@ const Messages: FC<MessagesProps> = ({subscribe}) => {
 
     useEffect(() => {
         const {state, loading, error} = store
-        console.log(store)
         setMessages(state.reverse())
         setLoading(loading)
         error.search("can't send message") === -1 && setError(error)

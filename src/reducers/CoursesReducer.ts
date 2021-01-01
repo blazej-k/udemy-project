@@ -1,8 +1,8 @@
-import { ADDCOURSE, GETCOURSES, COURSES_SENDREQUEST, COURSESERROR } from '../actions/CoursesActions'
+import { COURSEADDED, GETCOURSES, COURSES_SENDREQUEST, COURSESERROR } from '../actions/CoursesActions'
 import arrayBufferToBase64 from './arrayBufferToBase64'
 
 const initState: CoursesReducer = {
-    state: [],
+    courses: [],
     loading: false,
     error: ''
 }
@@ -13,21 +13,17 @@ export const CoursesReducer = (state = initState, action: CoursesRedcucerType) =
             return state = {...state, loading: true}
         case COURSESERROR:
             return state = {...state, loading: false, error: action.payload}
-        // case ADDCOURSE:
-        //     let newState2: CourseObj[] = []
-        //     await Promise.resolve(state).then(res => newState2 = res)
-        //     await Promise.resolve(action.payload).then(res => res.json()).then(res => {
-        //         if (res.error) return
-        //         newState2.push(res)
-        //     })
-        //     return state = newState2
+        case COURSEADDED:
+            const imageStr = arrayBufferToBase64(action.payload.img.data.data);
+            action.payload = {...action.payload, imgStringsTab: `data:${action.payload.img.contentType};base64,` + imageStr}
+            return state = {courses: [...state.courses, action.payload], loading: false, error: ''}
         case GETCOURSES:
             let newState: CourseObj[] 
             newState = action.payload.map((course) => {
                 const imageStr = arrayBufferToBase64(course.img.data.data);
                 return {...course, imgStringsTab: `data:${course.img.contentType};base64,` + imageStr}
             })
-            return state = {state: newState, loading: false, error: ''}
+            return state = {courses: newState, loading: false, error: ''}
         default: 
             return state
     }

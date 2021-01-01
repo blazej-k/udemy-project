@@ -37,7 +37,7 @@ const Admin: FC = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0)
-        if(couresStore.state.length === 0){
+        if(couresStore.courses.length === 0){
             dispatch(getCourses())
         }
     }, [])
@@ -76,17 +76,10 @@ const Admin: FC = () => {
                 setPrice(0)
             }
             else{
-                // Promise.resolve(couresStore).then(store => {
-                //     let courses: lastCoursesInterface[] = []
-                //     courses = store.map(course => {
-                //         return {author: course.author, name: course.name}
-                //     })
-                //     setLastCourses(courses)
-                // })
-                const {state} = couresStore
-                if(state.length > 0){
+                const {courses} = couresStore
+                if(courses.length > 0){
                     let courses: lastCoursesInterface[] = []
-                    courses = state.map(course => {
+                    courses = courses.map(course => {
                         return {author: course.author, name: course.name}
                     })
                     setLastCourses(courses)
@@ -151,7 +144,6 @@ const Admin: FC = () => {
         course.append('price', String(price))
         course.append('author', author)
         course.append('description', description)
-        console.log(img)
         dispatch(addCourse(course))
         setIsModalVisiblity(false)
     }
