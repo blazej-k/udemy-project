@@ -1,11 +1,12 @@
-.Courses, .MyCourses {
+.Courses,
+.MyCourses {
     min-height: 100vh;
     margin-top: 30px;
-    > p{
+    > p {
         padding: 15px;
         font-size: 150%;
     }
-    > h2{
+    > h2 {
         padding: 15px;
     }
     .loader {
@@ -22,8 +23,9 @@
         padding: 10px;
         ul {
             list-style-type: none;
-            padding: 0 40px;
+            padding: 0 35px;
             li {
+                padding: 35px 0;
                 border-bottom: 0.1px solid gray;
                 .Course {
                     width: 100%;
@@ -43,7 +45,16 @@
                         h2 {
                             width: 80%;
                         }
+                        h3 {
+                            display: inline;
+                        }
+                        button{
+                            float: right;
+                        }
                         span {
+                            color: #28a745;
+                        }
+                        span.author {
                             color: grey;
                         }
                     }

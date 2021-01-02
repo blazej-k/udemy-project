@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useLayoutEffect, useState } from 'react'
+import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCourses } from '../../../../actions/CoursesActions'
 import Course from '../Course'
@@ -7,7 +7,7 @@ import '../../../../style/Courses.scss'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import { useHistory } from 'react-router-dom'
 
-const Courses: FC = () => { 
+const Courses: FC = () => {
 
     const coursesStore = useSelector((store: RootState) => store.coursesReducer)
     const userStore = useSelector((store: RootState) => store.userReducer)
@@ -22,15 +22,15 @@ const Courses: FC = () => {
 
 
     useEffect(() => {
-        if(subscribe){
-            if(coursesStore.courses.length === 0) dispatch(getCourses())
-            history.location.hash === '' && window.scrollTo(0, 0)
+        if (subscribe) {
+            if (coursesStore.courses.length === 0) dispatch(getCourses())
+            if(history.location.hash === '') window.scrollTo(0, 0)
         }
         return () => setSubscribe(false)
     }, [])
 
     useLayoutEffect(() => {
-        if(subscribe){
+        if (subscribe) {
             const localStorage = window.localStorage.getItem('store')
             if (localStorage !== null) {
                 const store: User = JSON.parse(localStorage)
@@ -43,26 +43,30 @@ const Courses: FC = () => {
     }, [userStore, coursesStore])
 
     useEffect(() => {
-        if(subscribe){
-            const {courses} = coursesStore
+        if (subscribe) {
+            const { courses } = coursesStore
             setCourses(courses)
         }
     }, [coursesStore])
 
     useEffect(() => {
-        if(subscribe){
+        if (subscribe) {
             courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
         }
     }, [courses])
 
     useEffect(() => {
-        if(subscribe){
-            if(areCoursesDownloaded){
+        if (subscribe) {
+            if (areCoursesDownloaded) {
                 let { hash } = history.location
                 hash = hash.substring(1)
                 if ((history.location.hash) && (courses.length > 0)) {
                     const offsetTop = document.getElementById(String(hash))?.offsetTop
-                    offsetTop && offsetTop - 200 > 0 ? window.scrollTo(0, offsetTop - 200) : window.scrollTo(0, 50)
+                    const elHeight = document.getElementById(String(hash))?.offsetHeight
+                    window.scrollTo({
+                        left: 0,
+                        top: (offsetTop || 0) + (elHeight || 0)
+                    })
                 }
             }
         }

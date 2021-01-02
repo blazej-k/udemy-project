@@ -55,12 +55,12 @@ const Header: FC = () => {
         return () => {
             cleanForm()
             cleanUserInfo()
+            setBackToHome(false)
         }
     }, [userStore])
 
     useEffect(() => {
         return () => {
-            setBackToHome(false)
             setSubscribe(false)
         }
     }, [])
@@ -105,7 +105,6 @@ const Header: FC = () => {
 
     const handleSignOut = (): void => {
         id && dispatch(signOut(id))
-        window.localStorage.removeItem('store')
         setBackToHome(true)
         window.scrollTo(0, 0)
     }

@@ -20,12 +20,11 @@ const MyCourses: FC = () => {
 
     useLayoutEffect(() => {
         if(subscribe){
+            setId(store.user._id || '')
             if (store.user?.isUserLogged) {
                 setIsLogged(store.user.isUserLogged)
                 setCourses(store.user.courses || [])
-                setId(store.user._id || '')
             }
-
         }
         return () => {
             setCourses([])
@@ -49,7 +48,6 @@ const MyCourses: FC = () => {
             courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
         }
     }, [courses])
-
 
     const coursesElements =
         <ul>

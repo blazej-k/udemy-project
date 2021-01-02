@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { getState, getUserCourses } from '../actions/UserActions';
 import Contact from './Page/contact/Contact';
 import Footer from './Page/footer/Footer';
+import { getCourses } from '../actions/CoursesActions';
 
 const Page: FC = () => {
 

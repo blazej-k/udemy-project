@@ -31,13 +31,13 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
 
     useEffect(() => {
         if (subscribe) {
-            if(userStore.user?.isUserLogged){
+            if (userStore.user?.isUserLogged) {
                 setUser(userStore.user)
                 userStore.user.courses?.map(course => {
                     course._id === id && setCanBuy(false)
                     return null
                 })
-            } 
+            }
         }
     }, [userStore, id])
 
@@ -57,24 +57,21 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
             setCanBuy(false)
         }
     }
-
-    console.log(img)
-
+    
     return (
         <div className="Course" id={String(id)}>
             <img src={img} alt='logo of course' />
             <div className='info'>
                 <h2>{name}</h2>
-                <span>{author}</span>
+                <span className='author'>{author}</span>
                 <p>{description}</p>
                 {price > -1 && <h3>{price} $</h3>}
-
-            </div>
-            {(pathname === "/courses" || hash.length > 0) && user.isUserLogged ? canBuy ?
-                <Button className="mt-3" onClick={handleBuyCourse} variant="outline-success">I'm buying!</Button> :
-                <Button className="mt-3" disabled variant="outline-success">Bought
+                {(pathname === "/courses" || hash.length > 0) && user.isUserLogged ? canBuy ?
+                    <Button onClick={handleBuyCourse} variant="outline-success">I'm buying!</Button> :
+                    <Button disabled variant="outline-success">Bought
                 <span className='icon'><BiCheck /></span></Button> : null
-            }
+                }
+            </div>
             <hr />
         </div>
     );
