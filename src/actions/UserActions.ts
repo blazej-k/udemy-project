@@ -122,15 +122,14 @@ export const getUserCourses = (id: string) => async(dispatch: Dispatch<UserActio
     dispatch({ type: USER_SENDREQUEST })
 
     try {
-        fetch(`http://localhost:2000/user/${REACT_APP_USER_COURSES}`, {
+        const response: CourseObj[] = await fetch(`http://localhost:2000/user/${REACT_APP_USER_COURSES}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ id })
-    })
-            .then(res => res.json())
-            .then((res: CourseObj[]) => dispatch({ type: GETUSERCOURSES, payload: res }))
+    }).then(res => res.json())
+    dispatch({type: GETUSERCOURSES, payload: response})
 
     } catch {
         dispatch({type: USERERROR, payload: "Upss, we can't get acces to your account. Please try later."})

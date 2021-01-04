@@ -18,19 +18,17 @@ const MyCourses: FC = () => {
     const [id, setId] = useState<string>('')
     const [areCoursesDownloaded, setAreCoursesDownloaded] = useState<boolean>(false)
     const [subscribe, setSubscribe] = useState<boolean>(true)
+    const [warning, setWarning] = useState('')
 
     useLayoutEffect(() => {
         if(subscribe){
             setId(store.user._id || '')
             if (store.user?.isUserLogged) {
-                setIsLogged(store.user.isUserLogged)
-                setCourses(store.user.courses || [])
-                setAreCoursesDownloaded(!store.loading)
+                isLogged !== store.user.isUserLogged && setIsLogged(!isLogged)
+                courses !== store.user.courses && setCourses(store.user.courses || [])
+                areCoursesDownloaded !== !store.loading &&  setAreCoursesDownloaded(!store.loading)
+                warning !== store.error && setWarning(store.error)
             }
-        }
-        return () => {
-            setCourses([])
-            setIsLogged(false)
         }
     }, [store])
 
@@ -45,12 +43,6 @@ const MyCourses: FC = () => {
         }
     }, [id])
 
-    useEffect(() => {
-        if(subscribe){
-            courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
-        }
-    }, [courses])
-
     const coursesElements =
         <ul>
             {courses.map(course => {
@@ -64,26 +56,25 @@ const MyCourses: FC = () => {
                 /></li>
             })}
         </ul >
+
+
     return (
         <div className="MyCourses" data-aos="fade-up">
             {isLogged ? courses.length > 0 && <h2>Your bought courses</h2> : <h2 className='no-account'>Sign in to see you courses<br/>
                 <FiAlertCircle style={{fontSize: '150%'}}/></h2>
             }
-            {isLogged && courses.length > 0 ? <p>You've bought <b>{courses.length}</b> courses</p> : areCoursesDownloaded && 
-                <div className='no-courses'>You haven't bought any course yet.<br/> 
-                <FiAlertCircle style={{fontSize: '150%'}}/></div>
-            }
-            {isLogged && !areCoursesDownloaded ? <div className='loader'><Loader
+            {isLogged && courses.length > 0 && <p>You've bought <b>{courses.length}</b> courses. Thank you!</p>}
+            {areCoursesDownloaded && courses.length === 0 ?
+                <div className='no-courses'>{warning.length > 0 ? <>{warning}<br/> <FiAlertCircle style={{fontSize: '150%'}}/></> : 
+                    <>You haven't bought any course yet.<br/> <FiAlertCircle style={{fontSize: '150%'}}/></>}
+                </div> : <div className='Courses-list'>{coursesElements}</div>
+            }   
+            {isLogged && !areCoursesDownloaded && <div className='loader'><Loader
                 type="Oval"
                 color='#fb2c48'
                 height={140}
                 width={140}
-            />
-            </div> :
-                <div className='Courses-list'>
-                    {coursesElements}
-                </div>
-            }
+            /></div>}
         </div>
     );
 }

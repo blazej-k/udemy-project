@@ -14,11 +14,12 @@ const Courses: FC = () => {
     const userStore = useSelector((store: RootState) => store.userReducer)
     const [areCoursesDownloaded, setAreCoursesDownloaded] = useState<boolean>(false)
     const [subscribe, setSubscribe] = useState<boolean>(true)
+    const [warning, setWarning] = useState<string>('')
 
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const [courses, setCourses] = useState<CourseObj[]>([])
+    const [coursesTab, setCoursesTab] = useState<CourseObj[]>([])
     const [isLogged, setIsLogged] = useState<boolean>(false)
 
 
@@ -45,24 +46,19 @@ const Courses: FC = () => {
 
     useEffect(() => {
         if (subscribe) {
-            const { courses, loading } = coursesStore
-            setCourses(courses)
-            setAreCoursesDownloaded(!loading)
+            const { courses, loading, error } = coursesStore
+            coursesTab !== courses && setCoursesTab(courses)
+            loading !== !areCoursesDownloaded && setAreCoursesDownloaded(!loading)
+            warning !== error && setWarning(error)
         }
     }, [coursesStore])
-
-    // useEffect(() => {
-    //     if (subscribe) {
-    //         courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
-    //     }
-    // }, [courses])
 
     useEffect(() => {
         if (subscribe) {
             if (areCoursesDownloaded) {
                 let { hash } = history.location
                 hash = hash.substring(1)
-                if ((history.location.hash) && (courses.length > 0)) {
+                if ((history.location.hash) && (coursesTab.length > 0)) {
                     const offsetTop = document.getElementById(String(hash))?.offsetTop
                     const elHeight = document.getElementById(String(hash))?.offsetHeight
                     window.scrollTo({
@@ -76,7 +72,7 @@ const Courses: FC = () => {
 
     const coursesElements =
         <ul data-aos="zoom-in">
-            {courses.map((course) => {
+            {coursesTab.map((course) => {
                 return course._id && <li key={course._id}><Course
                     name={course.name}
                     author={course.author}
@@ -95,23 +91,22 @@ const Courses: FC = () => {
             <h2>The kingdom of knowladge</h2>
             <p>Here you can find courses from every filed. There's programming, psychology, fitness and more! We
                 have good price for every course. 
-                {courses.length > 0 && <> Choose whatever from <b>{courses.length}</b> courses and go learn. Have a fun!</>}
+                {coursesTab.length > 0 && <> Choose whatever from <b>{coursesTab.length}</b> courses and go learn. Have a fun!</>}
                 {!isLogged && <span> (Sign in to buy some courses)</span>} 
             </p>
-            {courses.length === 0 && areCoursesDownloaded &&
-                <div className='no-courses'>There's no courses to buy right now.<br/> <FiAlertCircle style={{fontSize: '150%'}}/>
-            </div>}
-            {!areCoursesDownloaded ? <div className='loader'><Loader
+            {areCoursesDownloaded && coursesTab.length === 0 ?
+                <div className='no-courses'>{warning.length > 0 ? <>{warning}<br/> <FiAlertCircle style={{fontSize: '150%'}}/></> : 
+                    <>There's no courses to buy right now.<br/> <FiAlertCircle style={{fontSize: '150%'}}/></>}
+                </div> :
+                <div className='Courses-list'>{coursesElements}</div>
+            }   
+            {!areCoursesDownloaded && <div className='loader'><Loader
                 type="Oval"
                 color='#fb2c48'
                 height={140}
                 width={140}
             />
-            </div> :
-                <div className='Courses-list'>
-                    {coursesElements}
-                </div>
-            }
+            </div>}
         </div>
     );
 }
