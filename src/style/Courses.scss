@@ -5,6 +5,9 @@
     > p {
         padding: 15px;
         font-size: 150%;
+        span {
+          color: rgb(110, 110, 110);  
+        }
     }
     > h2 {
         padding: 15px;
@@ -15,6 +18,13 @@
         margin: auto;
         text-align: center;
         margin-top: 40px;
+    }
+    .no-courses, .no-account{
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        margin-top: 30px;
+        font-size: 300%;
     }
     .Courses-list,
     .MyCourses-list {
@@ -42,6 +52,9 @@
                     .info {
                         width: 80%;
                         padding-left: 20px;
+                        p{
+                            font-size: 120%;
+                        }
                         h2 {
                             width: 80%;
                         }

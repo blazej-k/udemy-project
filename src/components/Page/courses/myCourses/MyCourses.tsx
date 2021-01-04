@@ -5,6 +5,7 @@ import Course from '../Course'
 import '../../../../style/Courses.scss'
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import { FiAlertCircle } from 'react-icons/fi'
 
 
 const MyCourses: FC = () => {
@@ -24,6 +25,7 @@ const MyCourses: FC = () => {
             if (store.user?.isUserLogged) {
                 setIsLogged(store.user.isUserLogged)
                 setCourses(store.user.courses || [])
+                setAreCoursesDownloaded(!store.loading)
             }
         }
         return () => {
@@ -64,9 +66,13 @@ const MyCourses: FC = () => {
         </ul >
     return (
         <div className="MyCourses" data-aos="fade-up">
-            {isLogged ? <h2>Your bought courses</h2> : <h2>Sign in to see you courses</h2>}
-            <p>{courses.length > 0 && <>You've bought <b>{courses.length}</b> courses</>}
-            </p>
+            {isLogged ? courses.length > 0 && <h2>Your bought courses</h2> : <h2 className='no-account'>Sign in to see you courses<br/>
+                <FiAlertCircle style={{fontSize: '150%'}}/></h2>
+            }
+            {isLogged && courses.length > 0 ? <p>You've bought <b>{courses.length}</b> courses</p> : areCoursesDownloaded && 
+                <div className='no-courses'>You haven't bought any course yet.<br/> 
+                <FiAlertCircle style={{fontSize: '150%'}}/></div>
+            }
             {isLogged && !areCoursesDownloaded ? <div className='loader'><Loader
                 type="Oval"
                 color='#fb2c48'

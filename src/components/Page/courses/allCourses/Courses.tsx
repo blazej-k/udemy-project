@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCourses } from '../../../../actions/CoursesActions'
 import Course from '../Course'
@@ -6,6 +6,7 @@ import Loader from 'react-loader-spinner'
 import '../../../../style/Courses.scss'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import { useHistory } from 'react-router-dom'
+import { FiAlertCircle } from "react-icons/fi";
 
 const Courses: FC = () => {
 
@@ -44,16 +45,17 @@ const Courses: FC = () => {
 
     useEffect(() => {
         if (subscribe) {
-            const { courses } = coursesStore
+            const { courses, loading } = coursesStore
             setCourses(courses)
+            setAreCoursesDownloaded(!loading)
         }
     }, [coursesStore])
 
-    useEffect(() => {
-        if (subscribe) {
-            courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
-        }
-    }, [courses])
+    // useEffect(() => {
+    //     if (subscribe) {
+    //         courses.length > 0 && !areCoursesDownloaded && setAreCoursesDownloaded(true)
+    //     }
+    // }, [courses])
 
     useEffect(() => {
         if (subscribe) {
@@ -90,10 +92,15 @@ const Courses: FC = () => {
 
     return (
         <div className="Courses" data-aos="fade-up">
-            {isLogged ? <h2>The kingdom of knowladge</h2> : <h2>Sign up to buy some courses</h2>}
+            <h2>The kingdom of knowladge</h2>
             <p>Here you can find courses from every filed. There's programming, psychology, fitness and more! We
-                have good price for every course. {courses.length > 0 && <>Choose whatever
-                from <b>{courses.length}</b> courses and go learn. Have a fun!</>}</p>
+                have good price for every course. 
+                {courses.length > 0 && <> Choose whatever from <b>{courses.length}</b> courses and go learn. Have a fun!</>}
+                {!isLogged && <span> (Sign in to buy some courses)</span>} 
+            </p>
+            {courses.length === 0 && areCoursesDownloaded &&
+                <div className='no-courses'>There's no courses to buy right now.<br/> <FiAlertCircle style={{fontSize: '150%'}}/>
+            </div>}
             {!areCoursesDownloaded ? <div className='loader'><Loader
                 type="Oval"
                 color='#fb2c48'
