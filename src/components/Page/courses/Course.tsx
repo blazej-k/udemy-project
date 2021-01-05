@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { buyCourse } from '../../../actions/UserActions';
+import { userCoursesActions } from '../../../actions/UserActions';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BiCheck } from 'react-icons/bi';
@@ -53,7 +53,7 @@ const Course: FC<CourseProps> = ({ name, author, description, price = -1, img, i
                 img: imgSrc,
                 _id: id
             }
-            dispatch(buyCourse(user._id, course))
+            dispatch(userCoursesActions(user._id || '', course, 'buyCourse'))
             setCanBuy(false)
         }
     }

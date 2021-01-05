@@ -1,6 +1,6 @@
 import React, { useState, FC, useLayoutEffect, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserCourses } from '../../../../actions/UserActions'
+import { userCoursesActions } from '../../../../actions/UserActions'
 import Course from '../Course'
 import '../../../../style/Courses.scss'
 import Loader from 'react-loader-spinner'
@@ -39,7 +39,7 @@ const MyCourses: FC = () => {
 
     useEffect(() => {
         if ((id !== '') && (subscribe)) {
-            dispatch(getUserCourses(id))
+            dispatch(userCoursesActions(id, null, 'getUserCourses'))
         }
     }, [id])
 

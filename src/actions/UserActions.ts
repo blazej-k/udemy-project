@@ -28,28 +28,11 @@ export const getUser = (user: User, errorMessage: string, actionType: string) =>
                 if(res === null){
                     throw new Error()
                 }
-                dispatch({ type: actionType === 'signUp' ? SIGNUP : SIGNIN, payload: res })
+                else{
+                    dispatch({ type: actionType === 'signUp' ? SIGNUP : SIGNIN, payload: res })
+                }
             })
             .catch(() => dispatch({type: USERERROR, payload: errorMessage}))
-
-    } catch {
-        dispatch({type: USERERROR, payload: "Upss, we can't get acces to your account. Please try later."})
-    }
-}
-
-export const buyCourse = (id: string = '', course: CourseObj) => async (dispatch: Dispatch<UserActionType>) => {
-    dispatch({ type: USER_SENDREQUEST })
-
-    try {
-        fetch(`http://localhost:2000/user/${REACT_APP_BUY}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({course, id})
-        })
-            .then(res => res.json())
-            .then((res: CourseObj[]) => dispatch({ type: BUYCOURSE, payload: res }))
 
     } catch {
         dispatch({type: USERERROR, payload: "Upss, we can't get acces to your account. Please try later."})
@@ -82,18 +65,21 @@ export const getState = (state: User): GetState => (
     }
 )
 
-export const getUserCourses = (id: string) => async(dispatch: Dispatch<UserActionType>) => {
+
+export const userCoursesActions = (id: string, course: CourseObj | null, actionType: string) => async (dispatch: Dispatch<UserActionType>) => {
     dispatch({ type: USER_SENDREQUEST })
 
+    const fetchBody = actionType === 'buyCourse' ? { course, id } : { id }
+
     try {
-        const response: CourseObj[] = await fetch(`http://localhost:2000/user/${REACT_APP_USER_COURSES}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id })
-    }).then(res => res.json())
-    dispatch({type: GETUSERCOURSES, payload: response})
+        const response: CourseObj[] = await fetch(`http://localhost:2000/user/${actionType === 'buyCourse' ? REACT_APP_BUY : REACT_APP_USER_COURSES}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(fetchBody)
+        }).then(res => res.json())
+        dispatch({type: actionType === 'buyCourse' ? BUYCOURSE : GETUSERCOURSES, payload: response})
 
     } catch {
         dispatch({type: USERERROR, payload: "Upss, we can't get acces to your account. Please try later."})

@@ -6,10 +6,9 @@ import Courses from './Page/courses/allCourses/Courses'
 import Header from './Page/header/Header'
 import Admin from './Page/admin/Admin'
 import { useDispatch } from 'react-redux';
-import { getState, getUserCourses } from '../actions/UserActions';
+import { getState, userCoursesActions } from '../actions/UserActions';
 import Contact from './Page/contact/Contact';
 import Footer from './Page/footer/Footer';
-import { getCourses } from '../actions/CoursesActions';
 
 const Page: FC = () => {
 
@@ -23,7 +22,7 @@ const Page: FC = () => {
             const store: User = JSON.parse(window.localStorage?.getItem('store') || '')
             if(store.isUserLogged){
                 dispatch(getState(store)) //state must be equal to local storage
-                dispatch(getUserCourses(store._id || ''))
+                dispatch(userCoursesActions(store._id || '', null, 'getUserCourses'))
             }
         }
         return () => setSubscribe(false)
