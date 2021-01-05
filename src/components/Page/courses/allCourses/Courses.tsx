@@ -7,6 +7,7 @@ import '../../../../style/Courses.scss'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import { useHistory } from 'react-router-dom'
 import { FiAlertCircle } from "react-icons/fi";
+import { detect } from 'detect-browser'
 
 const Courses: FC = () => {
 
@@ -26,7 +27,7 @@ const Courses: FC = () => {
     useEffect(() => {
         if (subscribe) {
             if (coursesStore.courses.length === 0) dispatch(getCourses())
-            if(history.location.hash === '') window.scrollTo(0, 0)
+            if (history.location.hash === '') window.scrollTo(0, 0)
         }
         return () => setSubscribe(false)
     }, [])
@@ -58,13 +59,22 @@ const Courses: FC = () => {
             if (areCoursesDownloaded) {
                 let { hash } = history.location
                 hash = hash.substring(1)
+                const browser = detect();
                 if ((history.location.hash) && (coursesTab.length > 0)) {
                     const offsetTop = document.getElementById(String(hash))?.offsetTop
                     const elHeight = document.getElementById(String(hash))?.offsetHeight
-                    window.scrollTo({
-                        left: 0,
-                        top: (offsetTop || 0) + (elHeight || 0)
-                    })
+                    if (browser?.name === 'safari') {
+                        window.scrollTo({
+                            left: 0,
+                            top: (offsetTop || 0) - 100
+                        })
+                    }
+                    else {
+                        window.scrollTo({
+                            left: 0,
+                            top: (offsetTop || 0) + (elHeight || 0)
+                        })
+                    }
                 }
             }
         }
@@ -90,16 +100,16 @@ const Courses: FC = () => {
         <div className="Courses" data-aos="fade-up">
             <h2>The kingdom of knowladge</h2>
             <p>Here you can find courses from every filed. There's programming, psychology, fitness and more! We
-                have good price for every course. 
+            have good price for every course.
                 {coursesTab.length > 0 && <> Choose whatever from <b>{coursesTab.length}</b> courses and go learn. Have a fun!</>}
-                {!isLogged && <span> (Sign in to buy some courses)</span>} 
+                {!isLogged && <span> (Sign in to buy some courses)</span>}
             </p>
             {areCoursesDownloaded && coursesTab.length === 0 ?
-                <div className='no-courses'>{warning.length > 0 ? <>{warning}<br/> <FiAlertCircle style={{fontSize: '150%'}}/></> : 
-                    <>There's no courses to buy right now.<br/> <FiAlertCircle style={{fontSize: '150%'}}/></>}
+                <div className='no-courses'>{warning.length > 0 ? <>{warning}<br /> <FiAlertCircle style={{ fontSize: '150%' }} /></> :
+                    <>There's no courses to buy right now.<br /> <FiAlertCircle style={{ fontSize: '150%' }} /></>}
                 </div> :
                 <div className='Courses-list'>{coursesElements}</div>
-            }   
+            }
             {!areCoursesDownloaded && <div className='loader'><Loader
                 type="Oval"
                 color='#fb2c48'

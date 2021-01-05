@@ -43,6 +43,31 @@ export const signUp = ({ login, password, isAdmin }: User) => async (dispatch: D
     }
 }
 
+// export const getUser = (user: User, errorMessage: string) => async(dispatch: Dispatch<UserActionType>) => {
+//     dispatch({ type: USER_SENDREQUEST })
+
+//     try {
+//         fetch(`http://localhost:2000/user/${REACT_APP_SIGN_IN}`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify(user)
+//         })
+//             .then(res => res.json())
+//             .then((res: User) => {
+//                 if(res === null){
+//                     throw new Error()
+//                 }
+//                 dispatch({ type: SIGNIN, payload: res })
+//             })
+//             .catch(() => dispatch({type: USERERROR, payload: errorMessage}))
+
+//     } catch {
+//         dispatch({type: USERERROR, payload: "Upss, we can't get acces to your account. Please try later."})
+//     }
+// }
+
 export const signIn = ({ login, password }: User) => async (dispatch: Dispatch<UserActionType>) => {
     dispatch({ type: USER_SENDREQUEST })
 
