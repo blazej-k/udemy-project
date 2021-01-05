@@ -12,72 +12,11 @@ export const USERERROR = 'usereror'
 const { REACT_APP_BUY, REACT_APP_USER_COURSES, REACT_APP_SAVE_USER, REACT_APP_SIGN_IN, REACT_APP_SIGN_OUT } = process.env
 
 
-export const signUp = ({ login, password, isAdmin }: User) => async (dispatch: Dispatch<UserActionType>) => {
+export const getUser = (user: User, errorMessage: string, actionType: string) => async(dispatch: Dispatch<UserActionType>) => {
     dispatch({ type: USER_SENDREQUEST })
 
     try {
-        const user = {
-            login,
-            password,
-            isAdmin
-        }
-
-        fetch(`http://localhost:2000/user/${REACT_APP_SAVE_USER}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(res => res.json())
-            .then((res: User) => {
-                if(res === null){
-                    throw new Error()
-                } 
-                dispatch({ type: SIGNUP, payload: res })
-            })
-            .catch(() => dispatch({type: USERERROR, payload: 'This login or password are occupied'}))
-
-    } catch(err) {
-        dispatch({type: USERERROR, payload: err})
-    }
-}
-
-// export const getUser = (user: User, errorMessage: string) => async(dispatch: Dispatch<UserActionType>) => {
-//     dispatch({ type: USER_SENDREQUEST })
-
-//     try {
-//         fetch(`http://localhost:2000/user/${REACT_APP_SIGN_IN}`, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify(user)
-//         })
-//             .then(res => res.json())
-//             .then((res: User) => {
-//                 if(res === null){
-//                     throw new Error()
-//                 }
-//                 dispatch({ type: SIGNIN, payload: res })
-//             })
-//             .catch(() => dispatch({type: USERERROR, payload: errorMessage}))
-
-//     } catch {
-//         dispatch({type: USERERROR, payload: "Upss, we can't get acces to your account. Please try later."})
-//     }
-// }
-
-export const signIn = ({ login, password }: User) => async (dispatch: Dispatch<UserActionType>) => {
-    dispatch({ type: USER_SENDREQUEST })
-
-    try {
-        const user = {
-            login,
-            password,
-        }
-
-        fetch(`http://localhost:2000/user/${REACT_APP_SIGN_IN}`, {
+        fetch(`http://localhost:2000/user/${actionType === 'signUp' ? REACT_APP_SAVE_USER : REACT_APP_SIGN_IN}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -89,9 +28,9 @@ export const signIn = ({ login, password }: User) => async (dispatch: Dispatch<U
                 if(res === null){
                     throw new Error()
                 }
-                dispatch({ type: SIGNIN, payload: res })
+                dispatch({ type: actionType === 'signUp' ? SIGNUP : SIGNIN, payload: res })
             })
-            .catch(() => dispatch({type: USERERROR, payload: 'Login or password are incorrect'}))
+            .catch(() => dispatch({type: USERERROR, payload: errorMessage}))
 
     } catch {
         dispatch({type: USERERROR, payload: "Upss, we can't get acces to your account. Please try later."})

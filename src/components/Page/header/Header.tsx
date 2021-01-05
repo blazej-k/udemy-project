@@ -2,7 +2,7 @@ import React, { FC, FormEvent, useEffect, useState } from 'react'
 import ModalElement from '../modals/AccountModal'
 import Logo from './Logo'
 import { useDispatch, useSelector } from 'react-redux'
-import { signIn, signOut, signUp } from '../../../actions/UserActions'
+import { getUser, signOut } from '../../../actions/UserActions'
 import '../../../style/Header.scss'
 import Nav from './Nav'
 import { Redirect } from 'react-router-dom'
@@ -67,7 +67,7 @@ const Header: FC = () => {
 
     const handleSignIn = (): void => {
         if (subscribe) {
-            dispatch(signIn({ login: formLogin, password }))
+            dispatch(getUser({ login: formLogin, password }, 'Login or password are incorrect', 'signIn'))
         }
     }
 
@@ -98,9 +98,8 @@ const Header: FC = () => {
             }
             return null
         })
-        isLoginCorrect && isPasswordCorrect ? dispatch(signUp({ login: formLogin, password, isAdmin: isAdminInForm }))
-            : setWarning('Login or password have to have one letter')
-
+        isLoginCorrect && isPasswordCorrect ? dispatch(getUser({login: formLogin, password, isAdmin: isAdminInForm},
+            'This login or password are occupied', 'signUp')) : setWarning('Login or password have to have one letter')
     }
 
     const handleSignOut = (): void => {
