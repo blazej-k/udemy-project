@@ -16,7 +16,7 @@ export const getUser = (user: User, errorMessage: string, actionType: string) =>
     dispatch({ type: USER_SENDREQUEST })
 
     try {
-        fetch(`http://localhost:2000/user/${actionType === 'signUp' ? REACT_APP_SAVE_USER : REACT_APP_SIGN_IN}`, {
+        fetch(`http://localhost:4000/user/${actionType === 'signUp' ? REACT_APP_SAVE_USER : REACT_APP_SIGN_IN}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,13 +44,14 @@ export const signOut = (id: string) => async(dispatch: Dispatch<UserActionType>)
     dispatch({ type: USER_SENDREQUEST })
 
     try {
-        fetch(`http://localhost:2000/user/${REACT_APP_SIGN_OUT}`, {
+        fetch(`http://localhost:4000/user/${REACT_APP_SIGN_OUT}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({id})
         })
+        .then(res => res.json())
         dispatch({ type: SIGNOUT })
 
     } catch {
@@ -72,7 +73,8 @@ export const userCoursesActions = (id: string, course: CourseObj | null, actionT
     const fetchBody = actionType === 'buyCourse' ? { course, id } : { id }
 
     try {
-        const response: CourseObj[] = await fetch(`http://localhost:2000/user/${actionType === 'buyCourse' ? REACT_APP_BUY : REACT_APP_USER_COURSES}`, {
+        const response: CourseObj[] = await fetch(`http://localhost:4000/user/${actionType === 'buyCourse' ?
+        REACT_APP_BUY : REACT_APP_USER_COURSES}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

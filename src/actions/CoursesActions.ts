@@ -11,7 +11,7 @@ const { REACT_APP_ADD, REACT_APP_COURSES } = process.env
 export const addCourse = (body: FormData) => async (dispatch: Dispatch<CoursesRedcucerType>) => {
     dispatch({ type: COURSES_SENDREQUEST })
     try {
-        await fetch(`http://localhost:2000/courses/${REACT_APP_ADD}`, {
+        await fetch(`http://localhost:4000/courses/${REACT_APP_ADD}`, {
             method: 'POST',
             body
         })
@@ -25,7 +25,7 @@ export const addCourse = (body: FormData) => async (dispatch: Dispatch<CoursesRe
 export const getCourses = () => async (dispatch: Dispatch<CoursesRedcucerType>) => {
     dispatch({ type: COURSES_SENDREQUEST })
     try {
-        const response: CourseObj[] = await fetch(`http://localhost:2000/courses/${REACT_APP_COURSES}`).then(res => res.json())
+        const response: CourseObj[] = await fetch(`http://localhost:4000/courses/${REACT_APP_COURSES}`).then(res => res.json())
         dispatch({ type: GETCOURSES, payload: response })
     } catch {
         dispatch({ type: COURSESERROR, payload: "Upss, it's look like we can't get courses. Please go back later" })

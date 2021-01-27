@@ -10,7 +10,7 @@ const { REACT_APP_MESSAGES, REACT_APP_MESSAGE_TO_MODER } = process.env
 export const getMessages = () => async (dispatch: Dispatch<ContactReducerType>) => {
     dispatch({ type: CONTACT_SENDREQUEST })
     try {
-        const response: Message[] = await fetch(`http://localhost:2000/contact/${REACT_APP_MESSAGES}`)
+        const response: Message[] = await fetch(`http://localhost:4000/contact/${REACT_APP_MESSAGES}`)
             .then(res => res.json())
 
         dispatch({ type: FETCHMESSAGESSUCCES, payload: response })
@@ -25,7 +25,7 @@ export const getMessages = () => async (dispatch: Dispatch<ContactReducerType>) 
 export const sendMessage = (message: string) => async (dispatch: Dispatch<ContactReducerType>) => {
     dispatch({ type: CONTACT_SENDREQUEST })
     try {
-        await fetch(`http://localhost:2000/contact/${REACT_APP_MESSAGE_TO_MODER}`, {
+        await fetch(`http://localhost:4000/contact/${REACT_APP_MESSAGE_TO_MODER}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
