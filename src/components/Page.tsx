@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, FunctionComponent, useEffect, useState } from 'react'
 import { Route, Redirect, Switch } from 'react-router-dom';
 import Home from './Page/home/Home'
 import MyCourses from './Page/courses/myCourses/MyCourses'
@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { getState, userCoursesActions } from '../actions/UserActions';
 import Contact from './Page/contact/Contact';
 import Footer from './Page/footer/Footer';
+import ErrorComponent from './ErrorComponent';
 
 const Page: FC = () => {
 
@@ -16,11 +17,11 @@ const Page: FC = () => {
 
     const [subscribe, setSubscribe] = useState(true)
 
- 
+
     useEffect(() => {
-        if((subscribe) && (window.localStorage?.getItem('store'))){
+        if ((subscribe) && (window.localStorage?.getItem('store'))) {
             const store: User = JSON.parse(window.localStorage?.getItem('store') || '')
-            if(store.isUserLogged){
+            if (store.isUserLogged) {
                 dispatch(getState(store)) //state must be equal to local storage
                 dispatch(userCoursesActions(store._id || '', null, 'getUserCourses'))
             }
@@ -28,18 +29,27 @@ const Page: FC = () => {
         return () => setSubscribe(false)
     }, [])
 
+    const NewHOC = (PassedComponent: FC) => {
+        return () => (
+            <>
+                <Header />
+                <PassedComponent />
+                <Footer />
+            </>
+        )
+    }
+
     return (
         <>
-            <Header />
             <Switch>
-                <Route path='/' exact component={Home} />
-                <Route path='/myCourses' component={MyCourses} />
-                <Route path='/courses' component={Courses} />
-                <Route path='/contact' component={Contact} />
-                <Route path='/admin' component={Admin} />
-                <Redirect to='/404' />
+                <Route path='/' exact render={NewHOC(Home)} />
+                <Route path='/myCourses' component={NewHOC(MyCourses)} />
+                <Route path='/courses' component={NewHOC(Courses)} />
+                <Route path='/contact' component={NewHOC(Contact)} />
+                <Route path='/admin' component={NewHOC(Admin)} />
+                <Route component={ErrorComponent} />
+                {/* <Redirect to='/404'/> */}
             </Switch>
-            <Footer/>
         </>
     );
 }

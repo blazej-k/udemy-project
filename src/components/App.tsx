@@ -18,10 +18,10 @@ const App: FC = () => {
 
   return (
     <Router>
-      <Switch>
-        <Route path='/404' exact component={ErrorComponent} />
-        <Route component={() => PageProvider} />
-      </Switch>
+      {/* <Switch> */}
+        <Route path='/' component={() => PageProvider} />
+        {/* <Route exact path='/404' component={ErrorComponent} /> */}
+      {/* </Switch> */}
     </Router>
   );
 }
