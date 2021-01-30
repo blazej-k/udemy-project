@@ -1,11 +1,11 @@
 import React, { FC, useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { store } from '../reducers/store';
-import ErrorComponent from './ErrorComponent'
 import Page from './Page'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import '../style/index.scss'
 
 const App: FC = () => {
 
@@ -18,10 +18,7 @@ const App: FC = () => {
 
   return (
     <Router>
-      {/* <Switch> */}
         <Route path='/' component={() => PageProvider} />
-        {/* <Route exact path='/404' component={ErrorComponent} /> */}
-      {/* </Switch> */}
     </Router>
   );
 }

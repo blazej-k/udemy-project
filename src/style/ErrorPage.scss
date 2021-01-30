@@ -1,0 +1,25 @@
+.Error-page {
+    width: 100%;
+    margin: auto;
+    padding: 0;
+    background-image: url("../assets/images/dot-grid.png");
+    height: 100vh;
+    .Error-header {
+        width: 100%;
+        img {
+            display: block;
+            width: 40%;
+            margin: auto;
+            opacity: 0.4;
+        }
+    }
+    .Error-content {
+        width: 100%;
+        margin: 50px auto;
+        text-align: center;
+        font-size: 200%;
+        a:hover {
+            text-decoration: none;
+        }
+    }
+}

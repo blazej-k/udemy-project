@@ -1,5 +1,5 @@
-import React, { FC, FunctionComponent, useEffect, useState } from 'react'
-import { Route, Redirect, Switch } from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react'
+import { Route, Switch } from 'react-router-dom';
 import Home from './Page/home/Home'
 import MyCourses from './Page/courses/myCourses/MyCourses'
 import Courses from './Page/courses/allCourses/Courses'
@@ -29,7 +29,7 @@ const Page: FC = () => {
         return () => setSubscribe(false)
     }, [])
 
-    const NewHOC = (PassedComponent: FC) => {
+    const Wrapper = (PassedComponent: FC) => {
         return () => (
             <>
                 <Header />
@@ -42,13 +42,12 @@ const Page: FC = () => {
     return (
         <>
             <Switch>
-                <Route path='/' exact render={NewHOC(Home)} />
-                <Route path='/myCourses' component={NewHOC(MyCourses)} />
-                <Route path='/courses' component={NewHOC(Courses)} />
-                <Route path='/contact' component={NewHOC(Contact)} />
-                <Route path='/admin' component={NewHOC(Admin)} />
+                <Route path='/' exact render={Wrapper(Home)} />
+                <Route path='/myCourses' component={Wrapper(MyCourses)} />
+                <Route path='/courses' component={Wrapper(Courses)} />
+                <Route path='/contact' component={Wrapper(Contact)} />
+                <Route path='/admin' component={Wrapper(Admin)} />
                 <Route component={ErrorComponent} />
-                {/* <Redirect to='/404'/> */}
             </Switch>
         </>
     );
