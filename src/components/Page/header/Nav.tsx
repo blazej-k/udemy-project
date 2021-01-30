@@ -7,16 +7,14 @@ import { BiListPlus } from "react-icons/bi";
 import { RiContactsLine } from 'react-icons/ri'
 import { MdContactPhone } from 'react-icons/md'
 
-interface NavProps{
-    subscribe: boolean
-}
 
-const Nav: FC<NavProps> = ({subscribe}) => {
+const Nav: FC = () => {
 
     const store = useSelector((store: RootState) => store.userReducer)
     const [isAdmin, setIsAdmin] = useState<boolean>(false)
     const [navWidth, setNavWidth] = useState<string>('0%')
     const [dispaly, setDispaly] = useState<string>('1')
+    const [subscribe, setSubscribe] = useState(true)
 
     const nav = useRef<HTMLDivElement>(null)
 
@@ -25,6 +23,12 @@ const Nav: FC<NavProps> = ({subscribe}) => {
         if(className === 'Nav-open-button' || className === 'Nav-open-list' || className === 'Nav-list-ul') return
         className !== 'Nav-list' && navWidth === '30%' && toogleNav()
     }
+
+    useEffect(() => {
+        return () => {
+            setSubscribe(false)
+        }
+    }, [])
 
     useEffect(() => {
         if(subscribe){
